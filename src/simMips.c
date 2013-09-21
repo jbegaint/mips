@@ -19,7 +19,6 @@ void execute_cmd(ARCH arch, char* line)
 	char* cmd;
 	char delim[1] = " ";
 
-	cmd = strtok(line, delim);
 
 	if (strcmp(cmd, "ex") == 0) {
 		execute_cmd_ex(arch);
@@ -43,12 +42,12 @@ int parse_line(ARCH arch, FILE* f)
 
 	if (fgets(buffer, sizeof(buffer), f) != 0) {
 		
-		if (sscanf(buffer, "%[^\n]s", line) == 0 ||strlen(line) == 0) {
+		if (sscanf(buffer, "%[^\n]s", line) == 0 || strlen(line) == 0) {
 			/* empty line */
 			return 1;
 		}
 
-		if (line[0] == '#') {
+		if (line[0] == '#' || line[0] == ' ' ) {
 			/* comment line */
 			return 1;
 		}
@@ -68,11 +67,9 @@ FILE* open_file(char* filename)
 	error = malloc(sizeof(*error));
 
 	if (f == NULL) {
-		/*print_error(error);*/
+		print_error(error);
 		exit(EXIT_FAILURE);
 	}
-
-	/*print_info(error);*/
 
 	return f;
 }
