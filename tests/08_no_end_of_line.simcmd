@@ -1,0 +1,5 @@
+
+#test que TVB si il n'y pas de retour chariot en fin de fichier
+
+testcmd 0xa
+testcmd 0xa

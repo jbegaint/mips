@@ -1,0 +1,5 @@
+#test la comande testcmd ; erreur art pas hexadecimal
+
+testcmd 0x9
+testcmd u  # erreur pas hexa !
+testcmd 0x8

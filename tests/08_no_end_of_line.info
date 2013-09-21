@@ -1,0 +1,13 @@
+###############
+# This file is a shell script describes the test with corresponding names
+# It should set two variables employed by simpleUnitTest.sh :
+#
+# TEST_RETURN_CODE, which values should be
+#	PASS if the test should pass without an error code (zero)
+#	FAIL if the test should generate an error code (non zero)
+#
+# TEST_COMMENT (optional)
+#	a string describing the test
+###############
+TEST_RETURN_CODE=PASS
+TEST_COMMENT="Teste que TVB si pas de retour chariot en fin de fichier"

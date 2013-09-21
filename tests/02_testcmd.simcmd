@@ -1,0 +1,6 @@
+#test la comande testcmd ; fonctionnement correct
+
+testcmd 1
+testcmd 9
+testcmd a
+testcmd 0xb2fc

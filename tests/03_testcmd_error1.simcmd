@@ -1,0 +1,6 @@
+#test la comande testcmd ; erreur arg manquant
+
+testcmd 0x9
+testcmd    
+# erreur !
+testcmd 0x8

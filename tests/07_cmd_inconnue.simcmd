@@ -1,0 +1,5 @@
+#Test commande inconnue
+
+testcmd 0x9
+ceci___est___une___commande_____inconnue
+testcmd 0x8 #ne devrait pas tre execute
