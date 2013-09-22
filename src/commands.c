@@ -7,27 +7,73 @@
 #include "utils.h"
 #include "commands.h"
 
+char** get_args(int length, char* line)
+{
+	int i;
+
+	char delim[1] = " ";
+	char** args = malloc(length * sizeof(**args));
+
+	strtok(line, delim);
+
+	for (i=0; i < length; i++){
+		args[i] = strtok(NULL, delim);
+	}
+
+	return args;
+}
+
 int execute_cmd_ex(ARCH arch)
 {
 	quit(arch);
 	return 1;
 }
 
-int execute_cmd_testcmd(char* addr)
+int execute_cmd_testcmd(char* line)
 {
-	int i;
+	int addr;
+	char** args = get_args(1, line);
+	char* arg = malloc(sizeof(**args));
+	arg = args[0];
 
-	if (addr == NULL) {
+	/* missing argument */
+	if (arg == NULL) {
 		return 0;
 	}
 
 	/* address not in hexa, or negative */
-	if (sscanf(addr, "%x", &i) != 1 || i < 0) {
+	if (sscanf(arg, "%x", &addr) != 1 || addr < 0) {
 		return 0;
 	}
 
-	i++;
+	addr++;
 
-	printf("CMD TEST RESULT 0x%x\n", i);
+	printf("CMD TEST RESULT 0x%x\n", addr);
+	return 1;
+}
+
+int execute_cmd_lm(ARCH arch, char* line) {
+	int addr;
+	unsigned char val;
+
+	char** args = get_args(2, line);
+
+	int i;
+	for (i=0; i < 2; i++) {
+		printf("%s\n", args[i]);
+	}
+
+	if (args[0] == NULL || args[1] == NULL)
+		return 0;
+/*
+	if (sscanf(args[0], "%x", &addr) != 1 || sscanf(args[1], "%x", &val) != 1) {
+		return 0;
+	}*/
+
+	addr = strtol(args[0], NULL, 16);
+	val = strtol(args[1], NULL, 16);
+
+	(arch->memory)[addr] = val;
+
 	return 1;
 }

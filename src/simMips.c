@@ -6,27 +6,28 @@
 #include "commands.h"
 #include "utils.h"
 
-
 /*
 	strtok
 	char *strtok(char *str, const char *delim);
 
 */
 
-/* execute_simu_nom_de_la_commande */
 int execute_cmd(ARCH arch, char* line)
 {
-	char* cmd;
 	char delim[1] = " ";
-	
-	cmd = strtok(line, delim);
+	char* cmd = malloc(sizeof(*line));
 
+	strcpy(cmd, line);
+	cmd = strtok(cmd, delim);
+	
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex(arch);
 	} 
 	else if (strcmp(cmd, "testcmd") == 0) {
-		cmd = strtok(NULL, delim);
-		return execute_cmd_testcmd(cmd);
+		return execute_cmd_testcmd(line);
+	}
+	else if (strcmp(cmd, "lm") == 0) {
+		return execute_cmd_lm(arch, line);
 	}
 	else {
 		return 0;
