@@ -53,7 +53,7 @@ int parse_line(ARCH arch, FILE* f)
 
 		return execute_cmd(arch, line);
 	}
-	return 0;
+	return 2;
 }
 
 FILE* open_file(char* filename)
@@ -74,18 +74,25 @@ FILE* open_file(char* filename)
 
 void parse_file(ARCH arch, char* filename)
 {
+	int res;
 	FILE* f;
 	f = open_file(filename);
 
-	while (parse_line(arch, f) == 1) {}
-	fclose(f);
-	/*
 	while (1) {
-		if (parse_line(f) != 1) {
+		res = parse_line(arch, f);
+
+		if (res == 0) {
+			/* command return error code */
+			die(arch);
+		} 
+		else if (res == 2) {
+			/* end parsing */
 			break;
 		}
+
 	}
-	*/
+
+	fclose(f);
 }
 
 int main(int argc, char* argv[])

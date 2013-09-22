@@ -10,21 +10,24 @@
 int execute_cmd_ex(ARCH arch)
 {
 	quit(arch);
-	return 0;
+	return 1;
 }
 
 int execute_cmd_testcmd(char* addr)
 {
-	unsigned int i;
+	int i;
 
 	if (addr == NULL) {
 		return 0;
 	}
 
-	if (sscanf(addr, "%x", &i) != 1) {
+	/* address not in hexa, or negative */
+	if (sscanf(addr, "%x", &i) != 1 || i < 0) {
 		return 0;
 	}
-		
-	printf("CMD TEST RESULT 0x%x\n", i++);
+
+	i++;
+
+	printf("CMD TEST RESULT 0x%x\n", i);
 	return 1;
 }
