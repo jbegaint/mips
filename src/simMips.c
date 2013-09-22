@@ -18,6 +18,8 @@ void execute_cmd(ARCH arch, char* line)
 {
 	char* cmd;
 	char delim[1] = " ";
+	
+	cmd = strtok(line, delim);
 
 
 	if (strcmp(cmd, "ex") == 0) {
