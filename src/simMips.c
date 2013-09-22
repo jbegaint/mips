@@ -14,25 +14,22 @@
 */
 
 /* execute_simu_nom_de_la_commande */
-void execute_cmd(ARCH arch, char* line)
+int execute_cmd(ARCH arch, char* line)
 {
 	char* cmd;
 	char delim[1] = " ";
 	
 	cmd = strtok(line, delim);
 
-
 	if (strcmp(cmd, "ex") == 0) {
-		execute_cmd_ex(arch);
+		return execute_cmd_ex(arch);
 	} 
 	else if (strcmp(cmd, "testcmd") == 0) {
 		cmd = strtok(NULL, delim);
-		if (cmd != NULL)
-			execute_cmd_testcmd(cmd);
+		return execute_cmd_testcmd(cmd);
 	}
 	else {
-		/*printf("%s\n", cmd);*/
-		die(arch);
+		return 0;
 	}
 }
 
@@ -54,8 +51,7 @@ int parse_line(ARCH arch, FILE* f)
 			return 1;
 		}
 
-		execute_cmd(arch, line);
-		return 1;
+		return execute_cmd(arch, line);
 	}
 	return 0;
 }
@@ -81,9 +77,7 @@ void parse_file(ARCH arch, char* filename)
 	FILE* f;
 	f = open_file(filename);
 
-	while (parse_line(arch, f) == 1) {
-   		
-	}
+	while (parse_line(arch, f) == 1) {}
 	fclose(f);
 	/*
 	while (1) {
@@ -109,7 +103,9 @@ int main(int argc, char* argv[])
 		
 			while (1) {
 				printf("-> ");
-				parse_line(arch, stdin);
+				if (parse_line(arch, stdin) != 1) {
+					break;
+				}
 			}
 			break;
 

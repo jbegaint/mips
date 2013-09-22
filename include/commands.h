@@ -2,6 +2,6 @@
 
 #include "arch.h"
 
-void execute_cmd_ex(ARCH);
-void execute_cmd_testcmd(char*);
-void execute_cmd_lm(ARCH, int, unsigned char);
+int execute_cmd_ex(ARCH);
+int execute_cmd_testcmd(char*);
+int execute_cmd_lm(ARCH, int, unsigned char);

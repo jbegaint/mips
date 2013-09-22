@@ -7,16 +7,24 @@
 #include "utils.h"
 #include "commands.h"
 
-void execute_cmd_ex(ARCH arch)
+int execute_cmd_ex(ARCH arch)
 {
 	quit(arch);
+	return 0;
 }
 
-void execute_cmd_testcmd(char* addr)
+int execute_cmd_testcmd(char* addr)
 {
-	int i;
-	i = strtol(addr, NULL, 16);
-	i++;
-	
-	printf("CMD TEST RESULT 0x%x\n", i);
+	unsigned int i;
+
+	if (addr == NULL) {
+		return 0;
+	}
+
+	if (sscanf(addr, "%x", &i) != 1) {
+		return 0;
+	}
+		
+	printf("CMD TEST RESULT 0x%x\n", i++);
+	return 1;
 }
