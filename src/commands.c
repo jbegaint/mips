@@ -10,13 +10,20 @@
 char** get_args(int length, char* line)
 {
 	int i;
-
+	char** args;
 	char delim[1] = " ";
-	char** args = malloc(length * sizeof(**args));
+
+	args = malloc(length*sizeof(*args));
+	if (args == NULL) {
+		return NULL;
+	}
 
 	strtok(line, delim);
 
 	for (i=0; i < length; i++){
+		args[i] = malloc(sizeof(**args));
+		if (args[i] == NULL)
+			return NULL;
 		args[i] = strtok(NULL, delim);
 	}
 
@@ -29,12 +36,12 @@ int execute_cmd_ex(ARCH arch)
 	return 1;
 }
 
-int execute_cmd_testcmd(char* line)
+int execute_cmd_testcmd(char* arg)
 {
 	int addr;
-	char** args = get_args(1, line);
-	char* arg = malloc(sizeof(**args));
-	arg = args[0];
+	char delim[1] = " ";
+
+	arg = strtok(NULL, delim);
 
 	/* missing argument */
 	if (arg == NULL) {
@@ -60,7 +67,7 @@ int execute_cmd_lm(ARCH arch, char* line) {
 
 	int i;
 	for (i=0; i < 2; i++) {
-		printf("%s\n", args[i]);
+		/*printf("%s\n", args[i]);*/
 	}
 
 	if (args[0] == NULL || args[1] == NULL)
@@ -74,6 +81,11 @@ int execute_cmd_lm(ARCH arch, char* line) {
 	val = strtol(args[1], NULL, 16);
 
 	(arch->memory)[addr] = val;
+
+	for (i=0; i < 2; i++) {
+		free(*(args+i));
+	}
+	free(args);
 
 	return 1;
 }

@@ -12,24 +12,23 @@
 
 */
 
-int execute_cmd(ARCH arch, char* line)
+int execute_cmd(ARCH arch, char* cmd)
 {
 	char delim[1] = " ";
-	char* cmd = malloc(sizeof(*line));
 
-	strcpy(cmd, line);
 	cmd = strtok(cmd, delim);
-	
+
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex(arch);
 	} 
 	else if (strcmp(cmd, "testcmd") == 0) {
-		return execute_cmd_testcmd(line);
+		return execute_cmd_testcmd(cmd);
 	}
 	else if (strcmp(cmd, "lm") == 0) {
-		return execute_cmd_lm(arch, line);
+		return execute_cmd_lm(arch, cmd);
 	}
 	else {
+		/*print_error(cmd);*/
 		return 0;
 	}
 }
@@ -37,11 +36,10 @@ int execute_cmd(ARCH arch, char* line)
 int parse_line(ARCH arch, FILE* f)
 {
 	char buffer[256];
-	char* line = NULL;
-	line = malloc(sizeof(*line));
+	char* line = malloc(sizeof(*line));
 
 	if (fgets(buffer, sizeof(buffer), f) != 0) {
-		
+
 		if (sscanf(buffer, "%[^\n]s", line) == 0 || strlen(line) == 0) {
 			/* empty line */
 			return 1;
@@ -60,7 +58,7 @@ int parse_line(ARCH arch, FILE* f)
 FILE* open_file(char* filename)
 {
 	FILE* f = NULL;
-	char* error = NULL;
+	char* error;
 
 	f = fopen(filename, "r");
 	error = malloc(sizeof(*error));
@@ -84,6 +82,7 @@ void parse_file(ARCH arch, char* filename)
 
 		if (res == 0) {
 			/* command return error code */
+			fclose(f);
 			die(arch);
 		} 
 		else if (res == 2) {
