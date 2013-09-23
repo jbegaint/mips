@@ -32,16 +32,12 @@ char** get_args(int length, char* line)
 
 int execute_cmd_ex(ARCH arch)
 {
-	quit(arch);
-	return 1;
+	return quit(arch);
 }
 
 int execute_cmd_testcmd(char* arg)
 {
 	int addr;
-	char delim[1] = " ";
-
-	arg = strtok(NULL, delim);
 
 	/* missing argument */
 	if (arg == NULL) {

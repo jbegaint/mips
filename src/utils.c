@@ -9,13 +9,13 @@ void usage(char* arg)
 	printf("Usage: %s [file]\n", arg);
 }
 
-void quit(ARCH arch) 
+int quit(ARCH arch) 
 {
 	free_arch(arch);
 	exit(EXIT_SUCCESS);
 }
 
-void die(ARCH arch)
+int die(ARCH arch)
 {
 	if (arch != NULL)
 		free_arch(arch);

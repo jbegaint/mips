@@ -12,20 +12,19 @@
 
 */
 
-int execute_cmd(ARCH arch, char* cmd)
+int execute_cmd(ARCH arch, char* cmd, char* args)
 {
-	char delim[1] = " ";
-
-	cmd = strtok(cmd, delim);
+/*	char delim[1] = " ";
+	cmd = strtok(cmd, delim);*/
 
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex(arch);
 	} 
 	else if (strcmp(cmd, "testcmd") == 0) {
-		return execute_cmd_testcmd(cmd);
+		return execute_cmd_testcmd(args);
 	}
 	else if (strcmp(cmd, "lm") == 0) {
-		return execute_cmd_lm(arch, cmd);
+		return execute_cmd_lm(arch, args);
 	}
 	else {
 		/*print_error(cmd);*/
@@ -36,21 +35,22 @@ int execute_cmd(ARCH arch, char* cmd)
 int parse_line(ARCH arch, FILE* f)
 {
 	char buffer[256];
-	char* line = malloc(sizeof(*line));
+	char* cmd = malloc(sizeof(*cmd));
 
 	if (fgets(buffer, sizeof(buffer), f) != 0) {
 
-		if (sscanf(buffer, "%[^\n]s", line) == 0 || strlen(line) == 0) {
-			/* empty line */
+		/* empty line */
+		if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0) {
 			return 1;
 		}
 
-		if (line[0] == '#' || line[0] == ' ' ) {
-			/* comment line */
+		/* comment line */
+		if (cmd[0] == '#' || cmd[0] == ' ') {
 			return 1;
 		}
 
-		return execute_cmd(arch, line);
+		/* +1 for space */
+		return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 	}
 	return 2;
 }
