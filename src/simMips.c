@@ -6,12 +6,6 @@
 #include "commands.h"
 #include "utils.h"
 
-/*
-	strtok
-	char *strtok(char *str, const char *delim);
-
-*/
-
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
 	if (strcmp(cmd, "ex") == 0) {
@@ -22,6 +16,9 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	}
 	else if (strcmp(cmd, "lm") == 0) {
 		return execute_cmd_lm(arch, args);
+	}
+	else if (strcmp(cmd, "lr") == 0) {
+		return execute_cmd_lr(arch, args);
 	}
 	else {
 		return 0;
@@ -42,9 +39,8 @@ int parse_line(ARCH arch, FILE* f)
 			return 1;
 		}
 
-
 		/* comment line */
-		if (cmd[0] == '#' || cmd[0] == ' ') {
+		if (cmd[0] == '#') {
 			return 1;
 		}
 
@@ -57,13 +53,10 @@ int parse_line(ARCH arch, FILE* f)
 FILE* open_file(char* filename)
 {
 	FILE* f = NULL;
-	char* error;
 
 	f = fopen(filename, "r");
-	error = malloc(sizeof(*error));
 
 	if (f == NULL) {
-		print_error(error);
 		exit(EXIT_FAILURE);
 	}
 

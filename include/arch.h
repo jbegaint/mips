@@ -2,6 +2,8 @@
 
 typedef unsigned char mem[4];
 
+/*typedef unsigned int mem;*/
+
 typedef struct archie
 {
 	mem regs[32];
