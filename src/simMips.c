@@ -5,9 +5,25 @@
 #include "arch.h"
 #include "commands.h"
 #include "utils.h"
+#include "globals.h"
+
+int hash(char* cmd, int length)
+{
+	int i;
+	long a = 31;
+	long h = 0;
+	int length_cmd = strlen(cmd) - 1;
+
+	for (i = length_cmd; i >= 0; i--) {
+		h = h*a + *(cmd+i) - 'a' + 1;
+	}
+
+	return h % length;
+}
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
+
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex(arch);
 	} 
@@ -105,7 +121,7 @@ int main(int argc, char* argv[])
 
 	switch(argc) {
 		case 1:
-			printf("Mode interactif\n");
+			print_info("Mode interactif");
 		
 			while (1) {
 				printf("-> ");
