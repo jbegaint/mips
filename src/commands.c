@@ -79,13 +79,13 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	if (args[0] == NULL || args[1] == NULL)
 		return 0;
 
-	if (sscanf(args[0], "%d", &reg) != 1 || sscanf(args[1], "%x", &val) != 1)
+	if (sscanf(args[0], "$%d", &reg) != 1 || sscanf(args[1], "%x", &val) != 1)
 		return 0;
 
 	if (reg < 0 || reg > 31)
 		return 0;
 
-	/*(arch->regs)[reg] = (mem) val;*/
+	(arch->regs)[reg] = (mem) val;
 	/*print_info("not implemented yet");*/
 
 	return 1;

@@ -1,10 +1,10 @@
 #pragma once
 
-typedef unsigned char mem[4];
+/*typedef unsigned char mem[4];*/
 
-/*typedef unsigned int mem;*/
+typedef unsigned int mem;
 
-typedef struct archie
+typedef struct
 {
 	mem regs[32];
 	unsigned char* memory;

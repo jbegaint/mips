@@ -11,6 +11,7 @@ void usage(char* arg)
 
 int quit(ARCH arch) 
 {
+	print_info("Exiting...");
 	free_arch(arch);
 	exit(EXIT_SUCCESS);
 }
@@ -19,12 +20,13 @@ int die(ARCH arch)
 {
 	if (arch != NULL)
 		free_arch(arch);
+	print_error("Exiting...");
 	exit(EXIT_FAILURE);
 }
 
 void print_str(char* str, int color)
 {
-	printf("\x1b[%dm%s\n\x1b[0m", color, str);
+	fprintf(stderr, "\x1b[%dm%s\n\x1b[0m", color, str);
 }
 
 void print_info(char* str)

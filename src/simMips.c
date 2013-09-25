@@ -52,13 +52,19 @@ int parse_line(ARCH arch, FILE* f)
 
 FILE* open_file(char* filename)
 {
+	char buffer[256];
 	FILE* f = NULL;
 
 	f = fopen(filename, "r");
 
 	if (f == NULL) {
+		sprintf(buffer, "Erreur lors de l'ouverture de %s", filename);
+		print_error(buffer);
 		exit(EXIT_FAILURE);
 	}
+
+	sprintf(buffer, "Ouverture de %s", filename);
+	print_info(buffer);
 
 	return f;
 }
@@ -93,6 +99,7 @@ int main(int argc, char* argv[])
 	arch = init_simu(arch, 256);
 
 	if (arch == NULL) {
+		print_error("Erreur d'allocation");
 		die(arch);
 	}
 
