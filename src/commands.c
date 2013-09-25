@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "arch.h"
 #include "utils.h"
 #include "commands.h"
+#include "parsers.h"
 
 /*
 	strtok
 	char *strtok(char *str, const char *delim);
+	return ptr to next token or NULL 
 
 */
 
-extern char* REG_NAMES[32];
 
 int execute_cmd_ex(ARCH arch)
 {
@@ -67,39 +67,12 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		sont alloues (tiendra pas dans un int de 4octect) */
 
 	/* 256 = 2^8 = 0xff*/
-	if ( addr > 0x0fffffff || val > 0xff)
-		return 0;
+	/*if ( addr > 0x0fffffff || val > 0xff)
+		return 0;*/
 
-	(arch->memory)[addr] = val;
+	/*(arch->memory)[addr] = val;*/
 
 	return 1;
-}
-
-int parse_register(char* reg) 
-{
-	int i;
-	int reg_index = -1;
-
-	if (*reg == '$') {
-		/* 1 char shift for the '$' */
-		reg++;
-	}
-
-	if (strlen(reg) == 1 && isdigit(*reg)) {
-		return atoi(reg);
-	}
-	else if (strlen(reg) == 2 && isdigit(reg[0]) && isdigit(reg[1])) {
-		return atoi(reg);
-	}
-	else {
-		for (i=0; i < 32; i++) {
-			if (strcmp(REG_NAMES[i], reg) == 0) {
-				return i;
-			}
-		}
-	}
-
-	return reg_index;
 }
 
 int execute_cmd_lr(ARCH arch, char* str_arg) 
@@ -130,9 +103,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	printf("%d %d\n", reg, val);
-
-	(arch->regs)[reg] = (uint) val;
+	/*(arch->regs)[reg] = (uint) val;*/
 
 	return 1;
 

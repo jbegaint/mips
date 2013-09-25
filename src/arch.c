@@ -4,7 +4,7 @@
 
 ARCH init_simu(ARCH arch, int mem_size)
 {
-	arch = malloc(sizeof(*arch));
+	/*arch = malloc(sizeof(*arch));
 	if (arch == NULL)
 		return NULL;
 
@@ -12,11 +12,11 @@ ARCH init_simu(ARCH arch, int mem_size)
 	if (arch->memory == NULL)
 		return NULL;
 	
-	return arch;
+	return arch;*/
 }
 
 void free_arch(ARCH arch)
 {
-	free(arch->memory);
+	/*free(arch->memory);*/
 	free(arch);
 }

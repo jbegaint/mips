@@ -2,24 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <readline/readline.h>
+#include <readline/history.h>
+
 #include "arch.h"
 #include "commands.h"
 #include "utils.h"
 #include "globals.h"
-
-int hash(char* cmd, int length)
-{
-	int i;
-	long a = 31;
-	long h = 0;
-	int length_cmd = strlen(cmd) - 1;
-
-	for (i = length_cmd; i >= 0; i--) {
-		h = h*a + *(cmd+i) - 'a' + 1;
-	}
-
-	return h % length;
-}
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
@@ -48,22 +37,44 @@ int parse_line(ARCH arch, FILE* f)
 
 	memset(buffer, '\0', 256);
 
-	if (fgets(buffer, sizeof(buffer), f) != 0) {
+	if (f == stdin) {
+		char *line = readline("-> ");
 
-		/* empty line */
-		if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0) {
+		if (strlen(line) == 0) {
+			print_error("empty command");
+       		return 1;
+    	}
+
+    	if (sscanf(line, "%s", cmd) != 1) {
+			print_error("error parsing command");
 			return 1;
 		}
 
-		/* comment line */
-		if (cmd[0] == '#') {
-			return 1;
-		}
+        add_history(line);
+        strcpy(buffer, line);
+        free(line);
 
-		/* +1 for space */
-		return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
+       	return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 	}
-	return 2;
+	else {
+
+		if (fgets(buffer, sizeof(buffer), f) != 0) {
+
+			/* empty line */
+			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0) {
+				return 1;
+			}
+
+			/* comment line */
+			if (cmd[0] == '#') {
+				return 1;
+			}
+
+			/* +1 for space */
+			return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
+		}
+		return 2;
+	}
 }
 
 FILE* open_file(char* filename)
@@ -112,19 +123,18 @@ void parse_file(ARCH arch, char* filename)
 int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
-	arch = init_simu(arch, 256);
+	/*arch = init_simu(arch, 256);*/
 
-	if (arch == NULL) {
+/*	if (arch == NULL) {
 		print_error("Erreur d'allocation");
 		die(arch);
-	}
+	}*/
 
 	switch(argc) {
 		case 1:
 			print_info("Mode interactif");
 		
 			while (1) {
-				printf("-> ");
 				if (parse_line(arch, stdin) != 1) {
 					break;
 				}

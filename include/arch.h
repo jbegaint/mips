@@ -1,12 +1,10 @@
 #pragma once
 
-typedef unsigned int uint;
+#define TEXT 0
+#define BSS 1
+#define DATA 2
 
-typedef struct
-{
-	uint regs[32];
-	SECTION sections[3];
-} *ARCH;
+typedef unsigned int uint;
 
 typedef struct 
 {
@@ -14,6 +12,14 @@ typedef struct
 	uint start_addr;
 	uint size;
 } SECTION;
+
+typedef struct
+{
+	uint regs[32];
+	SECTION sections[3];
+} *ARCH;
+
+
 
 void free_arch(ARCH);
 ARCH init_simu(ARCH, int);
