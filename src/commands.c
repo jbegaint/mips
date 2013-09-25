@@ -7,13 +7,13 @@
 #include "utils.h"
 #include "commands.h"
 
-extern char* REG_NAMES[32];
-
 /*
 	strtok
 	char *strtok(char *str, const char *delim);
 
 */
+
+extern char* REG_NAMES[32];
 
 int execute_cmd_ex(ARCH arch)
 {
@@ -80,7 +80,15 @@ int parse_register(char* reg)
 	int i;
 	int reg_index = -1;
 
-	if (isdigit(*reg)) {
+	if (*reg == '$') {
+		/* 1 char shift for the '$' */
+		reg++;
+	}
+
+	if (strlen(reg) == 1 && isdigit(*reg)) {
+		return atoi(reg);
+	}
+	else if (strlen(reg) == 2 && isdigit(reg[0]) && isdigit(reg[1])) {
 		return atoi(reg);
 	}
 	else {
@@ -101,8 +109,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	char* args[2];
 
-	/* 1 char shift for the '$' */
-	args[0] = strtok(str_arg, " ") + 1;
+	args[0] = strtok(str_arg, " ");
 	args[1] = strtok(NULL, " ");
 
 	if (args[0] == NULL || args[1] == NULL) {
@@ -125,8 +132,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	printf("%d %d\n", reg, val);
 
-	(arch->regs)[reg] = (mem) val;
-	/*print_info("not implemented yet");*/
+	(arch->regs)[reg] = (uint) val;
 
 	return 1;
 

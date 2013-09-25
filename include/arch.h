@@ -1,13 +1,19 @@
 #pragma once
 
-typedef unsigned int mem;
+typedef unsigned int uint;
 
 typedef struct
 {
-	mem regs[32];
-	unsigned char* memory;
+	uint regs[32];
+	SECTION sections[3];
 } *ARCH;
 
-ARCH init_simu(ARCH, int);
-void free_arch(ARCH);
+typedef struct 
+{
+	unsigned char* data;
+	uint start_addr;
+	uint size;
+} SECTION;
 
+void free_arch(ARCH);
+ARCH init_simu(ARCH, int);
