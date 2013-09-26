@@ -26,6 +26,7 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 		return execute_cmd_lr(arch, args);
 	}
 	else {
+		print_error("I'm sorry Dave I'm afraid I can't do that");
 		return 0;
 	}
 }
@@ -90,7 +91,7 @@ FILE* open_file(char* filename)
 		exit(EXIT_FAILURE);
 	}
 
-	sprintf(buffer, "Ouverture de %s", filename);
+	sprintf(buffer, "Opening %s", filename);
 	print_info(buffer);
 
 	return f;
@@ -132,7 +133,7 @@ int main(int argc, char* argv[])
 
 	switch(argc) {
 		case 1:
-			print_info("Mode interactif");
+			print_info("Interactive mode");
 		
 			while (1) {
 				if (parse_line(arch, stdin) != 1) {
@@ -151,6 +152,7 @@ int main(int argc, char* argv[])
 			break;
 	}
 
+	print_info("Exiting...");
 	free_arch(arch);
 	exit(EXIT_SUCCESS);
 }

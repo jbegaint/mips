@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+#include <string.h>
 
 #include "arch.h"
 #include "utils.h"
@@ -24,17 +26,26 @@ int die(ARCH arch)
 	exit(EXIT_FAILURE);
 }
 
-void print_str(char* str, int color)
+void print_str(char* str, char* type, int color)
 {
-	fprintf(stderr, "\x1b[%dm%s\n\x1b[0m", color, str);
+
+	time_t timer;
+    char buffer[25];
+    struct tm* tm_info;
+
+    time(&timer);
+    tm_info = localtime(&timer);
+
+    strftime(buffer, 25, "%H:%M:%S", tm_info);
+	fprintf(stderr, "\x1b[%dm[ %s | %s: %s ]\n\x1b[0m", color, buffer, type, str);
 }
 
 void print_info(char* str)
 {
-	print_str(str, 34);
+	print_str(str, "Info", 34);
 }
 
 void print_error(char* str)
 {
-	print_str(str, 31);
+	print_str(str, "Error", 31);
 }
