@@ -47,7 +47,8 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	unsigned int addr, val;
+	unsigned int val;
+	/*unsigned int addr;*/
 
 	char* args[2];
 
@@ -59,12 +60,12 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	if (sscanf(args[0], "%x", &addr) != 1 || sscanf(args[1], "%x", &val) != 1) {
+	if (sscanf(args[1], "%x", &val) != 1) {
+		print_error("error parsing memory address");
 		return 0;
 	}
 
-	/* premier condition inutile dans le cas ou les 4go 
-		sont alloues (tiendra pas dans un int de 4octect) */
+	printf("%d\n", parse_addr(arch, args[0]));
 
 	/* 256 = 2^8 = 0xff*/
 	/*if ( addr > 0x0fffffff || val > 0xff)
@@ -103,7 +104,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	/*(arch->regs)[reg] = (uint) val;*/
+	(arch->regs)[reg] = (uint) val;
 
 	return 1;
 

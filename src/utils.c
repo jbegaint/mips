@@ -49,3 +49,11 @@ void print_error(char* str)
 {
 	print_str(str, "Error", 31);
 }
+
+void print_section_info(SECTION section)
+{
+	if (0) {
+		printf("Section start_addr: %d\n", section.start_addr);
+		printf("Section size: %d\n", section.size);
+	}
+}

@@ -124,12 +124,12 @@ void parse_file(ARCH arch, char* filename)
 int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
-	/*arch = init_simu(arch, 256);*/
+	arch = init_simu(arch);
 
-/*	if (arch == NULL) {
+	if (arch == NULL) {
 		print_error("Erreur d'allocation");
 		die(arch);
-	}*/
+	}
 
 	switch(argc) {
 		case 1:
