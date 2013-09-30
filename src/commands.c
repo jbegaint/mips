@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "commands.h"
 #include "parsers.h"
+#include "dr.h"
 
 /*
 	strtok
@@ -65,7 +66,6 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	printf("%d\n", parse_addr(arch, args[0]));
 
 	/* 256 = 2^8 = 0xff*/
 	/*if ( addr > 0x0fffffff || val > 0xff)
@@ -91,7 +91,6 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-
 	if (sscanf(args[1], "%x", &val) != 1) {
 		print_error("Invalid value");
 		return 0;
@@ -108,4 +107,31 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	return 1;
 
+}
+int execute_cmd_dr(ARCH arch, char *str_arg) {
+
+	char* ptr_arg;
+	int reg_index;
+
+	ptr_arg = strtok(str_arg, " ");
+
+	if (ptr_arg == NULL) {
+		display_reg_all(arch);
+		return 1;
+	}
+
+	while (ptr_arg != NULL) {
+	    reg_index = parse_register(ptr_arg);
+
+	    if (reg_index == -1) {
+	    	print_error("arg not register");
+	    	return 0;
+	    }
+
+	    display_reg(arch, reg_index);
+	    ptr_arg = strtok(NULL, " ");
+
+	}
+
+	return 1;
 }

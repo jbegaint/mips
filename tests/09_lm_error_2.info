@@ -10,4 +10,4 @@
 #	a string describing the test
 ###############
 TEST_RETURN_CODE=FAIL
-TEST_COMMENT="Teste argument manquant pour lm"
+TEST_COMMENT="Teste un argument manquant pour lm"

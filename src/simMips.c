@@ -25,8 +25,11 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	else if (strcmp(cmd, "lr") == 0) {
 		return execute_cmd_lr(arch, args);
 	}
+	else if (strcmp(cmd, "dr") == 0) {
+		return execute_cmd_dr(arch, args);
+	}
 	else {
-		print_error("I'm sorry Dave I'm afraid I can't do that");
+		print_error("I'm sorry Dave, I'm afraid I can't do that");
 		return 0;
 	}
 }
@@ -34,9 +37,10 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 int parse_line(ARCH arch, FILE* f)
 {
 	char buffer[256];
-	char* cmd = malloc(sizeof(*cmd));
+	char cmd[256];
 
 	memset(buffer, '\0', 256);
+	memset(cmd, '\0', 256);
 
 	if (f == stdin) {
 		char *line = readline("-> ");
@@ -61,17 +65,18 @@ int parse_line(ARCH arch, FILE* f)
 
 		if (fgets(buffer, sizeof(buffer), f) != 0) {
 
+
 			/* empty line */
 			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0) {
 				return 1;
 			}
 
 			/* comment line */
-			if (cmd[0] == '#') {
+			if (*cmd == '#') {
 				return 1;
 			}
 
-			/* +1 for space */
+			/* +1 for space character */
 			return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 		}
 		return 2;
