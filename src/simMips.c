@@ -111,7 +111,11 @@ void parse_file(ARCH arch, char* filename)
 	while (1) {
 		res = parse_line(arch, f);
 
-		if (res == 0) {
+		if (res == CMD_EXIT_MISSING_ARG) {
+			print_error("missing argument");
+		}
+
+		if (res <= 0) {
 			/* command return error code */
 			fclose(f);
 			die(arch);
@@ -141,7 +145,7 @@ int main(int argc, char* argv[])
 			print_info("Interactive mode");
 		
 			while (1) {
-				if (parse_line(arch, stdin) != 1) {
+				if (parse_line(arch, stdin) != CMD_EXIT_SUCCESS) {
 					break;
 				}
 			}

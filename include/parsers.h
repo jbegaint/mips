@@ -4,7 +4,7 @@
 	returns addr in int
 */
 
-int parse_addr(ARCH, char*);
+int parse_addr(char*);
 
 /*
 	returns register index between 0 - 31 from string.

@@ -31,8 +31,7 @@ int execute_cmd_testcmd(char* str_arg)
 
 	/* missing argument */
 	if (arg == NULL) {
-		print_error("Missing argument");
-		return 0;
+		return CMD_EXIT_MISSING_ARG;
 	}
 
 	/* address not in hexa, or negative */
@@ -44,7 +43,7 @@ int execute_cmd_testcmd(char* str_arg)
 	addr++;
 
 	printf("CMD TEST RESULT 0x%x\n", addr);
-	return 1;
+	return CMD_EXIT_SUCCESS;
 }
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
@@ -61,17 +60,16 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	args[1] = strtok(NULL, " ");
 
 	if (args[0] == NULL || args[1] == NULL) {
-		print_error("Missing argument");
-		return 0;
+		return CMD_EXIT_MISSING_ARG;
 	}
 
 
-	addr = parse_addr(arch, args[0]);
+	addr = parse_addr(args[0]);
 	section_index = get_section(arch, addr);
 
 	if (section_index == -1) {
 		print_error("address not allocated");
-		return 0;
+		return CMD_EXIT_FAILURE;
 	}
 
 	if (sscanf(args[1], "%x", &val) != 1) {
@@ -82,10 +80,9 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	/* now we calculate offset in data section */
 	offset = addr - (arch->sections)[section_index].start_addr;
 
-
 	*((arch->sections)[section_index].data + offset) = val;
 
-	return 1;
+	return CMD_EXIT_SUCCESS;
 }
 
 int execute_cmd_lr(ARCH arch, char* str_arg) 
@@ -99,8 +96,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	args[1] = strtok(NULL, " ");
 
 	if (args[0] == NULL || args[1] == NULL) {
-		print_error("Missing argument");
-		return 0;
+		return CMD_EXIT_MISSING_ARG;
 	}
 
 	if (sscanf(args[1], "%x", &val) != 1) {
@@ -110,14 +106,14 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	reg = parse_register(args[0]);
 
-	if (reg < 0 || reg > 31) {
+	if (reg == -1 ) {
 		print_error("register does not exist");
 		return 0;
 	}
 
 	(arch->regs)[reg] = (uint) val;
 
-	return 1;
+	return CMD_EXIT_SUCCESS;
 
 }
 int execute_cmd_dr(ARCH arch, char *str_arg) {
@@ -129,14 +125,14 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 
 	if (ptr_arg == NULL) {
 		display_reg_all(arch);
-		return 1;
+		return CMD_EXIT_SUCCESS;
 	}
 
 	while (ptr_arg != NULL) {
 	    reg_index = parse_register(ptr_arg);
 
 	    if (reg_index == -1) {
-	    	print_error("arg not register");
+			print_error("register does not exist");
 	    	return 0;
 	    }
 
@@ -145,5 +141,5 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 
 	}
 
-	return 1;
+	return CMD_EXIT_SUCCESS;
 }

@@ -3,7 +3,7 @@
 #include "arch.h"
 
 #define CMD_EXIT_SUCCESS 1
-#define CMD_EXIT_FAILURE -1
+#define CMD_EXIT_FAILURE 0
 #define CMD_EXIT_MISSING_ARG -2
 
 int execute_cmd_ex(ARCH);

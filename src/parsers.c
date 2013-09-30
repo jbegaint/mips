@@ -9,10 +9,9 @@
 
 extern char* REG_NAMES[32];
 
-int parse_addr(ARCH arch, char* addr_str) {
+int parse_addr(char* addr_str) {
 
 	uint addr;
-	int i;
 
 	if (sscanf(addr_str, "%x", &addr) != 1) {
 		print_error("error parsing addr");
