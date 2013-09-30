@@ -13,7 +13,7 @@ typedef unsigned char uchar;
 
 typedef struct 
 {
-	uchar* data;
+	uint* data;
 	uint start_addr;
 	uint size;
 } SECTION;

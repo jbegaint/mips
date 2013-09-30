@@ -21,5 +21,5 @@ void display_reg(ARCH arch, int reg_index) {
 	char* reg_name = REG_NAMES[reg_index];
 	uint reg_value = (arch->regs)[reg_index];
 
-	fprintf(stderr, "$%s : %d\n", reg_name, reg_value);
+	fprintf(stderr, "$%s : 0x%08x\n", reg_name, reg_value);
 }

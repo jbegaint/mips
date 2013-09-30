@@ -13,23 +13,14 @@ int parse_addr(ARCH arch, char* addr_str) {
 
 	uint addr;
 	int i;
-	SECTION* section_ptr;
 
-	if (sscanf(addr_str, "%u", &addr) != 1) {
+	if (sscanf(addr_str, "%x", &addr) != 1) {
 		print_error("error parsing addr");
 		return -1;
 	}
 
-	/* find in which section is addr located*/
-
-	for (i=0; i < 3; i++) {
-		section_ptr = &(arch->sections[i]);
-		if ( addr >= section_ptr->start_addr && addr <= section_ptr->start_addr + section_ptr->size) {
-			return i;
-		}
-	}
-
-	return -1;
+	
+	return addr;
 }
 
 

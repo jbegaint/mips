@@ -7,6 +7,7 @@
 #include "commands.h"
 #include "parsers.h"
 #include "dr.h"
+#include "address.h"
 
 /*
 	strtok
@@ -48,10 +49,13 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	unsigned int val;
-	/*unsigned int addr;*/
-
+	uint val;
 	char* args[2];
+
+	int addr;
+	int section_index;
+	int offset;
+
 
 	args[0] = strtok(str_arg, " ");
 	args[1] = strtok(NULL, " ");
@@ -61,17 +65,25 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	if (sscanf(args[1], "%x", &val) != 1) {
-		print_error("error parsing memory address");
+
+	addr = parse_addr(arch, args[0]);
+	section_index = get_section(arch, addr);
+
+	if (section_index == -1) {
+		print_error("address not allocated");
 		return 0;
 	}
 
+	if (sscanf(args[1], "%x", &val) != 1) {
+		print_error("error parsing memory value");
+		return 0;
+	}
 
-	/* 256 = 2^8 = 0xff*/
-	/*if ( addr > 0x0fffffff || val > 0xff)
-		return 0;*/
+	/* now we calculate offset in data section */
+	offset = addr - (arch->sections)[section_index].start_addr;
 
-	/*(arch->memory)[addr] = val;*/
+
+	*((arch->sections)[section_index].data + offset) = val;
 
 	return 1;
 }

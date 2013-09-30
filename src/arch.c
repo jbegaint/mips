@@ -15,9 +15,9 @@ ARCH init_simu(ARCH arch)
 
 	/* temporary, should be remove next step */
 
-	arch->sections[TEXT].start_addr = 1024;
-	arch->sections[BSS].start_addr = 3*1024;
-	arch->sections[DATA].start_addr = 5*1024;
+	arch->sections[TEXT].start_addr = 0x400;
+	arch->sections[BSS].start_addr = 0xc00;
+	arch->sections[DATA].start_addr = 0x1400;
 
 	for (i=0; i < 3 ; i++) {
 		section_ptr = &(arch->sections[i]);

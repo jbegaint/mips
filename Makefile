@@ -19,3 +19,6 @@ sim: $(OBJ)
 
 clean:
 	rm $(SRCDIR)/*.o
+
+check:
+	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
