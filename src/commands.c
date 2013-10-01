@@ -195,9 +195,6 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 int execute_cmd_dm(ARCH arch, char* str_arg)
 {
-	uint addr;
-
-	char* args[2];
 	char* found_colon;
 	char* found_tild;
 
@@ -205,32 +202,15 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 	found_tild = strchr(str_arg, '~');
 
 	if (!found_colon != !found_tild) {
-		/* xor */
-		
-		if (parse_args(str_arg, args, 2) != 1) {
-			return CMD_EXIT_MISSING_ARG;
-		}
-
+		/* xor */	
 		if (found_colon) {
 			print_info("Execute dm <address>:<nb_bytes>");
-
 		} else {
-			print_info("Execute dm <address>~<address>");
+			return display_addr_to_addr(arch, str_arg);
 		}
 	}
 	else if (!found_tild && !found_colon) {
-		print_info("Execute dm <address>");
-
-		if (parse_args(str_arg, args, 1) != 1) {
-			return CMD_EXIT_MISSING_ARG;
-		}
-		
-		if (sscanf(args[0], "%x", &addr) != 1) {
-			print_error("Invalid address");
-			return CMD_EXIT_FAILURE;
-		}
-
-		return display_addr(arch, addr);
+		return display_one_addr(arch, str_arg);		
 	}
 	else {
 		return CMD_EXIT_FAILURE;
