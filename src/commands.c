@@ -80,7 +80,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 int execute_cmd_lr(ARCH arch, char* str_arg) 
 {
 	int reg;
-	unsigned int val;
+	uint val;
 	char* reg_str = malloc(sizeof(*reg_str));
 	char* args[2];
 
@@ -157,6 +157,43 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 
 	print_info("not implemented yet");
 	print_info("file closed");
+
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_da(ARCH arch, char* str_arg)
+{
+	uint addr;
+	int instr;
+
+	char* args[2];
+
+	if (parse_args(str_arg, args, 2) != 1) {
+		return CMD_EXIT_MISSING_ARG;
+	}
+
+	if (sscanf(args[0], "%x", &addr) != 1) {
+		print_error("Invalid address");
+		return CMD_EXIT_FAILURE;
+	}
+
+	if (sscanf(args[1], "%d", &instr) != 1) {
+		print_error("Invalid instructions number");
+		return CMD_EXIT_FAILURE;
+	}
+
+	print_info("not implemented yet");
+
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_dm(ARCH arch, char* str_arg)
+{
+	char* args[2];
+
+	if (parse_args(str_arg, args, 2) != 1) {
+		return CMD_EXIT_MISSING_ARG;
+	}
 
 	return CMD_EXIT_SUCCESS;
 }

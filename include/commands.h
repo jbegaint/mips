@@ -12,3 +12,5 @@ int execute_cmd_lp(ARCH, char*);
 int execute_cmd_lm(ARCH, char*);
 int execute_cmd_lr(ARCH, char*);
 int execute_cmd_dr(ARCH, char *);
+int execute_cmd_dm(ARCH, char*);
+int execute_cmd_da(ARCH, char*);

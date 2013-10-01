@@ -25,11 +25,17 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	else if (strcmp(cmd, "lr") == 0) {
 		return execute_cmd_lr(arch, args);
 	}
+	else if (strcmp(cmd, "dm") == 0) {
+		return execute_cmd_dm(arch, args);
+	}
 	else if (strcmp(cmd, "dr") == 0) {
 		return execute_cmd_dr(arch, args);
 	}
 	else if (strcmp(cmd, "lp") == 0) {
 		return execute_cmd_lp(arch, args);
+	}
+	else if (strcmp(cmd, "da") == 0) {
+		return execute_cmd_da(arch, args);
 	}
 	else {
 		print_error("I'm sorry Dave, I'm afraid I can't do that");
