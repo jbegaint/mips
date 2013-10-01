@@ -13,3 +13,8 @@ int parse_addr(char*);
 */
 
 int parse_register(char*);
+
+/*
+	returns args from str in string array
+*/
+int parse_args(char*, char**, int);

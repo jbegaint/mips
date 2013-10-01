@@ -54,3 +54,24 @@ int parse_register(char* reg_str)
 
 	return reg_index;
 }
+
+int parse_args(char* str_arg, char* args[], int args_len)
+{
+	int i = 0;
+
+	args[0] = strtok(str_arg, " ");
+
+	if (args[0] == NULL) {
+		return -1;
+	}
+
+	for (i=1; i < args_len; i++) {
+		args[i] = strtok(NULL, " ");
+
+		if (args[i] == NULL) {
+			return -1;
+		}
+	}
+
+	return 1;
+}
