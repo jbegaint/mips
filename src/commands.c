@@ -16,6 +16,27 @@
 
 */
 
+int parse_args(char* str_arg, char* args[], int args_len)
+{
+	int i = 0;
+
+	args[0] = strtok(str_arg, " ");
+
+	if (args[0] == NULL) {
+		return -1;
+	}
+
+	for (i=1; i < args_len; i++) {
+		args[i] = strtok(NULL, " ");
+
+		if (args[i] == NULL) {
+			return -1;
+		}
+	}
+
+	return 1;
+}
+
 
 int execute_cmd_ex(ARCH arch)
 {
@@ -25,17 +46,25 @@ int execute_cmd_ex(ARCH arch)
 int execute_cmd_testcmd(char* str_arg)
 {
 	int addr;
-	char* arg;
+	
+	/*char* arg;*/
 
-	arg = strtok(str_arg, " ");
-
-	/* missing argument */
-	if (arg == NULL) {
-		return CMD_EXIT_MISSING_ARG;
+	char* args[1];
+	
+	if ( parse_args(str_arg, args, 1) != 1) {
+		print_error("missing argqqs");
+		return CMD_EXIT_FAILURE;
 	}
 
+	/*arg = strtok(str_arg, " ");*/
+
+	/* missing argument */
+	/*if (arg == NULL) {
+		return CMD_EXIT_MISSING_ARG;
+	}*/
+
 	/* address not in hexa, or negative */
-	if (sscanf(arg, "%x", &addr) != 1 || addr < 0) {
+	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0) {
 		print_error("Invalid address");
 		return 0;
 	}
@@ -48,13 +77,9 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	uint val;
 	char* args[2];
-
-	int addr;
-	int section_index;
-	int offset;
-
+	uint val, addr;
+	int section_index, offset;
 
 	args[0] = strtok(str_arg, " ");
 	args[1] = strtok(NULL, " ");
@@ -63,22 +88,24 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 	}
 
-
-	addr = parse_addr(args[0]);
-	section_index = get_section(arch, addr);
-
-	if (section_index == -1) {
-		print_error("address not allocated");
+	if (sscanf(args[1], "%x", &val) != 1) {
+		print_error("error parsing memory value");
 		return CMD_EXIT_FAILURE;
 	}
 
-	if (sscanf(args[1], "%x", &val) != 1) {
-		print_error("error parsing memory value");
-		return 0;
+	if (sscanf(args[0], "%x", &addr) != 1) {
+		print_error("error parsing addr");
+		return CMD_EXIT_FAILURE;
+	}
+
+	section_index = get_section(arch, addr);
+
+	if (section_index == -1) {
+		return CMD_EXIT_FAILURE;
 	}
 
 	/* now we calculate offset in data section */
-	offset = addr - (arch->sections)[section_index].start_addr;
+	offset = get_offset(arch, addr, section_index);
 
 	*((arch->sections)[section_index].data + offset) = val;
 
@@ -89,10 +116,8 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 {
 	int reg;
 	unsigned int val;
-	char* reg_str = malloc(sizeof(*reg_str));
-
-
 	char* args[2];
+	char* reg_str = malloc(sizeof(*reg_str));
 
 	args[0] = strtok(str_arg, " ");
 	args[1] = strtok(NULL, " ");
@@ -141,7 +166,7 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 
 	    if (reg_index == -1) {
 			print_error("register does not exist");
-	    	return 0;
+	    	return CMD_EXIT_FAILURE;
 	    }
 
 	    display_reg(arch, reg_index);

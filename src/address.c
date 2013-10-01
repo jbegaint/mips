@@ -16,5 +16,9 @@ int get_section(ARCH arch, uint addr)
 	}
 
 	return -1;
+}
 
+int get_offset(ARCH arch, uint addr, int section_index) 
+{
+	return addr - (arch->sections)[section_index].start_addr;
 }

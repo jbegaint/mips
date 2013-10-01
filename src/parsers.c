@@ -6,6 +6,7 @@
 
 #include "arch.h"
 #include "utils.h"
+#include "address.h"
 
 extern char* REG_NAMES[32];
 
@@ -17,7 +18,6 @@ int parse_addr(char* addr_str) {
 		print_error("error parsing addr");
 		return -1;
 	}
-
 	
 	return addr;
 }
@@ -39,7 +39,7 @@ int parse_register(char* reg_str)
 	else if (strlen(reg_str) == 2 && isdigit(reg_str[0]) && isdigit(reg_str[1])) {
 		reg_index = atoi(reg_str);
 
-		if ( reg_index < 32 && reg_index > 0)
+		if ( reg_index < 32 && reg_index >= 0)
 			return atoi(reg_str);
 		else
 			return -1;
