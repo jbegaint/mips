@@ -46,9 +46,9 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	char* args[2];
 	uint val, addr;
 	int section_index, offset;
+	char* args[2];
 
 	if (parse_args(str_arg, args, 2) != 1) {
 		return CMD_EXIT_MISSING_ARG;
@@ -63,7 +63,6 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		print_error("Invalid memory value");
 		return CMD_EXIT_FAILURE;
 	}
-
 
 	section_index = get_section(arch, addr);
 
@@ -82,8 +81,8 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 {
 	int reg;
 	unsigned int val;
-	char* args[2];
 	char* reg_str = malloc(sizeof(*reg_str));
+	char* args[2];
 
 	if (parse_args(str_arg, args, 2) != 1) {
 		return CMD_EXIT_MISSING_ARG;
@@ -135,6 +134,29 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 	    ptr_arg = strtok(NULL, " ");
 
 	}
+
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_lp(ARCH arch, char* str_arg)
+{
+	FILE* f;
+	char* args[1];
+
+	if (parse_args(str_arg, args, 1) != 1) {
+		return CMD_EXIT_MISSING_ARG;
+	}
+
+	f = open_file(str_arg);
+
+	if (f == NULL) {
+		return CMD_EXIT_FAILURE;
+	}
+
+	fclose(f);
+
+	print_info("not implemented yet");
+	print_info("file closed");
 
 	return CMD_EXIT_SUCCESS;
 }

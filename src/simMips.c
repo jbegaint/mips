@@ -28,6 +28,9 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	else if (strcmp(cmd, "dr") == 0) {
 		return execute_cmd_dr(arch, args);
 	}
+	else if (strcmp(cmd, "lp") == 0) {
+		return execute_cmd_lp(arch, args);
+	}
 	else {
 		print_error("I'm sorry Dave, I'm afraid I can't do that");
 		return 0;
@@ -83,30 +86,15 @@ int parse_line(ARCH arch, FILE* f)
 	}
 }
 
-FILE* open_file(char* filename)
-{
-	char buffer[256];
-	FILE* f = NULL;
-
-	f = fopen(filename, "r");
-
-	if (f == NULL) {
-		sprintf(buffer, "Erreur lors de l'ouverture de %s", filename);
-		print_error(buffer);
-		exit(EXIT_FAILURE);
-	}
-
-	sprintf(buffer, "Opening %s", filename);
-	print_info(buffer);
-
-	return f;
-}
-
 void parse_file(ARCH arch, char* filename)
 {
 	int res;
 	FILE* f;
 	f = open_file(filename);
+
+	if (f == NULL) {
+		die(arch);
+	}
 
 	while (1) {
 		res = parse_line(arch, f);

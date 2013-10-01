@@ -11,6 +11,26 @@ void usage(char* arg)
 	printf("Usage: %s [file]\n", arg);
 }
 
+FILE* open_file(char* filename)
+{
+	char buffer[256];
+	FILE* f = NULL;
+
+	f = fopen(filename, "r");
+
+	if (f == NULL) {
+		sprintf(buffer, "Error opening \"%s\"", filename);
+		print_error(buffer);
+		return NULL;
+	}
+
+	sprintf(buffer, "Opening \"%s\"", filename);
+	print_info(buffer);
+
+	return f;
+}
+
+
 int quit(ARCH arch) 
 {
 	print_info("Exiting...");
