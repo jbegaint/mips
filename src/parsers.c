@@ -25,9 +25,11 @@ int parse_addr(char* addr_str) {
 
 int parse_register(char* reg_str) 
 {
+
 	int i;
 	int reg_index = -1;
 
+	/*sscanf(str, "%s", reg_str);*/
 	if (*reg_str == '$') {
 		/* 1 char shift for the '$' character */
 		reg_str++;

@@ -10,4 +10,4 @@
 #	a string describing the test
 ###############
 TEST_RETURN_CODE=FAIL
-TEST_COMMENT="Teste aucun arguments pour lm"
+TEST_COMMENT="Test incorrect register index ... "

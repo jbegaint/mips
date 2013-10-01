@@ -89,6 +89,8 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 {
 	int reg;
 	unsigned int val;
+	char* reg_str = malloc(sizeof(*reg_str));
+
 
 	char* args[2];
 
@@ -104,7 +106,13 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		return 0;
 	}
 
-	reg = parse_register(args[0]);
+
+	if (sscanf(args[0], "%s", reg_str) != 1) {
+		print_error("Invalid value");
+		return 0;
+	}
+
+	reg = parse_register(reg_str);
 
 	if (reg == -1 ) {
 		print_error("register does not exist");
