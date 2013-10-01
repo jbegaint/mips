@@ -9,5 +9,5 @@
 # TEST_COMMENT (optional)
 #	a string describing the test
 ###############
-TEST_RETURN_CODE=FAIL
-TEST_COMMENT="Test dr incorrect reg name "
+TEST_RETURN_CODE=PASS
+TEST_COMMENT="Test reg index parsing preceded with $"

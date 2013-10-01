@@ -1,0 +1,2 @@
+CMD TEST RESULT 0xb
+$zero : 0x00000000

@@ -1,0 +1,3 @@
+testcmd 0xa
+lr $t0 0xFF
+dr $t0

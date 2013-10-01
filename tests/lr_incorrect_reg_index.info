@@ -10,4 +10,4 @@
 #	a string describing the test
 ###############
 TEST_RETURN_CODE=FAIL
-TEST_COMMENT="Test dr incorrect reg name "
+TEST_COMMENT="Test lr incorrect reg index"

@@ -25,11 +25,9 @@ int parse_addr(char* addr_str) {
 
 int parse_register(char* reg_str) 
 {
-
 	int i;
 	int reg_index = -1;
 
-	/*sscanf(str, "%s", reg_str);*/
 	if (*reg_str == '$') {
 		/* 1 char shift for the '$' character */
 		reg_str++;
@@ -39,7 +37,12 @@ int parse_register(char* reg_str)
 		return atoi(reg_str);
 	}
 	else if (strlen(reg_str) == 2 && isdigit(reg_str[0]) && isdigit(reg_str[1])) {
-		return atoi(reg_str);
+		reg_index = atoi(reg_str);
+
+		if ( reg_index < 32 && reg_index > 0)
+			return atoi(reg_str);
+		else
+			return -1;
 	}
 	else {
 		for (i=0; i < 32; i++) {
