@@ -32,7 +32,7 @@ int execute_cmd_testcmd(char* str_arg)
 	}
 
 
-	/* address not in hexa, or negative */
+	/* address not in hexa, or negative  */
 	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0) {
 		print_error("Invalid address");
 		return 0;
@@ -164,7 +164,7 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 int execute_cmd_da(ARCH arch, char* str_arg)
 {
 	uint addr;
-	int instr;
+	int instr, i;
 
 	char* args[2];
 
@@ -180,6 +180,10 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 	if (sscanf(args[1], "%d", &instr) != 1) {
 		print_error("Invalid instructions number");
 		return CMD_EXIT_FAILURE;
+	}
+
+	for (i=0; i < instr; i++) {
+		printf("%0.8x\n", addr + 4*i);
 	}
 
 	print_info("not implemented yet");
