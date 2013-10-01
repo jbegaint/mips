@@ -126,11 +126,12 @@ void parse_file(ARCH arch, char* filename)
 
 int main(int argc, char* argv[])
 {
+	int res;
 	ARCH arch = NULL;
 	arch = init_simu(arch);
 
 	if (arch == NULL) {
-		print_error("Erreur d'allocation");
+		print_error("allocation error");
 		die(arch);
 	}
 
@@ -139,7 +140,11 @@ int main(int argc, char* argv[])
 			print_info("Interactive mode");
 		
 			while (1) {
-				if (parse_line(arch, stdin) != CMD_EXIT_SUCCESS) {
+				res = parse_line(arch, stdin);
+
+				if (res == CMD_EXIT_MISSING_ARG) {
+					print_error("missing argument");
+				} else if (res != CMD_EXIT_SUCCESS) {
 					break;
 				}
 			}

@@ -7,6 +7,7 @@
 #include "commands.h"
 #include "parsers.h"
 #include "dr.h"
+#include "dm.h"
 #include "address.h"
 
 /*
@@ -26,11 +27,12 @@ int execute_cmd_testcmd(char* str_arg)
 {
 	int addr;
 	char* args[1];
+
+	print_info("Execute testcmd <address>");
 	
 	if (parse_args(str_arg, args, 1) != 1) {
 		return CMD_EXIT_MISSING_ARG;
 	}
-
 
 	/* address not in hexa, or negative  */
 	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0) {
@@ -183,7 +185,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 	}
 
 	for (i=0; i < instr; i++) {
-		printf("%0.8x\n", addr + 4*i);
+		printf("%08x\n", addr + 4*i);
 	}
 
 	print_info("not implemented yet");
@@ -193,10 +195,45 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 int execute_cmd_dm(ARCH arch, char* str_arg)
 {
-	char* args[2];
+	uint addr;
 
-	if (parse_args(str_arg, args, 2) != 1) {
-		return CMD_EXIT_MISSING_ARG;
+	char* args[2];
+	char* found_colon;
+	char* found_tild;
+
+	found_colon = strchr(str_arg, ':');
+	found_tild = strchr(str_arg, '~');
+
+	if (!found_colon != !found_tild) {
+		/* xor */
+		
+		if (parse_args(str_arg, args, 2) != 1) {
+			return CMD_EXIT_MISSING_ARG;
+		}
+
+		if (found_colon) {
+			print_info("Execute dm <address>:<nb_bytes>");
+
+		} else {
+			print_info("Execute dm <address>~<address>");
+		}
+	}
+	else if (!found_tild && !found_colon) {
+		print_info("Execute dm <address>");
+
+		if (parse_args(str_arg, args, 1) != 1) {
+			return CMD_EXIT_MISSING_ARG;
+		}
+		
+		if (sscanf(args[0], "%x", &addr) != 1) {
+			print_error("Invalid address");
+			return CMD_EXIT_FAILURE;
+		}
+
+		return display_addr(arch, addr);
+	}
+	else {
+		return CMD_EXIT_FAILURE;
 	}
 
 	return CMD_EXIT_SUCCESS;
