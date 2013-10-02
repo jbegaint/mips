@@ -8,7 +8,6 @@ ARCH init_simu(ARCH arch)
 	int i;
 	SECTION* section_ptr;
 
-
 	arch = malloc(sizeof(*arch));
 	if (arch == NULL)
 		return NULL;

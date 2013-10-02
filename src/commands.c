@@ -48,7 +48,8 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	uint val, addr;
+	uint addr;
+	uchar val;
 	int section_index, offset;
 	char* args[2];
 
@@ -61,7 +62,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
-	if (sscanf(args[1], "%x", &val) != 1) {
+	if (sscanf(args[1], "%hhx", &val) != 1) {
 		print_error("Invalid memory value");
 		return CMD_EXIT_FAILURE;
 	}
@@ -203,14 +204,20 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 
 	if (!found_colon != !found_tild) {
 		/* xor */	
+
 		if (found_colon) {
-			print_info("Execute dm <address>:<nb_bytes>");
+			print_info("Execute dm <address>:<bytes_nb>");
+			return display_bytes_from_addr(arch, str_arg);
+
 		} else {
+			print_info("Execute dm <address>~<address>");
 			return display_addr_to_addr(arch, str_arg);
 		}
 	}
 	else if (!found_tild && !found_colon) {
+		print_info("execute dm <address>");
 		return display_one_addr(arch, str_arg);		
+		
 	}
 	else {
 		return CMD_EXIT_FAILURE;
