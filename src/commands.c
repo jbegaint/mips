@@ -54,7 +54,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	char* args[2];
 
 	if (parse_args(str_arg, args, 2) != 1) {
-		return CMD_EXIT_MISSING_ARG;
+		return CMD_EXIT_MISSING_ARG;	
 	}
 
 	if (sscanf(args[0], "%x", &addr) != 1) {
@@ -67,10 +67,12 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
-	if (tmp_val > 0xFF)
+	if (tmp_val > 0xFF) {
+		print_error("incorrect value");
 		return CMD_EXIT_FAILURE;
+	}
 
-	val = (uchar) tmp_val
+	val = (uchar) tmp_val;
 
 	section_index = get_section(arch, addr);
 
