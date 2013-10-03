@@ -4,7 +4,7 @@ INCDIR=include
 SRCDIR=src
 
 CFLAGS=-I$(INCDIR) -Wall -Wextra -Wshadow -g -ansi -pedantic -O2
-LDFLAGS=-lreadline
+LDFLAGS=-lreadline -lcurses
 
 SRC=$(wildcard $(SRCDIR)/*.c)
 OBJ=$(SRC:.c=.o)
