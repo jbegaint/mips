@@ -48,7 +48,7 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	uint addr;
+	uint addr, tmp_val;
 	uchar val;
 	int section_index, offset;
 	char* args[2];
@@ -62,10 +62,15 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
-	if (sscanf(args[1], "%hhx", &val) != 1) {
+	if (sscanf(args[1], "%u", &tmp_val) != 1) {
 		print_error("Invalid memory value");
 		return CMD_EXIT_FAILURE;
 	}
+
+	if (tmp_val > 0xFF)
+		return CMD_EXIT_FAILURE;
+
+	val = (uchar) tmp_val
 
 	section_index = get_section(arch, addr);
 
@@ -171,6 +176,8 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 	char* args[2];
 
+	print_info("Execute da");
+
 	if (parse_args(str_arg, args, 2) != 1) {
 		return CMD_EXIT_MISSING_ARG;
 	}
@@ -198,6 +205,8 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 {
 	char* found_colon;
 	char* found_tild;
+
+	print_info("Execute dm");
 
 	found_colon = strchr(str_arg, ':');
 	found_tild = strchr(str_arg, '~');

@@ -1,2 +1,2 @@
 CMD TEST RESULT 0xb
-10
+0a
