@@ -3,12 +3,17 @@ MIPS
 
 third semester C school project
 
-authors:
+Authors:
+--------
 
-Begaint J., Revolle M.
+* Begaint J.
+
+* Revolle M.
 
 
 Todo:
+-----
+
 * trace for each function
 
 * no force exit on interactive mode
