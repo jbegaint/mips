@@ -41,12 +41,6 @@ int display_one_addr(ARCH arch, char* str_arg)
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
-	/*
-	if (sscanf(args[0], "%x", &addr) != 1) {
-		print_error("Invalid address");
-		return CMD_EXIT_FAILURE;
-	}*/
-
 	if (!parse_addr(args[0], &addr)) {
 		print_error("invalid address");
 		return CMD_EXIT_INVALID_ADDR;
@@ -84,15 +78,12 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 	}
 
-	if (sscanf(args[0], "%x", &addr0) != 1) {
-		print_error("Invalid start address");
-		return CMD_EXIT_FAILURE;
+
+	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1)) {
+		print_error("invalid address");
+		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	if (sscanf(args[1], "%x", &addr1) != 1) {
-		print_error("Invalid end address");
-		return CMD_EXIT_FAILURE;
-	}
 
 	if (addr0 > addr1)
 		return CMD_EXIT_FAILURE;
@@ -111,9 +102,9 @@ int display_bytes_from_addr(ARCH arch, char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 	}
 
-	if (sscanf(args[0], "%x", &addr) != 1) {
-		print_error("Invalid address");
-		return CMD_EXIT_FAILURE;
+	if (!parse_addr(args[0], &addr)) {
+		print_error("invalid address");
+		return CMD_EXIT_INVALID_ADDR;
 	}
 
 	if (sscanf(args[1], "%d", &bytes_nb) != 1) {
