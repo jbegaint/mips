@@ -15,8 +15,9 @@ int display_addr(ARCH arch, uint addr, int nl_flag)
 	section_index = get_section(arch, addr);
 
 	if (section_index == -1) {
-		print_error("Address not allocated");
-		return CMD_EXIT_FAILURE;
+		/* not allocated memory */
+		printf("00");
+		return CMD_EXIT_SUCCESS;
 	}
 		
 	offset = get_offset(arch, addr, section_index);
@@ -37,13 +38,18 @@ int display_one_addr(ARCH arch, char* str_arg)
 	uint addr;
 	char* args[1];
 
-	if (parse_args(str_arg, args, 1) != 1) {
+	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
-	
+
+	/*
 	if (sscanf(args[0], "%x", &addr) != 1) {
 		print_error("Invalid address");
 		return CMD_EXIT_FAILURE;
+	}*/
+
+	if (!parse_addr(args[0], &addr)) {
+		print_error("invalid address");
+		return CMD_EXIT_INVALID_ADDR;
 	}
 
 	return display_addr(arch, addr, 1);

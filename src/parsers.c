@@ -10,16 +10,27 @@
 
 extern char* REG_NAMES[32];
 
-int parse_addr(char* addr_str) {
+int parse_addr(char* addr_str, uint* addr) 
+{
+	uint i;
 
-	uint addr;
-
-	if (sscanf(addr_str, "%x", &addr) != 1) {
-		print_error("error parsing addr");
-		return -1;
+	/* if str begins with 0x, shift it */
+	if (strlen(addr_str) > 1) {
+		if (*(addr_str) == '0' && *(addr_str+1) == 'x') {
+			addr_str += 2;
+		}
 	}
-	
-	return addr;
+
+	for (i=0; i < strlen(addr_str); i++) {
+		if (!isxdigit(*(addr_str+i)))
+			return 0;
+	}
+
+	if (sscanf(addr_str, "%x", addr) != 1) {
+		return 0;
+	}	
+
+	return 1;
 }
 
 

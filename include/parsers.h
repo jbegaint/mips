@@ -1,10 +1,10 @@
 #pragma once
 
 /* 
-	returns addr in int
+	returns addr in unsigned int
 */
 
-int parse_addr(char*);
+int parse_addr(char*, uint* addr);
 
 /*
 	returns register index between 0 - 31 from string.

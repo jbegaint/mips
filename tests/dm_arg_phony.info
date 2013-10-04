@@ -9,5 +9,5 @@
 # TEST_COMMENT (optional)
 #	a string describing the test
 ###############
-TEST_RETURN_CODE=PASS
-TEST_COMMENT="Test dm <address> with phony arg"
+TEST_RETURN_CODE=FAIL
+TEST_COMMENT="Test dm with bogus args"
