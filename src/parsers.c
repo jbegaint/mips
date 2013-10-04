@@ -14,6 +14,10 @@ int parse_addr(char* addr_str, uint* addr)
 {
 	uint i;
 
+	/* prevent bug with new line */
+	if (sscanf(addr_str, "%s", addr_str) != 1)
+		return 0;
+
 	/* if str begins with 0x, shift it */
 	if (strlen(addr_str) > 1) {
 		if (*(addr_str) == '0' && *(addr_str+1) == 'x') {
@@ -31,6 +35,11 @@ int parse_addr(char* addr_str, uint* addr)
 	}	
 
 	return 1;
+}
+
+int parse_reg_value(char* reg_val_str, uint* reg_value) 
+{
+	return parse_addr(reg_val_str, reg_value);
 }
 
 

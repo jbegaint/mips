@@ -78,14 +78,13 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 	}
 
-
 	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1)) {
 		print_error("invalid address");
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-
 	if (addr0 > addr1)
+		/* or swap maybe ? */
 		return CMD_EXIT_FAILURE;
 
 	return display_range_addr(arch, addr0, addr1 - addr0);

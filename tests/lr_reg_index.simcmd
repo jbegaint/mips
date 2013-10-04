@@ -1,1 +1,3 @@
 testcmd 0xa
+lr 10 0xff
+dr 10

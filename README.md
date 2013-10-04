@@ -9,8 +9,6 @@ Begaint J., Revolle M.
 
 
 Todo:
-* parsing addr generic
-
 * trace for each function
 
-* 
+* no force exit on interactive mode

@@ -1,10 +1,16 @@
 #pragma once
 
 /* 
-	returns addr in unsigned int
+	returns address value in addr, and boolean status
 */
 
 int parse_addr(char*, uint* addr);
+
+/* 
+	same fct, as a reg containes 32 bits..
+*/
+
+int parse_reg_value(char*, uint* addr);
 
 /*
 	returns register index between 0 - 31 from string.

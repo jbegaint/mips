@@ -1,1 +1,2 @@
 CMD TEST RESULT 0xb
+$t2 : 0x000000ff
