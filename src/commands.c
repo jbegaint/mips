@@ -185,9 +185,9 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 	}
 
-	if (sscanf(args[0], "%x", &addr) != 1) {
-		print_error("Invalid address");
-		return CMD_EXIT_FAILURE;
+	if (!parse_addr(args[0], &addr)) {
+		print_error("invalid address");
+		return CMD_EXIT_INVALID_ADDR;
 	}
 
 	if (sscanf(args[1], "%d", &instr) != 1) {
