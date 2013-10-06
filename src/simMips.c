@@ -78,16 +78,16 @@ int parse_line(ARCH arch, FILE* f)
 
 			/* empty line */
 			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0)
-				return 2;
+				return PARSING_FILE_NON_CMD_LINE;
 
 			/* comment line */
 			if (*cmd == '#')
-				return 2;
+				return PARSING_FILE_NON_CMD_LINE;
 
 			/* +1 for space character */
 			return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 		}
-		return 3;
+		return PARSING_FILE_EXIT_EOF;
 	}
 }
 
@@ -116,12 +116,12 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			*res = 0;
 			break;
 
-		case 2:
+		case PARSING_FILE_NON_CMD_LINE:
 			print_info("empty or commented line");
 			break;
 
-		case 3:
-			*res = 2;
+		case PARSING_FILE_EXIT_EOF:
+			*res = PARSING_FILE_EXIT_EOF;
 			print_info("end of file");
 			break;
 

@@ -32,5 +32,3 @@ Todo:
 * trace for each function
 
 * hash for interpreter
-
-* lr check reg value
