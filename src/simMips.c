@@ -78,16 +78,16 @@ int parse_line(ARCH arch, FILE* f)
 
 			/* empty line */
 			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0)
-				return 1;
+				return 2;
 
 			/* comment line */
 			if (*cmd == '#')
-				return 1;
+				return 2;
 
 			/* +1 for space character */
 			return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 		}
-		return 2;
+		return 3;
 	}
 }
 
@@ -98,19 +98,31 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			break;
 
 		case CMD_EXIT_MISSING_ARG:
+			*res = -1;
 			print_error("missing argument(s)");
 			break;
 
 		case CMD_EXIT_INVALID_ADDR:
+			*res = -1;
 			print_error("invalid address");				
 			break;
 
 		case CMD_EXIT_INVALID_REG:
+			*res = -1;
 			print_error("invalid register");
 			break;
 
 		case CMD_EXIT_FAILURE:
 			*res = 0;
+			break;
+
+		case 2:
+			print_info("empty or commented line");
+			break;
+
+		case 3:
+			*res = 2;
+			print_info("end of file");
 			break;
 
 		default:
@@ -122,38 +134,31 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 
 void parse_file(ARCH arch, char* filename)
 {
-	int res;
+	int res = 1;
 	FILE* f = NULL;
+
 	f = open_file(filename);
 
-	if (f == NULL) {
+	if (f == NULL)
 		die(arch);
-	}
 
-	while (1) {
-		res = parse_line(arch, f);
-
-		if (res <= 0) {
-			/* command return error code */
-			close_file(f);
-			die(arch);
-		} 
-
-		else if (res == 2) {
-			/* end parsing */
-			break;
-		}
-
+	while (res == CMD_EXIT_SUCCESS) {
+	    switch_return_code(arch, f, &res);
 	}
 
 	close_file(f);
+	 
+	if (res <= 0) {
+		/* error code */
+	   	die(arch);
+	}
 }
 
 void parse_interpreter(ARCH arch)
 {
 	int res = 1;
 
-	while (res) {
+	while (res != CMD_EXIT_FAILURE) {
 		switch_return_code(arch, stdin, &res);
 	}
 }
