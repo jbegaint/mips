@@ -1,9 +1,22 @@
-MIPS
-====
+Simulateur MIPS
+===============
 
-third semester C school project
 
-Authors:
+Compilation:
+------------
+
+* make
+
+
+Exécution:
+----------
+
+* ./simMips pour utiliser le programme en mode intéractif
+
+* ./simMips <filename> pour lancer un script (*.simcmd)
+
+
+Auteurs:
 --------
 
 * Begaint J.
