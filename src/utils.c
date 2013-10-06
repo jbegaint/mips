@@ -82,3 +82,15 @@ void print_section_info(SECTION section)
 		printf("Section size: %d\n", section.size);
 	}
 }
+
+int get_hash(char* cmd)
+{
+	uint i;
+	int res = 0;
+	
+	for (i=0; i < strlen(cmd) && i < 2 ; i++) {
+		res = res*100;
+		res = res + (*(cmd+i) - 'a' + 1);
+	}
+	return res;
+}

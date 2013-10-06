@@ -12,3 +12,5 @@ void print_str(char*, char*, int);
 void print_error(char*);
 void print_info(char*);
 void print_section_info(SECTION);
+
+int get_hash(char*);

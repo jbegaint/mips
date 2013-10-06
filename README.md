@@ -29,6 +29,4 @@ Auteurs:
 Todo:
 -----
 
-* trace for each function
-
 * hash for interpreter

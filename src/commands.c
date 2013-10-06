@@ -58,7 +58,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	/* tmp_val is uint as C90 does not support hhu */
+	/* tmp_val is uint as C90 does not support hhu (uchar) */
 	if (sscanf(args[1], "%u", &tmp_val) != 1) {
 		print_error("Invalid memory value");
 		return CMD_EXIT_FAILURE;
