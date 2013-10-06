@@ -30,6 +30,11 @@ FILE* open_file(char* filename)
 	return f;
 }
 
+void close_file(FILE* f)
+{
+	fclose(f);
+	print_info("file closed");
+}
 
 int quit(ARCH arch) 
 {

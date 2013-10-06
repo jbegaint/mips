@@ -6,7 +6,7 @@
 #define CMD_EXIT_FAILURE 0
 #define CMD_EXIT_MISSING_ARG -1
 #define CMD_EXIT_INVALID_ADDR -2
-
+#define CMD_EXIT_INVALID_REG -3
 
 int execute_cmd_testcmd(char*);
 int execute_cmd_ex(ARCH);

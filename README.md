@@ -7,6 +7,8 @@ Compilation:
 
 * make
 
+* make check pour lancer les tests
+
 
 Exécution:
 ----------
@@ -29,6 +31,6 @@ Todo:
 
 * trace for each function
 
-* no force exit on interactive mode
-
 * hash for interpreter
+
+* lr check reg value

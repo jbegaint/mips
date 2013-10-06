@@ -34,10 +34,8 @@ int execute_cmd_testcmd(char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 
 	/* address not in hexa, or negative  */
-	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0) {
-		print_error("Invalid address");
-		return 0;
-	}
+	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0)
+		return CMD_EXIT_FAILURE;
 
 	addr++;
 
@@ -55,10 +53,8 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
 
-	if (!parse_addr(args[0], &addr)) {
-		print_error("invalid address");
+	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
-	}
 
 	/* tmp_val is uint as C90 does not support hhu */
 	if (sscanf(args[1], "%u", &tmp_val) != 1) {
@@ -97,14 +93,12 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	reg = parse_register(args[0]);
 
-	if (reg == -1 ) {
-		print_error("Register does not exist");
-		return CMD_EXIT_FAILURE;
-	}
+	if (reg == -1 )
+		return CMD_EXIT_INVALID_REG;
 
 	if (!parse_reg_value(args[1], &val)) {
 		print_error("invalid register value");
-		return CMD_EXIT_INVALID_ADDR;
+		return CMD_EXIT_FAILURE;
 	}
 
 	(arch->regs)[reg] = (uint) val;
@@ -127,10 +121,8 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 	while (ptr_arg != NULL) {
 	    reg_index = parse_register(ptr_arg);
 
-	    if (reg_index == -1) {
-			print_error("Register does not exist");
-	    	return CMD_EXIT_FAILURE;
-	    }
+	    if (reg_index == -1)
+	    	return CMD_EXIT_INVALID_REG;
 
 	    display_reg(arch, reg_index);
 	    ptr_arg = strtok(NULL, " ");
@@ -174,10 +166,8 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
-	if (!parse_addr(args[0], &addr)) {
-		print_error("invalid address");
+	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
-	}
 
 	if (sscanf(args[1], "%d", &instr) != 1) {
 		print_error("Invalid instructions number");

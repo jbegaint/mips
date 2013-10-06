@@ -14,7 +14,7 @@ int parse_addr(char* addr_str, uint* addr)
 {
 	uint i;
 
-	/* prevent bug with new line */
+	/* prevent new line bug */
 	if (sscanf(addr_str, "%s", addr_str) != 1)
 		return 0;
 
@@ -24,6 +24,10 @@ int parse_addr(char* addr_str, uint* addr)
 			addr_str += 2;
 		}
 	}
+
+	if (strlen(addr_str) > 8)
+		/* invalid address value: 32bits, 4 bytes, 8 hex chars */	
+		return 0;
 
 	for (i=0; i < strlen(addr_str); i++) {
 		if (!isxdigit(*(addr_str+i)))
@@ -48,25 +52,29 @@ int parse_register(char* reg_str)
 	int i;
 	int reg_index = -1;
 
+	/* prevent new line bug */
+	if (sscanf(reg_str, "%s", reg_str) != 1)
+		return 0;
+
 	if (*reg_str == '$') {
-		/* 1 char shift for the '$' character */
+		/* + 1 char shift for the '$' character */
 		reg_str++;
 	}
 
 	if (strlen(reg_str) == 1 && isdigit(*reg_str)) {
 		return atoi(reg_str);
 	}
-	else if (strlen(reg_str) == 2 && isdigit(reg_str[0]) && isdigit(reg_str[1])) {
+	else if (strlen(reg_str) == 2 && isdigit(*reg_str) && isdigit(*(reg_str+1))) {
 		reg_index = atoi(reg_str);
 
-		if ( reg_index < 32 && reg_index >= 0)
+		if (reg_index < 32 && reg_index >= 0)
 			return atoi(reg_str);
 		else
 			return -1;
 	}
 	else {
 		for (i=0; i < 32; i++) {
-			if (strcmp(REG_NAMES[i], reg_str) == 0) {
+			if (strcmp(*(REG_NAMES+i), reg_str) == 0) {
 				return i;
 			}
 		}

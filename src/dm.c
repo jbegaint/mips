@@ -16,7 +16,7 @@ int display_addr(ARCH arch, uint addr, int nl_flag)
 
 	if (section_index == -1) {
 		/* not allocated memory */
-		printf("00");
+		printf("00\n");
 		return CMD_EXIT_SUCCESS;
 	}
 		
