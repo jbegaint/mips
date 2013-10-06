@@ -7,7 +7,6 @@
 
 extern char* REG_NAMES[32];
 
-
 void display_reg_all(ARCH arch) {
 	int i;
 	

@@ -38,7 +38,7 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 		return execute_cmd_da(arch, args);
 	}
 	else {
-		print_error("I'm sorry Dave, I'm afraid I can't do that");
+		print_error("unknown command");
 		return 0;
 	}
 }
