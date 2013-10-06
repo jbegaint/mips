@@ -30,9 +30,8 @@ int execute_cmd_testcmd(char* str_arg)
 
 	print_info("Execute testcmd <address>");
 	
-	if (parse_args(str_arg, args, 1) != 1) {
+	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
 	/* address not in hexa, or negative  */
 	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0) {
@@ -53,9 +52,8 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	int section_index, offset;
 	char* args[2];
 
-	if (parse_args(str_arg, args, 2) != 1) {
+	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
-	}
 
 	if (!parse_addr(args[0], &addr)) {
 		print_error("invalid address");
@@ -94,9 +92,8 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	uint val;
 	char* args[2];
 
-	if (parse_args(str_arg, args, 2) != 1) {
+	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
 	reg = parse_register(args[0]);
 
@@ -148,9 +145,8 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	FILE* f;
 	char* args[1];
 
-	if (parse_args(str_arg, args, 1) != 1) {
+	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
 	f = open_file(str_arg);
 
@@ -175,9 +171,8 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 	print_info("Execute da");
 
-	if (parse_args(str_arg, args, 2) != 1) {
+	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
 	if (!parse_addr(args[0], &addr)) {
 		print_error("invalid address");

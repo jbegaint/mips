@@ -52,6 +52,7 @@ int parse_line(ARCH arch, FILE* f)
 	memset(cmd, '\0', 256);
 
 	if (f == stdin) {
+		/* interactive mode */
 		char *line = readline("-> ");
 
 		if (strlen(line) == 0) {
@@ -71,19 +72,17 @@ int parse_line(ARCH arch, FILE* f)
        	return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
 	}
 	else {
-
+		/* script mode */
 		if (fgets(buffer, sizeof(buffer), f) != 0) {
 
 
 			/* empty line */
-			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0) {
+			if (sscanf(buffer, "%s", cmd) == 0 || strlen(cmd) == 0)
 				return 1;
-			}
 
 			/* comment line */
-			if (*cmd == '#') {
+			if (*cmd == '#')
 				return 1;
-			}
 
 			/* +1 for space character */
 			return execute_cmd(arch, cmd, buffer + strlen(cmd) + 1);
@@ -95,7 +94,7 @@ int parse_line(ARCH arch, FILE* f)
 void parse_file(ARCH arch, char* filename)
 {
 	int res;
-	FILE* f;
+	FILE* f = NULL;
 	f = open_file(filename);
 
 	if (f == NULL) {

@@ -19,7 +19,7 @@ Exécution:
 Auteurs:
 --------
 
-* Begaint J.
+* Bégaint J.
 
 * Revolle M.
 
@@ -30,3 +30,5 @@ Todo:
 * trace for each function
 
 * no force exit on interactive mode
+
+* hash for interpreter
