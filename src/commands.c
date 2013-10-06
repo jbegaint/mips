@@ -50,6 +50,8 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	int section_index, offset;
 	char* args[2];
 
+	print_info("Execute lm <address> <addr_value>");
+
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
 
@@ -88,6 +90,9 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	uint val;
 	char* args[2];
 
+	print_info("Execute lr <register> <reg_value>");
+
+
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
@@ -110,6 +115,8 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 
 	char* ptr_arg;
 	int reg_index;
+
+	print_info("Execute dr <register>");
 
 	ptr_arg = strtok(str_arg, " ");
 
@@ -137,6 +144,8 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	FILE* f;
 	char* args[1];
 
+	print_info("Execute lp <elf_file>");
+
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
@@ -161,7 +170,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 	char* args[2];
 
-	print_info("Execute da");
+	print_info("Execute da <addr> <instr>");
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
