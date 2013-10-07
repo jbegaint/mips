@@ -1,6 +1,7 @@
 Simulateur MIPS
 ===============
 
+step 0
 
 Compilation:
 ------------
@@ -25,8 +26,3 @@ Auteurs:
 
 * Revolle M.
 
-
-Todo:
------
-
-* hash for interpreter

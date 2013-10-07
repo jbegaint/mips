@@ -38,8 +38,7 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 		return execute_cmd_da(arch, args);
 	}
 	else {
-		print_error("unknown command");
-		return 0;
+		return CMD_NOT_FOUND;
 	}
 }
 
@@ -107,9 +106,24 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			print_error("invalid address");				
 			break;
 
+		case CMD_EXIT_INVALID_ADDR_VALUE:
+			*res = -1;
+			print_error("invalid address value");				
+			break;
+
 		case CMD_EXIT_INVALID_REG:
 			*res = -1;
 			print_error("invalid register");
+			break;
+
+		case CMD_EXIT_INVALID_REG_VALUE:
+			*res = -1;
+			print_error("invalid register value");
+			break;
+
+		case CMD_NOT_FOUND:
+			*res = -1;
+			print_error("command not found");
 			break;
 
 		case CMD_EXIT_FAILURE:

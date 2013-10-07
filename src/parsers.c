@@ -26,7 +26,7 @@ int parse_addr(char* addr_str, uint* addr)
 	}
 
 	if (strlen(addr_str) > 8)
-		/* invalid address value: 32bits, 4 bytes, 8 hex chars */	
+		/* invalid address: 32bits, 4 bytes, 8 hex chars */	
 		return 0;
 
 	for (i=0; i < strlen(addr_str); i++) {
@@ -46,6 +46,36 @@ int parse_reg_value(char* reg_val_str, uint* reg_value)
 	return parse_addr(reg_val_str, reg_value);
 }
 
+int parse_addr_value(char* addr_value_str, uchar* addr_value)
+{
+	uint i;
+
+	/* prevent new line bug */
+	if (sscanf(addr_value_str, "%s", addr_value_str) != 1)
+		return 0;
+
+	/* if str begins with 0x, shift it */
+	if (strlen(addr_value_str) > 1) {
+		if (*(addr_value_str) == '0' && *(addr_value_str+1) == 'x') {
+			addr_value_str += 2;
+		}
+	}
+
+	if (strlen(addr_value_str) > 2)
+		/* invalid address value: 8bits, 1bytes, 2 hex chars */	
+		return 0;
+
+	for (i=0; i < strlen(addr_value_str); i++) {
+		if (!isxdigit(*(addr_value_str+i)))
+			return 0;
+	}
+
+	if (sscanf(addr_value_str, "%x", addr_value) != 1) {
+		return 0;
+	}	
+
+	return 1;
+}
 
 int parse_register(char* reg_str) 
 {

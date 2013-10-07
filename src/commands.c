@@ -45,7 +45,7 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	uint addr, tmp_val;
+	uint addr = 600;
 	uchar val;
 	int section_index, offset;
 	char* args[2];
@@ -54,28 +54,18 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
+	
+	if (!parse_addr_value(args[1], &val))
+		return CMD_EXIT_INVALID_ADDR_VALUE;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	/* tmp_val is uint as C90 does not support hhu (uchar) */
-	if (sscanf(args[1], "%u", &tmp_val) != 1) {
-		print_error("Invalid memory value");
-		return CMD_EXIT_FAILURE;
-	}
-
-	if (tmp_val > 0xFF) {
-		print_error("incorrect value");
-		return CMD_EXIT_FAILURE;
-	}
-
-	val = (uchar) tmp_val;
 
 	section_index = get_section(arch, addr);
 
-	if (section_index == -1) {
+	if (section_index == -1)
 		return CMD_EXIT_FAILURE;
-	}
 
 	offset = get_offset(arch, addr, section_index);
 
@@ -102,8 +92,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		return CMD_EXIT_INVALID_REG;
 
 	if (!parse_reg_value(args[1], &val)) {
-		print_error("invalid register value");
-		return CMD_EXIT_FAILURE;
+		return CMD_EXIT_INVALID_REG_VALUE;
 	}
 
 	(arch->regs)[reg] = (uint) val;
