@@ -1,5 +1,11 @@
 #pragma once
 
+
+/*
+	returns 1 if no error, value in ptr
+*/
+int parse_hex_value(char*, uint*, uint);
+
 /* 
 	returns address value in addr, and boolean status
 */
@@ -11,7 +17,6 @@ int parse_addr(char*, uint*);
 */
 
 int parse_reg_value(char*, uint*);
-
 
 /*
 	return addr value
