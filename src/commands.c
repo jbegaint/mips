@@ -10,13 +10,6 @@
 #include "dm.h"
 #include "address.h"
 
-/*
-	strtok
-	char *strtok(char *str, const char *delim);
-	return ptr to next token or NULL 
-
-*/
-
 
 int execute_cmd_ex(ARCH arch)
 {

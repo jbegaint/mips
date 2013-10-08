@@ -1,7 +1,6 @@
 Simulateur MIPS
 ===============
 
-step 0
 
 Compilation:
 ------------
