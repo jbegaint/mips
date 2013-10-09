@@ -8,17 +8,31 @@ LDFLAGS=-lreadline -lcurses
 
 SRC=$(wildcard $(SRCDIR)/*.c)
 OBJ=$(SRC:.c=.o)
+BUILDDIR=bin
 
-all: sim
 
-sim: $(OBJ)
+SOURCES := $(shell find $(SRCDIR) -name '*.c')
+
+# list of object files, with paths
+OBJECTS := $(addprefix $(BUILDDIR)/, $(SOURCES:%.c=%.o))
+
+sim: $(OBJECTS)
 	gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
 
-%.o:%.c
-	gcc -c $(CFLAGS) $< -o $(basename $<).o
+$(BUILDDIR)/%.o: %.c
+	gcc $(CFLAGS) $(LDFLAGS) -I$(HEADERDIR) -I$(dir $<) -c $< -o $@
 
-clean:
-	rm $(SRCDIR)/*.o
+# all: sim
+
+# sim: $(OBJ)
+# 	gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
+
+# %.o: %.c
+# 	gcc -c $(CFLAGS) $< -o $(basename $<).o
+
+# clean:
+	# rm $(SRCDIR)/*.o
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
+

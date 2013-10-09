@@ -4,6 +4,7 @@
 
 #define CMD_EXIT_SUCCESS 1
 #define CMD_EXIT_FAILURE 0
+
 #define CMD_EXIT_MISSING_ARG -1
 
 #define CMD_EXIT_INVALID_ADDR -2

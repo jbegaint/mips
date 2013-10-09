@@ -1,2 +1,2 @@
 CMD TEST RESULT 0xb
-00
+0x0000eeee 00
