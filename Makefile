@@ -1,31 +1,28 @@
 TARGET=simMips
 
-INCDIR=include
-SRCDIR=src
-BUILDDIR=bin
+INC_DIR=include
+SRC_DIR=src
+BUILD_DIR=bin
 
-CFLAGS=-I$(INCDIR) -Wall -Wextra -Wshadow -g -ansi -pedantic -O2
+CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -ansi -pedantic -O2
 LDFLAGS=-lreadline -lcurses
 
 
-SOURCES := $(shell find $(SRCDIR) -name '*.c')
-OBJS := $(shell find $(BUILDDIR) -name '*.o')
+SOURCES := $(shell find $(SRC_DIR) -name '*.c')
 
 # list of object files, with paths
-OBJECTS := $(addprefix $(BUILDDIR)/, $(SOURCES:%.c=%.o))
+OBJECTS := $(SOURCES:%.c=%.o)
 
-all: simMips
-	
+all: simMips 
+
 simMips: $(OBJECTS)
-	@echo make simMips
 	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
 
-$(BUILDDIR)/%.o: %.c
-	@gcc $(CFLAGS) $(LDFLAGS) -I$(HEADERDIR) -I$(dir $<) -c $< -o $@
+%.o: %.c
+	@gcc $< $(CFLAGS) $(LDFLAGS) -I$(dir $<) -c -o $@
 
 clean:
-	@echo clean *.o
-	@rm $(OBJS)
+	rm -f $(OBJECTS)
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
