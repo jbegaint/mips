@@ -6,7 +6,7 @@
 
 #include "arch.h"
 #include "utils.h"
-#include "address.h"
+#include "lm.h"
 
 extern char* REG_NAMES[32];
 
