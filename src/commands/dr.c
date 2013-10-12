@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "dr.h"
 #include "arch.h"
-#include "utils.h"
+#include "dr.h"
 #include "parsers.h"
+#include "utils.h"
 
 extern char* REG_NAMES[32];
 

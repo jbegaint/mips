@@ -7,8 +7,8 @@
 
 #include "arch.h"
 #include "commands.h"
-#include "utils.h"
 #include "globals.h"
+#include "utils.h"
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {

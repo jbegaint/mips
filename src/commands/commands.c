@@ -3,12 +3,12 @@
 #include <string.h>
 
 #include "arch.h"
-#include "utils.h"
 #include "commands.h"
-#include "parsers.h"
-#include "dr.h"
 #include "dm.h"
+#include "dr.h"
 #include "lm.h"
+#include "parsers.h"
+#include "utils.h"
 
 
 int execute_cmd_ex(ARCH arch)

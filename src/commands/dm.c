@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "dm.h"
 #include "arch.h"
-#include "lm.h"
 #include "commands.h"
-#include "utils.h"
+#include "dm.h"
+#include "lm.h"
 #include "parsers.h"
+#include "utils.h"
 
-int display_addr(ARCH arch, uint addr, int nl_flag) 
+int display_addr(ARCH arch, uint addr, char nl_flag) 
 {
 	uint val;
 	int section_index, offset;
