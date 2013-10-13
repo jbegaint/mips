@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "arch.h"
+#include "notify.h"
 #include "utils.h"
 
 void usage(char* arg)
@@ -11,21 +12,26 @@ void usage(char* arg)
 	printf("Usage: %s [file]\n", arg);
 }
 
-FILE* open_file(char* filename)
+/**
+	Open file from path
+	@param filepath
+	@return FILE* or NULL if file does not exist
+*/
+
+FILE* open_file(char* filepath)
 {
 	char buffer[256];
 	FILE* f = NULL;
 
-	f = fopen(filename, "r");
+	f = fopen(filepath, "r");
 
 	if (f == NULL) {
-		sprintf(buffer, "Error opening \"%s\"", filename);
+		sprintf(buffer, "Error opening \"%s\"", filepath);
 		print_error(buffer);
 		return NULL;
 	}
 
-	sprintf(buffer, "Opening \"%s\"", filename);
-	print_info(buffer);
+	DEBUG_MSG("Opening %s", filepath);
 
 	return f;
 }
@@ -33,7 +39,7 @@ FILE* open_file(char* filename)
 void close_file(FILE* f)
 {
 	fclose(f);
-	print_info("file closed");
+	DEBUG_MSG("file closed");
 }
 
 int quit(ARCH arch) 
