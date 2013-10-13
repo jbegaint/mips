@@ -3,7 +3,9 @@ TARGET=simMips
 INC_DIR=include
 SRC_DIR=src
 
-CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -std=c99 -pedantic -O2 -DDEBUG
+CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -std=c99 -pedantic -O2
+CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
+
 LDFLAGS=-lreadline -lcurses
 
 
@@ -22,6 +24,9 @@ simMips: $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS)
+
+doc:
+	doxygen
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
