@@ -4,12 +4,12 @@
 
 #include "arch.h"
 #include "commands.h"
-#include "dm.h"
-#include "dr.h"
-#include "lm.h"
+#include "commands/dm.h"
+#include "commands/dr.h"
+#include "commands/lm.h"
+#include "notify.h"
 #include "parsers.h"
 #include "utils.h"
-
 
 int execute_cmd_ex(ARCH arch)
 {
@@ -21,7 +21,7 @@ int execute_cmd_testcmd(char* str_arg)
 	int addr;
 	char* args[1];
 
-	print_info("Execute testcmd <address>");
+	DEBUG_MSG("Execute testcmd <address>");
 	
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
@@ -29,6 +29,8 @@ int execute_cmd_testcmd(char* str_arg)
 	/* address not in hexa, or negative  */
 	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0)
 		return CMD_EXIT_FAILURE;
+
+	DEBUG_MSG("<address> = 0x%x", addr);	
 
 	addr++;
 
@@ -43,7 +45,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	int section_index, offset;
 	char* args[2];
 
-	print_info("Execute lm <address> <addr_value>");
+	DEBUG_MSG("Execute lm <address> <addr_value>");
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
@@ -73,8 +75,7 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	uint val;
 	char* args[2];
 
-	print_info("Execute lr <register> <reg_value>");
-
+	DEBUG_MSG("Execute lr <register> <reg_value>");
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
@@ -98,7 +99,7 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 	char* ptr_arg;
 	int reg_index;
 
-	print_info("Execute dr <register>");
+	DEBUG_MSG("Execute dr <register>");
 
 	ptr_arg = strtok(str_arg, " ");
 
@@ -126,7 +127,7 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	FILE* f;
 	char* args[1];
 
-	print_info("Execute lp <elf_file>");
+	DEBUG_MSG("Execute lp <elf_file>");
 
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
@@ -139,8 +140,8 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 
 	fclose(f);
 
-	print_info("not implemented yet");
-	print_info("file closed");
+	WARNING_MSG("not implemented yet");
+	DEBUG_MSG("file closed");
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -152,7 +153,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 	char* args[2];
 
-	print_info("Execute da <addr> <instr>");
+	DEBUG_MSG("Execute da <addr> <instr>");
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
@@ -169,7 +170,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		printf("%08x\n", addr + 4*i);
 	}
 
-	print_info("not implemented yet");
+	WARNING_MSG("not implemented yet");
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -179,8 +180,6 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 	char* found_colon;
 	char* found_tild;
 
-	print_info("Execute dm");
-
 	found_colon = strchr(str_arg, ':');
 	found_tild = strchr(str_arg, '~');
 
@@ -188,16 +187,16 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 		/* xor */	
 
 		if (found_colon) {
-			print_info("Execute dm <address>:<bytes_nb>");
+			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
 			return display_bytes_from_addr(arch, str_arg);
 
 		} else {
-			print_info("Execute dm <address>~<address>");
+			DEBUG_MSG("Execute dm <address>~<address>");
 			return display_addr_to_addr(arch, str_arg);
 		}
 	}
 	else if (!found_tild && !found_colon) {
-		print_info("execute dm <address>");
+		DEBUG_MSG("execute dm <address>");
 		return display_one_addr(arch, str_arg);		
 		
 	}

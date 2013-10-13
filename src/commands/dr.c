@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "arch.h"
-#include "dr.h"
+#include "commands/dr.h"
 #include "parsers.h"
 #include "utils.h"
 

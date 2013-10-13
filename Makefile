@@ -3,7 +3,7 @@ TARGET=simMips
 INC_DIR=include
 SRC_DIR=src
 
-CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -ansi -pedantic -O2
+CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -std=c99 -pedantic -O2 -DDEBUG
 LDFLAGS=-lreadline -lcurses
 
 

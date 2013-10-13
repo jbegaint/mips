@@ -1,5 +1,5 @@
 #include "arch.h"
-#include "lm.h"
+#include "commands/lm.h"
 
 int get_section(ARCH arch, uint addr)
 {

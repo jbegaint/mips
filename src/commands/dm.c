@@ -3,8 +3,8 @@
 
 #include "arch.h"
 #include "commands.h"
-#include "dm.h"
-#include "lm.h"
+#include "commands/dm.h"
+#include "commands/lm.h"
 #include "parsers.h"
 #include "utils.h"
 
