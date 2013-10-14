@@ -132,7 +132,7 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			break;
 
 		case CMD_QUIT:
-			*res = 0;
+			*res = CMD_QUIT;
 			break;
 
 		case PARSING_FILE_NON_CMD_LINE:
@@ -161,8 +161,11 @@ void parse_file(ARCH arch, char* filename)
 	if (f == NULL)
 		die(arch);
 
-	while (res == CMD_EXIT_SUCCESS) {
+	while (res == CMD_EXIT_SUCCESS || res == CMD_QUIT) {
 	    switch_return_code(arch, f, &res);
+	    if (res == CMD_QUIT) {
+	    	break;
+	    }
 	}
 
 	close_file(f);

@@ -13,6 +13,7 @@
 
 int execute_cmd_ex(ARCH arch)
 {
+	DEBUG_MSG("Bye Dave");
 	return CMD_QUIT;
 }
 
