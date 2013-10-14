@@ -5,7 +5,7 @@ Simulateur MIPS
 Compilation:
 ------------
 
-* make
+* make release or make debug
 
 * make check pour lancer les tests
 
