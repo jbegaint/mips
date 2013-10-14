@@ -8,6 +8,7 @@
 #include "arch.h"
 #include "commands.h"
 #include "globals.h"
+#include "notify.h"
 #include "utils.h"
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
@@ -123,20 +124,24 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 
 		case CMD_NOT_FOUND:
 			*res = -1;
-			print_error("command not found");
+			print_error("I'm sorry Dave, I'm afraid I can't do that.");
 			break;
 
 		case CMD_EXIT_FAILURE:
 			*res = 0;
 			break;
 
+		case CMD_QUIT:
+			*res = 0;
+			break;
+
 		case PARSING_FILE_NON_CMD_LINE:
-			print_info("empty or commented line");
+			DEBUG_MSG("empty or commented line");
 			break;
 
 		case PARSING_FILE_EXIT_EOF:
 			*res = PARSING_FILE_EXIT_EOF;
-			print_info("end of file");
+			DEBUG_MSG("end of file");
 			break;
 
 		default:
@@ -172,7 +177,7 @@ void parse_interpreter(ARCH arch)
 {
 	int res = 1;
 
-	while (res != CMD_EXIT_FAILURE) {
+	while (res != CMD_EXIT_FAILURE && res != CMD_QUIT) {
 		switch_return_code(arch, stdin, &res);
 	}
 }
@@ -181,6 +186,8 @@ int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
 	arch = init_simu(arch);
+
+	print_info("System init");
 
 	if (arch == NULL) {
 		print_error("allocation error");
@@ -204,7 +211,7 @@ int main(int argc, char* argv[])
 			break;
 	}
 
-	print_info("Exiting...");
+	print_info("Exit");
 	free_arch(arch);
 	exit(EXIT_SUCCESS);
 }

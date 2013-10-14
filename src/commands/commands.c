@@ -13,7 +13,7 @@
 
 int execute_cmd_ex(ARCH arch)
 {
-	return quit(arch);
+	return CMD_QUIT;
 }
 
 int execute_cmd_testcmd(char* str_arg)
