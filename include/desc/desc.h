@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DESC_H_
+#define _DESC_H_
 
 enum INSTRUCTION_TYPE {I, J, R};
 
@@ -8,3 +9,5 @@ typedef struct {
 	char optcode;
 	char function;
 } DESC;
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _COMMANDS_H_
+#define _COMMANDS_H_ 
 
 #include "arch/arch.h"
 
@@ -24,3 +25,5 @@ int execute_cmd_lr(ARCH, char*);
 int execute_cmd_dr(ARCH, char *);
 int execute_cmd_dm(ARCH, char*);
 int execute_cmd_da(ARCH, char*);
+
+#endif

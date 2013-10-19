@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ARCH_H_
+#define _ARCH_H_
 
 #define TEXT 0
 #define BSS 1
@@ -27,3 +28,5 @@ typedef struct
 
 ARCH init_simu(void);
 void free_arch(ARCH);
+
+#endif

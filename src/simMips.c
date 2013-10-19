@@ -189,7 +189,7 @@ void parse_interpreter(ARCH arch)
 int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
-	arch = init_simu(arch);
+	arch = init_simu();
 
 	print_info("Init");
 

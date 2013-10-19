@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _UTILS_H_
+#define _UTILS_H_
 
 #include <stdio.h>
 #include "arch/arch.h"
@@ -14,3 +15,5 @@ void print_info(char*);
 void print_section_info(SECTION);
 
 int get_hash(char*);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _PARSERS_H_
+#define _PARSERS_H_
 
 /*
 	returns 1 if no error, value in ptr
@@ -34,3 +35,5 @@ int parse_register(char*);
 	returns args from str in string array
 */
 int parse_args(char*, char**, int);
+
+#endif
