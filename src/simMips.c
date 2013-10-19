@@ -6,6 +6,7 @@
 #include <readline/history.h>
 
 #include "arch/arch.h"
+#include "desc/desc.h"
 
 #include "commands.h"
 #include "globals.h"
@@ -14,7 +15,6 @@
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
-
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex(arch);
 	} 
@@ -190,6 +190,8 @@ int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
 	arch = init_simu();
+
+	init_desc();
 
 	print_info("Init");
 
