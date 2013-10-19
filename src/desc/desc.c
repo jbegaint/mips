@@ -17,7 +17,7 @@ void init_desc()
     if (d) {
         while ((dir = readdir(d))) {
             if (is_desc_file(dir->d_name))
-                printf("%s\n", dir->d_name);
+                parse_desc_file(dir->d_name);
         }
        closedir(d);
     }
