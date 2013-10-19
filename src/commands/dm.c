@@ -46,7 +46,7 @@ int display_one_addr(ARCH arch, char* str_arg)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	printf("0x%08x ", addr);
+	printf("%08x ", addr);
 
 	return display_addr(arch, addr, 1);
 }

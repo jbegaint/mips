@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 	ARCH arch = NULL;
 	arch = init_simu(arch);
 
-	print_info("System init");
+	print_info("Init");
 
 	if (arch == NULL) {
 		print_error("allocation error");
