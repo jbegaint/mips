@@ -86,6 +86,11 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 
 	if (reg == -1 )
 		return CMD_EXIT_INVALID_REG;
+	else if (reg == 0) {
+		print_error("$zero can't be modified");
+		return CMD_EXIT_INVALID_REG;
+	}
+
 
 	if (!parse_reg_value(args[1], &val)) {
 		return CMD_EXIT_INVALID_REG_VALUE;
