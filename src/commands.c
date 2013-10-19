@@ -12,7 +12,7 @@
 #include "parsers.h"
 #include "utils.h"
 
-int execute_cmd_ex(ARCH arch)
+int execute_cmd_ex()
 {
 	DEBUG_MSG("Bye Dave");
 	return CMD_QUIT;

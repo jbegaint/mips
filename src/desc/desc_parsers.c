@@ -63,17 +63,11 @@ int parse_function(char* str, int* function)
 }
 
 
-int parse_desc_file(char* filename, DESC* desc)
+int parse_desc_file(FILE* f, DESC* desc)
 {
     int c = 0;
     char* value;
     char line[256], buffer[256];
-    FILE* f = NULL;
-
-    f = open_file(filename);
-
-    if (f == NULL)
-	    return PARSE_ERROR;
 
     while (fgets(line, sizeof(line), f) != 0 && c < 4) {
 
@@ -89,31 +83,28 @@ int parse_desc_file(char* filename, DESC* desc)
 
     	switch (c) {
 	    	case 0:
-	    		if (parse_name(value, desc->name))
-    				fprintf(stderr, "%s\n", desc->name);
+	    		if (!parse_name(value, desc->name))
+    				return PARSE_ERROR;
 	    		break;
 
 	    	case 1:
-    			if (parse_type(value, desc->type))
-    				fprintf(stderr, "%s\n", desc->type);
+    			if (!parse_type(value, desc->type))
+    				return PARSE_ERROR;
 	    		break;
 
 	    	case 2:
-		    	if (parse_optcode(value, &(desc->optcode)))
-	    				fprintf(stderr, "%06d\n", desc->optcode);
+		    	if (!parse_optcode(value, &(desc->optcode)))
+	    				return PARSE_ERROR;
 		    		break;
 
 		    case 3:
 		    	if (*(desc->type) == 'R') {
-		    		if (parse_function(value, &(desc->function)))
-	    				fprintf(stderr, "%06d\n", desc->function);
+		    		if (!parse_function(value, &(desc->function)))
+	    				return PARSE_ERROR;
 		    	}			
     	}
     	c++;
     }
-
-    close_file(f);
-
     return PARSE_SUCCESS;
 }
 

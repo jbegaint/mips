@@ -7,6 +7,6 @@
 #include "desc.h"
 
 int is_desc_file(char*);
-int parse_desc_file(char*, DESC*);
+int parse_desc_file(FILE*, DESC*);
 
 #endif

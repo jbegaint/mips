@@ -16,7 +16,7 @@ SOURCES := $(shell find $(SRC_DIR) -name '*.c')
 OBJECTS := $(SOURCES:%.c=%.o)
 OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 
-all: simMips-debug
+all: simMips
 
 simMips: $(OBJECTS)
 	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)

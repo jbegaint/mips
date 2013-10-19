@@ -16,7 +16,7 @@
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
 	if (strcmp(cmd, "ex") == 0) {
-		return execute_cmd_ex(arch);
+		return execute_cmd_ex();
 	} 
 	else if (strcmp(cmd, "testcmd") == 0) {
 		return execute_cmd_testcmd(args);
