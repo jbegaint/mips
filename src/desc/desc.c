@@ -39,8 +39,11 @@ void init_desc()
    				else {
 					if (parse_desc_file(f, &desc) == PARSE_SUCCESS)
 						DEBUG_MSG("%s parsing succeeds", filename);
-					else
-						WARNING_MSG("%s parsing fails", filename);
+					else {
+						char err[256];
+						sprintf(err, "%s parsing fails", filename);
+						print_error(err);
+					}
 				}
 
 				close_file(f);
