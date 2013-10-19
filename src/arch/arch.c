@@ -4,12 +4,12 @@
 
 #include "utils.h"
 
-ARCH init_simu(ARCH arch)
+ARCH init_simu(void)
 {
 	int i;
 	SECTION* section_ptr;
 
-	arch = malloc(sizeof(*arch));
+	ARCH arch = malloc(sizeof(*arch));
 	if (arch == NULL)
 		return NULL;
 

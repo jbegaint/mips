@@ -25,5 +25,5 @@ typedef struct
 } *ARCH;
 
 
+ARCH init_simu(void);
 void free_arch(ARCH);
-ARCH init_simu(ARCH);
