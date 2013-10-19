@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include <time.h>
 #include <string.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+
 #include "notify.h"
 #include "utils.h"
 

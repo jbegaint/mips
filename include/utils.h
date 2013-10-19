@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "arch.h"
+#include "arch/arch.h"
 
 int die(ARCH);
 int quit(ARCH);

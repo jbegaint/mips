@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+#include "arch/address.h"
+#include "arch/register.h"
+#include "arch/section.h"
+
 #include "commands.h"
-#include "commands/dm.h"
-#include "commands/dr.h"
-#include "commands/lm.h"
 #include "notify.h"
 #include "parsers.h"
 #include "utils.h"

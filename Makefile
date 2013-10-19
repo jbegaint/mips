@@ -28,7 +28,7 @@ simMips-debug: $(OBJECTS_DBG)
 	@gcc $< $(CFLAGS) $(LDFLAGS) -I$(dir $<) -c -o $@
 
 %.dbg.o : %.c
-	gcc $< $(CFLAGS) $(CFLAGS_DBG) -I$(dir $<) -c -o $@
+	@gcc $< $(CFLAGS) $(CFLAGS_DBG) -I$(dir $<) -c -o $@
 
 clean:
 	rm -f $(OBJECTS)

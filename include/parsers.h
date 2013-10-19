@@ -1,6 +1,5 @@
 #pragma once
 
-
 /*
 	returns 1 if no error, value in ptr
 */

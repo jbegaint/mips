@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+
 #include "utils.h"
 
 ARCH init_simu(ARCH arch)

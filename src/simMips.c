@@ -5,7 +5,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+
 #include "commands.h"
 #include "globals.h"
 #include "notify.h"

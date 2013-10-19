@@ -1,6 +1,6 @@
 #pragma once
 
-#include "arch.h"
+#include "arch/arch.h"
 
 #define CMD_EXIT_SUCCESS 1
 #define CMD_EXIT_FAILURE 0

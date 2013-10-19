@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+#include "arch/address.h"
+#include "arch/section.h"
+
 #include "commands.h"
-#include "commands/dm.h"
-#include "commands/lm.h"
 #include "parsers.h"
 #include "utils.h"
 

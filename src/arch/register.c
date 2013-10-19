@@ -1,7 +1,8 @@
 #include <stdio.h>
 
-#include "arch.h"
-#include "commands/dr.h"
+#include "arch/arch.h"
+#include "arch/register.h"
+
 #include "parsers.h"
 #include "utils.h"
 

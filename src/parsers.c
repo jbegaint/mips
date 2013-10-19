@@ -4,9 +4,10 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "arch.h"
+#include "arch/arch.h"
+#include "arch/section.h"
+
 #include "utils.h"
-#include "commands/lm.h"
 
 extern char* REG_NAMES[32];
 
