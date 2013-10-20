@@ -8,7 +8,7 @@ typedef struct {
 	int function;
 } DESC;
 
-void init_desc();
-void free_desc();
+void init_desc_array();
+void free_desc_array();
 
 #endif

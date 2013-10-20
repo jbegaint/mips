@@ -7,6 +7,7 @@
 
 #include "arch/arch.h"
 #include "desc/desc.h"
+#include "desc/desc_utils.h"
 
 #include "commands.h"
 #include "globals.h"
@@ -191,7 +192,8 @@ int main(int argc, char* argv[])
 	ARCH arch = NULL;
 	arch = init_simu();
 
-	init_desc();
+	init_desc_array();
+	display_desc_array();
 
 	print_info("Init");
 
@@ -219,6 +221,6 @@ int main(int argc, char* argv[])
 
 	print_info("Exit");
 	free_arch(arch);
-	free_desc();
+	free_desc_array();
 	exit(EXIT_SUCCESS);
 }

@@ -5,19 +5,21 @@
 
 #include "desc/desc.h"
 #include "desc/desc_parsers.h"
+#include "desc/desc_utils.h"
 
 #include "notify.h"
 #include "utils.h"
 
 extern DESC* DESC_ARRAY;
+extern int DESC_ARRAY_LENGTH;
 extern char* DESC_DIR;
 
-void free_desc(void)
+void free_desc_array(void)
 {
-	/*free(DESC_ARRAY);*/
+	free(DESC_ARRAY);
 }
 
-void init_desc(void)
+void init_desc_array(void)
 {
 	int c = 0;
 	int cc = 0;
@@ -36,15 +38,24 @@ void init_desc(void)
 	d = opendir("./");
 	if (d) {
 		while ( (dir = readdir(d)) ) {
-			if (is_desc_file(dir->d_name))
-				cc++;
+			if (is_desc_file(dir->d_name)) {
+				f = open_file(dir->d_name);
+				if (f) {   					
+					if (parse_desc_file(f, &desc) == PARSE_SUCCESS) {
+						cc++;
+					}
+					close_file(f);
+				}
+			}
 		}
 		closedir(d);
 	}	
+	DESC_ARRAY_LENGTH = cc;
 
 	/* allocated memory */
-	DESC_ARRAY = malloc(cc*sizeof(DESC));
+	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH*sizeof(DESC));
 
+	/* fill array */
 	chdir(DESC_DIR);
 	d = opendir("./");
 
@@ -60,7 +71,6 @@ void init_desc(void)
    				else {   					
 					if (parse_desc_file(f, &desc) == PARSE_SUCCESS) {
 						DESC_ARRAY[c] = desc;
-						/*memcpy(DESC_ARRAY+c, &desc, sizeof(DESC));*/
 						DEBUG_MSG("%s parsing succeeds", filename);
 					}
 					else {
@@ -70,7 +80,6 @@ void init_desc(void)
 					}
 					close_file(f);
 				}
-				printf("%s\n", DESC_ARRAY[c].name);
 				c++;
 			}
 		}
