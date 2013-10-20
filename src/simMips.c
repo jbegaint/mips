@@ -219,5 +219,6 @@ int main(int argc, char* argv[])
 
 	print_info("Exit");
 	free_arch(arch);
+	free_desc();
 	exit(EXIT_SUCCESS);
 }

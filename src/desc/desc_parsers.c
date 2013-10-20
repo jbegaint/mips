@@ -86,7 +86,7 @@ int parse_desc_file(FILE* f, DESC* desc)
 	    		break;
 
 	    	case 1:
-    			if (!parse_type(value, desc->type))
+    			if (!parse_type(value, &(desc->type)))
     				return PARSE_ERROR;
 	    		break;
 
@@ -96,7 +96,7 @@ int parse_desc_file(FILE* f, DESC* desc)
 		    		break;
 
 		    case 3:
-		    	if (*(desc->type) == 'R') {
+		    	if (desc->type == 'R') {
 		    		if (!parse_function(value, &(desc->function)))
 	    				return PARSE_ERROR;
 		    	}			
