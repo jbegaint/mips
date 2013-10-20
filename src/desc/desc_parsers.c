@@ -75,10 +75,8 @@ int parse_desc_file(FILE* f, DESC* desc)
     		return PARSE_ERROR;
 
     	value = strchr(buffer, '=');
-
     	if (!(value && strlen(value) > 1))
     		return PARSE_ERROR;
-
     	value++;
 
     	switch (c) {

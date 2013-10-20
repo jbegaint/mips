@@ -5,10 +5,6 @@
 #define BSS 1
 #define DATA 2
 
-/*
-	section size * by X Mo
-*/
-
 typedef unsigned int uint;
 typedef unsigned char uchar;
 

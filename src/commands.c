@@ -20,7 +20,7 @@ int execute_cmd_ex()
 
 int execute_cmd_testcmd(char* str_arg)
 {
-	int addr;
+	uint addr;
 	char* args[1];
 
 	DEBUG_MSG("Execute testcmd <address>");
@@ -29,7 +29,7 @@ int execute_cmd_testcmd(char* str_arg)
 		return CMD_EXIT_MISSING_ARG;
 
 	/* address not in hexa, or negative  */
-	if (sscanf(args[0], "%x", &addr) != 1 || addr < 0)
+	if (sscanf(args[0], "%x", &addr) != 1)
 		return CMD_EXIT_FAILURE;
 
 	DEBUG_MSG("<address> = 0x%x", addr);	

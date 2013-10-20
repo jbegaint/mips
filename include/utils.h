@@ -14,6 +14,6 @@ void print_error(char*);
 void print_info(char*);
 void print_section_info(SECTION);
 
-int get_hash(char*);
+uint get_hash(char*);
 
 #endif

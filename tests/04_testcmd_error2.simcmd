@@ -1,5 +1,0 @@
-#test la comande testcmd ; erreur arg negatif
-
-testcmd 0x9
-testcmd -0x3  # erreur nb negatif !
-testcmd 0x8

@@ -91,10 +91,10 @@ void print_section_info(SECTION section)
 	}
 }
 
-int get_hash(char* cmd)
+uint get_hash(char* cmd)
 {
 	uint i;
-	int res = 0;
+	uint res = 0;
 	
 	for (i=0; i < strlen(cmd) && i < 2 ; i++) {
 		res = res*100;

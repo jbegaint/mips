@@ -30,12 +30,12 @@ void init_desc()
 			filename = dir->d_name;
 
 			if (is_desc_file(filename)) {
-				c++;
 
 				f = open_file(filename);
 
-				if (f == NULL)
+				if (f == NULL) {
 	   				WARNING_MSG("Error opening %s", filename);
+	   			}
    				else {
 					if (parse_desc_file(f, &desc) == PARSE_SUCCESS)
 						DEBUG_MSG("%s parsing succeeds", filename);
@@ -45,8 +45,8 @@ void init_desc()
 						print_error(err);
 					}
 				}
-
 				close_file(f);
+				c++;
 			}
 		}
 		DEBUG_MSG("Found %d desc file%s", c, ((c > 1)? "s":""));
