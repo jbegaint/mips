@@ -10,6 +10,7 @@ typedef unsigned char uchar;
 
 typedef struct 
 {
+	char* name;
 	uchar* data;
 	uint start_addr;
 	uint size;

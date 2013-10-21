@@ -358,7 +358,7 @@ void printELFSection(SectionELF *section)
 
     for (i=0; i<section->size; i++) {
         // adresse memoire du ieme octet de la zone
-        address = section->startAddress + i;
+        address = section->start_addr + i;
 
         // Si un symbole est a cette adresse, on l'affiche avec l'adresse
         if ((nom=getAddressName(address)) != NULL) {
@@ -428,7 +428,7 @@ static void loadZone(MemZone *Zone, WORD from) {
     Zone->exportSection->name = (char *) calloc((1+strlen(Zone->name)),sizeof(char));
     strcpy(Zone->exportSection->name, Zone->name);
     Zone->exportSection->size = (WORD) Zone->size;
-    Zone->exportSection->startAddress = (WORD) Zone->mem_start;
+    Zone->exportSection->start_addr = (WORD) Zone->mem_start;
 
 
     // Lecture des donnees binaires a partir du fichier elf
@@ -515,7 +515,7 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 *  Si une section ne contient pas de données après le chargement,
 *  son champ "size" est égal à zéro. Sinon, le tableau "data" de cette
 *  section contient "size" octets, qui doivent être placés dans la mémoire
-*  à partir de l'adresse "startAddress".
+*  à partir de l'adresse "start_addr".
 *
 *  !!!! ATTENTION !!!!
 *      La version actuelle de cette fonction n'effectue pas de relocation!

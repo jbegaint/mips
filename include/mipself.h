@@ -14,9 +14,9 @@
 #include "elfimport.h"
 #include "globals_elf.h"	// Types BYTE, WORD, constantes...
 
+#include "arch/arch.h"
 
 #define NUMZONE 3    /* Nombre de zones: text, data et bss  */
-
 
 /**
  * @brief Type de données SectionELF
@@ -28,12 +28,14 @@
  */
 
 
-typedef struct {
+/*typedef struct {
     char  *name ;         // Nom de la section
     WORD   size;          // Taille de la section (en nombre de BYTE)
     BYTE  *data;          // Les données contenues dans la section, sous forme d'un tableau de 'size' octets.
     WORD   startAddress;  // Adresse du début la section en memoire
-} SectionELF ;
+} SectionELF ;*/
+
+typedef SECTION SectionELF;
 
 
 /*--------------------------------------------------------------------------*/

@@ -7,6 +7,8 @@
 #include "arch/register.h"
 #include "arch/section.h"
 
+#include "mipself.h"
+
 #include "commands.h"
 #include "notify.h"
 #include "parsers.h"
@@ -133,22 +135,28 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 {
 	FILE* f;
 	char* args[1];
+	int res;
 
 	DEBUG_MSG("Execute lp <elf_file>");
 
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
-	f = open_file(str_arg);
+	/* rm new line if any */
+	if (sscanf(args[0], "%s", args[0]) != 1)
+		return CMD_EXIT_FAILURE;
 
+	f = open_file(args[0]);
 	if (f == NULL) {
 		return CMD_EXIT_FAILURE;
 	}
-
 	fclose(f);
-
-	WARNING_MSG("not implemented yet");
 	DEBUG_MSG("file closed");
+
+	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
+
+	if (res != 0)
+		return CMD_EXIT_FAILURE;
 
 	return CMD_EXIT_SUCCESS;
 }

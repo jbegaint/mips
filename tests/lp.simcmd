@@ -1,2 +1,3 @@
 testcmd 0xa
-lp tests/file_test
+lp res/exempleELF.o
+ex
