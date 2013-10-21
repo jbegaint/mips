@@ -47,7 +47,7 @@ int display_one_addr(ARCH arch, char* str_arg)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	printf("%08x ", addr);
+	printf("%08x: ", addr);
 
 	return display_addr(arch, addr, 1);
 }
@@ -58,8 +58,9 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 
 	for (i=0; i < bytes_nb ; i++) {
 	    
+	    /* print addr */
 		if (i%16 == 0) 
-	   		printf("%08x ", addr_start+i);
+	   		printf("%08x: ", addr_start+i);
 	    
 	    if (display_addr(arch, addr_start+i, 0) != 1)
 	    	return CMD_EXIT_FAILURE;
