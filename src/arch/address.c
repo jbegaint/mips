@@ -6,6 +6,7 @@
 #include "arch/section.h"
 
 #include "commands.h"
+#include "notify.h"
 #include "parsers.h"
 #include "utils.h"
 
@@ -17,7 +18,13 @@ int display_addr(ARCH arch, uint addr, char nl_flag)
 
 	if (section_index == -1) {
 		/* not allocated memory */
-		printf("00\n");
+		WARNING_MSG("address not allocated");
+		printf("00");
+		if (nl_flag)
+			printf("\n");
+		else
+			printf(" ");
+
 		return CMD_EXIT_SUCCESS;
 	}
 		
