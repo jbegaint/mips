@@ -16,7 +16,7 @@ SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 OBJECTS := $(SOURCES:%.c=%.o)
 OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 
-all: simMips-debug
+all: simMips-debug mipself_test
 
 simMips: $(OBJECTS)
 	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
@@ -38,3 +38,8 @@ doc:
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
+
+
+# for testing purpose 
+mipself_test: src/elf/mipself_test.o src/elf/mipself.o
+	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $@
