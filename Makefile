@@ -8,9 +8,9 @@ CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -g -std=c99 -pedantic -O2
 CFLAGS_RLS=$(CFLAGS)
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 
-LDFLAGS=-lreadline -lcurses
+LDFLAGS=-lreadline -lcurses -lelf
 
-SOURCES := $(shell find $(SRC_DIR) -name '*.c')
+SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 
 # list of object files, with paths
 OBJECTS := $(SOURCES:%.c=%.o)

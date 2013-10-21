@@ -12,7 +12,7 @@
 #define _MIPSELF_H_
 
 #include "elfimport.h"
-#include "global.h"	// Types BYTE, WORD, constantes...
+#include "globals_elf.h"	// Types BYTE, WORD, constantes...
 
 
 #define NUMZONE 3    /* Nombre de zones: text, data et bss  */

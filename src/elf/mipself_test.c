@@ -8,9 +8,9 @@
  * Ce fichier contient un programme principal qui permet d'utiliser le chargeur de
  *     maniere autonome (en dehors du simulateur)
  */
-#include<stdio.h>
-#include<stdlib.h>
-#include"mipself.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "mipself.h"
 
 
 int main (int argc, char *argv[]) {
