@@ -31,10 +31,10 @@ simMips-debug: $(OBJECTS_DBG)
 	@gcc $< $(CFLAGS) $(CFLAGS_DBG) -I$(dir $<) -c -o $@
 
 clean:
-	rm -f $(OBJECTS) $(OBJECTS_DBG)
+	@rm -f $(OBJECTS) $(OBJECTS_DBG)
 
 doc:
-	doxygen
+	@doxygen
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/*.simcmd

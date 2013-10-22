@@ -657,7 +657,7 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
             for (i=0; i<NUMZONE; i++) {
                 if (!strcmp (getSectionHeaderName(shdr->sh_name), EnsZones[i].rel_name)) {
                     if (EnsZones[i].rel_scn != NULL) {
-                        DEBUG_MSG("2 sections %s trouvees",EnsZones[i].rel_scn) ;
+                        DEBUG_MSG("2 sections %s trouvees", EnsZones[i].rel_scn) ;
                     }
                     INFO_MSG("section %s trouvee\n",EnsZones[i].rel_name) ;
 
