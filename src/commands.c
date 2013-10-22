@@ -7,7 +7,7 @@
 #include "arch/register.h"
 #include "arch/section.h"
 
-#include "mipself.h"
+#include "elf/mipself.h"
 
 #include "commands.h"
 #include "notify.h"

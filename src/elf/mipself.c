@@ -33,8 +33,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "elfimport.h"
-#include "mipself.h"
+#include "elf/elfimport.h"
+#include "elf/mipself.h"
+ 
 #include "notify.h"
 
 

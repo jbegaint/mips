@@ -12,7 +12,7 @@
 #define _MIPSELF_H_
 
 #include "elfimport.h"
-#include "globals_elf.h"	// Types BYTE, WORD, constantes...
+#include "globals.h"	// Types BYTE, WORD, constantes...
 
 #include "arch/arch.h"
 
