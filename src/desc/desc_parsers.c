@@ -38,7 +38,7 @@ int parse_name(char* str, char* name)
 	return PARSE_SUCCESS;
 }
 
-int parse_optcode(char* str, int* optcode)
+int parse_opcode(char* str, int* opcode)
 {
 	uint i;
 
@@ -50,7 +50,7 @@ int parse_optcode(char* str, int* optcode)
 			return PARSE_ERROR;
 	}
 
-	if (sscanf(str, "%d", optcode) != 1)
+	if (sscanf(str, "%d", opcode) != 1)
 		return PARSE_ERROR;
 
 	return PARSE_SUCCESS;
@@ -59,7 +59,7 @@ int parse_optcode(char* str, int* optcode)
 int parse_function(char* str, int* function)
 {
 	/* idem, 6 binary digits */
-	return parse_optcode(str, function);
+	return parse_opcode(str, function);
 }
 
 
@@ -91,7 +91,7 @@ int parse_desc_file(FILE* f, DESC* desc)
 	    		break;
 
 	    	case 2:
-		    	if (!parse_optcode(value, &(desc->optcode)))
+		    	if (!parse_opcode(value, &(desc->opcode)))
 	    				return PARSE_ERROR;
 		    		break;
 

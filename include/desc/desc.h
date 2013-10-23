@@ -4,7 +4,7 @@
 typedef struct {
 	char name[8]; /* todo: check max name length in doc */
 	char type;
-	int optcode;
+	int opcode;
 	int function;
 } DESC;
 

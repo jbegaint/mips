@@ -19,6 +19,6 @@ void display_desc(DESC desc)
 {
 	fprintf(stderr, "%s\n", desc.name);
 	fprintf(stderr, "%c\n", desc.type);
-	fprintf(stderr, "%06d\n", desc.optcode);
+	fprintf(stderr, "%06d\n", desc.opcode);
 	fprintf(stderr, "%06d\n", desc.function);
 }
