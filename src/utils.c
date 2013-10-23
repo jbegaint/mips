@@ -102,3 +102,15 @@ uint get_hash(char* cmd)
 	}
 	return res;
 }
+
+char bin_to_dec(char* n)
+{
+	uint i;
+	char res = 0;
+	
+	for (i = 0; i < strlen(n); i++) {
+		res = res*2 + (n[i] - (int)'0');
+	}
+
+	return res;
+}

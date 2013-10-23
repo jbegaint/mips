@@ -6,20 +6,18 @@
 
 #include "instr/parser_instru.h"
 
-uint parser_instr (uint val , uchar start, uchar stop)
+uint parser_instr(uint val, uchar start, uchar stop)
 {
     int i;
     uint isol = 0;
     uint res;
 
     for (i=start; i<stop+1; i++){
-
         isol |= (1<<i) ;
-
     }
     res = val & isol;
-    res = res>>start;
-
+    res = res >> start;
+    
     return res;
 }
 

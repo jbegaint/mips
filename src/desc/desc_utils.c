@@ -10,6 +10,7 @@ void display_desc_array(void)
 {	
 	int i;
 	for (i=0; i < DESC_ARRAY_LENGTH; i++) {
+		printf("%d\n", i);
 		display_desc(DESC_ARRAY[i]);
 		fprintf(stderr, "%s\n", "--------");
 	}

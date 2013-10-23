@@ -62,6 +62,8 @@ void init_desc_array(void)
 				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
 					DEBUG_MSG("%s parsing succeeds", desc_filename);
 					DESC_ARRAY[c] = desc;
+				} else {
+					WARNING_MSG("parsing fails for %s", desc_filename);
 				}
 				close_file(f_desc);
 				c++;

@@ -192,10 +192,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 			display_addr(arch, addr + 4*i + j, 0);
 			get_addr(arch, addr + 4*i + j, &(lgn_instr.octet[3-j]));
 		}
-
 		affichage_instr(lgn_instr.instr, DESC_ARRAY);
-		
-		printf("\n");
 	}
 
 	WARNING_MSG("not implemented yet");

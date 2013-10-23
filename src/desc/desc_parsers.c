@@ -9,6 +9,8 @@
 #include "utils.h"
 #include "notify.h"
 
+#include "arch/arch.h"
+
 int parse_type(char* str, char* type)
 {
 	if (strlen(str) != 1)
@@ -50,8 +52,7 @@ int parse_opcode(char* str, uint* opcode)
 			return PARSE_ERROR;
 	}
 
-	if (sscanf(str, "%ud", opcode) != 1)
-		return PARSE_ERROR;
+	*opcode = bin_to_dec(str);
 
 	return PARSE_SUCCESS;
 }

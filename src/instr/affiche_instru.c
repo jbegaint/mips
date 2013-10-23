@@ -10,13 +10,18 @@
 #include "instr/parser_instru.h"
 #include "instr/affiche_instru.h"
 
-int affichage_instr(uint val, DESC *tab)
+#include "notify.h"
+
+extern int DESC_ARRAY_LENGTH;
+
+int affichage_instr(uint val, DESC* tab)
 {
+
     uint opcode;
     uint function;
     int c;
 
-    opcode=parser_instr(val, 26, 31);
+    opcode = parser_instr(val, 26, 31);
 
     if (opcode == 0){
         function = parser_instr(val, 0, 5);
@@ -26,12 +31,11 @@ int affichage_instr(uint val, DESC *tab)
     }
 
     else{
-
         c = matchJI(opcode, tab);
+
         if ( tab[c].type == 'I' ) {
             afficher_typeI(tab, c,val);
-        }	
-
+        }   
         else{
             afficher_typeJ(tab,c,val);
         }
@@ -105,23 +109,23 @@ int afficher_typeI(DESC *JI, int c, uint val)
     switch (JI[c].opcode){
 
         case 8: //ADDI
-       		fprintf(stdout,"%s $%u,$%u,%u\n",JI[c].name,rt,rs,immediate);
+       		fprintf(stdout,"%s $%u, $%u, %u\n",JI[c].name,rt,rs,immediate);
         	break;
 
         case 4: case 5: //BEQ BNE
-        	fprintf(stdout,"%s $%u,$%u,%u\n",JI[c].name,rs,rt,immediate);
+        	fprintf(stdout,"%s $%u, $%u, %u\n",JI[c].name,rs,rt,immediate);
         	break;
 
         case 7: case 6: //BGTZ BLEZ
-        	fprintf(stdout,"%s $%u,%u\n",JI[c].name,rs,immediate);
+        	fprintf(stdout,"%s $%u, %u\n",JI[c].name,rs,immediate);
         	break;
 
         case 15: //LUI
-        	fprintf(stdout,"%s $%u,%u\n",JI[c].name,rt,immediate); // normalement le immediate doit être en base 16 comment faire?
+        	fprintf(stdout,"%s $%u, %u\n",JI[c].name,rt,immediate); // normalement le immediate doit être en base 16 comment faire?
         	break;
 
         case 35: case 43: //LW SW
-        	fprintf(stdout,"%s $%u,%u($%u)\n",JI[c].name,rt,immediate,rs);
+        	fprintf(stdout,"%s $%u, %u($%u)\n",JI[c].name,rt,immediate,rs);
         	break;
 
         default :
@@ -140,23 +144,24 @@ int afficher_typeJ(DESC *JI, int c, uint val)
     return 1;
 }
 
-int matchJI(uint opcode, DESC *JI )
+int matchJI(uint opcode, DESC *JI)
 {
 	int i;
-	int length_tab=30;
+	int length_tab = DESC_ARRAY_LENGTH;
 
-	for (i = 0 ; i<length_tab+1 ; i++){
-		if ( (JI+i)->opcode == opcode ){
+	for (i = 0 ; i < length_tab; i++) {
+        if ( (JI+i)->opcode == opcode ){
             return i;
         }
     }
+
     return -1; //erreur : l'opcode n'existe pas dans le tableau
 }
 
 int matchR(uint function, DESC *R)
 {
 	int i;
-	int length_tab=30;
+	int length_tab = DESC_ARRAY_LENGTH;
 
 	for (i = length_tab ; i>0 ; i--){
 		if ( (R+i)->function == function ){
