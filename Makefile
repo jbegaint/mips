@@ -8,7 +8,7 @@ CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic -O2
 CFLAGS_RLS=$(CFLAGS)
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 
-LDFLAGS=-lreadline -lcurses -lelf
+LDFLAGS=-lreadline -lcurses -lelf -lm
 
 SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 
