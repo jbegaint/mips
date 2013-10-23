@@ -38,7 +38,7 @@ int parse_name(char* str, char* name)
 	return PARSE_SUCCESS;
 }
 
-int parse_opcode(char* str, int* opcode)
+int parse_opcode(char* str, uint* opcode)
 {
 	uint i;
 
@@ -50,13 +50,13 @@ int parse_opcode(char* str, int* opcode)
 			return PARSE_ERROR;
 	}
 
-	if (sscanf(str, "%d", opcode) != 1)
+	if (sscanf(str, "%ud", opcode) != 1)
 		return PARSE_ERROR;
 
 	return PARSE_SUCCESS;
 }
 
-int parse_function(char* str, int* function)
+int parse_function(char* str, uint* function)
 {
 	/* idem, 6 binary digits */
 	return parse_opcode(str, function);

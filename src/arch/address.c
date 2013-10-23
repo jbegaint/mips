@@ -10,7 +10,7 @@
 #include "parsers.h"
 #include "utils.h"
 
-int get_addr(ARCH arch, uint addr, uint* val) {
+int get_addr(ARCH arch, uint addr, uchar* val) {
 	int section_index, offset;
 	section_index = get_section(arch, addr);
 
@@ -29,7 +29,7 @@ int get_addr(ARCH arch, uint addr, uint* val) {
 
 int display_addr(ARCH arch, uint addr, char nl_flag) 
 {
-	uint val;
+	uchar val;
 	get_addr(arch, addr, &val);
 	printf("%02x", val);
 

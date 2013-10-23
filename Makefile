@@ -3,7 +3,7 @@ TARGET=simMips
 INC_DIR=include
 SRC_DIR=src
 
-CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic -O2
+CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic #-O2
 
 CFLAGS_RLS=$(CFLAGS)
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
