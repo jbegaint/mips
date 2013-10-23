@@ -1,0 +1,15 @@
+add.desc
+addi.desc
+and.desc
+beq.desc
+beq.desc~
+bgtz.desc
+blez.desc
+blez.desc~
+bne.desc
+buggy_file.desc
+desc.all
+div.desc
+jal.desc
+j.desc
+jr.desc
