@@ -8,7 +8,7 @@
 #include "commands.h"
 #include "notify.h"
 #include "parsers.h"
-#include "utils.h"
+#include "utils.h";
 
 int display_addr(ARCH arch, uint addr, char nl_flag) 
 {

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <dirent.h>
 #include <unistd.h>
 #include <string.h>
@@ -21,72 +22,60 @@ void free_desc_array(void)
 
 void init_desc_array(void)
 {
-	int c = 0;
-	int cc = 0;
-
-	DIR *d;
-	DESC desc;
-	struct dirent *dir;
-	char* filename;
-
+	char* filename = "desc.all";
+	char desc_filename[256];
 	FILE* f = NULL;
+	FILE* f_desc = NULL;
+	DESC desc;
+	int c, l = 0;
 
 	DEBUG_MSG("Init desc files parsing");
 
 	/* count desc files in dir */
 	chdir(DESC_DIR);
-	d = opendir("./");
-	if (d) {
-		while ( (dir = readdir(d)) ) {
-			if (is_desc_file(dir->d_name)) {
-				f = open_file(dir->d_name);
-				if (f) {   					
-					if (parse_desc_file(f, &desc) == PARSE_SUCCESS) {
-						cc++;
-					}
-					close_file(f);
-				}
-			}
-		}
-		closedir(d);
-	}	
-	DESC_ARRAY_LENGTH = cc;
 
-	/* allocated memory */
+	f = fopen(filename, "r");
+	if (!f)
+		exit(EXIT_FAILURE);
+
+	while ((c = getc(f)) != EOF) {
+		if (c == '\n')
+		    l++;
+	}
+	fclose(f);
+	DEBUG_MSG("%d files in list\n", l);
+
+	DESC_ARRAY_LENGTH = l - 1;
+
+	/* allocate memory */
 	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH*sizeof(DESC));
 
-	/* fill array */
-	chdir(DESC_DIR);
-	d = opendir("./");
+	f = fopen(filename, "r");
+	if (!f) {
+		exit(EXIT_FAILURE);
+	}
 
-	if (d) {
-		while ( (dir = readdir(d)) ) {
-			filename = dir->d_name;
+	c = 0;
+	while (fgets(desc_filename, sizeof(desc_filename), f) != 0) {
+		sscanf(desc_filename, "%s", desc_filename);
 
-			if (is_desc_file(filename)) {
-				f = open_file(filename);
-				if (f == NULL) {
-	   				WARNING_MSG("Error opening %s", filename);
-	   			}
-   				else {   					
-					if (parse_desc_file(f, &desc) == PARSE_SUCCESS) {
-						DESC_ARRAY[c] = desc;
-						DEBUG_MSG("%s parsing succeeds", filename);
-					}
-					else {
-						char err[256];
-						sprintf(err, "%s parsing fails", filename);
-						print_error(err);
-					}
-					close_file(f);
+		if (is_desc_file(desc_filename)) {
+			f_desc = open_file(desc_filename);
+
+			if (f_desc) {
+				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
+					DEBUG_MSG("%s parsing succeeds", desc_filename);
+					DESC_ARRAY[c] = desc;
 				}
+				close_file(f_desc);
 				c++;
 			}
 		}
-		DEBUG_MSG("Found %d desc file%s", c, ((c > 1)? "s":""));
-		closedir(d);
 	}
 
-	chdir("../");   
+	fclose(f);
+	
+	chdir("..");
+
 	DEBUG_MSG("End desc files parsing");
 }
