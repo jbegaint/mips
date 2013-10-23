@@ -9,4 +9,5 @@ int display_addr_to_addr(ARCH, char*);
 int display_bytes_from_addr(ARCH, char*);
 int display_range_addr(ARCH, uint, int);
 int get_addr(ARCH, uint, uint*);
+
 #endif
