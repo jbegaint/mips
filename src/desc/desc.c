@@ -22,11 +22,11 @@ void free_desc_array(void)
 
 void init_desc_array(void)
 {
-	char* filename = "desc.all";
-	char desc_filename[256];
+	DESC desc;
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
-	DESC desc;
+	char desc_filename[256];
+	char* filename = "desc.all";
 	int c, l = 0;
 
 	DEBUG_MSG("Init desc files parsing");
