@@ -4,8 +4,8 @@
 typedef struct {
 	char name[8]; /* todo: check max name length in doc */
 	char type;
-	int opcode;
-	int function;
+	uint opcode;
+	uint function;
 } DESC;
 
 void init_desc_array();

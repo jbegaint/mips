@@ -17,6 +17,12 @@
 
 #define CMD_NOT_FOUND -4
 
+typedef union
+{
+	uint instr;
+	char octet[4];
+} conversion;
+
 int execute_cmd_testcmd(char*);
 int execute_cmd_ex();
 int execute_cmd_lp(ARCH, char*);

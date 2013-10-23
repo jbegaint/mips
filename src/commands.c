@@ -165,6 +165,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 {
 	uint addr;
 	int instr, i, j;
+	conversion lgn_instr;
 
 	char* args[2];
 
@@ -185,7 +186,10 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		printf("%08x: ", addr + 4*i);
 		for (j=0; j < 4; j++) {
 			display_addr(arch, addr + 4*i + j, 0);
+			lgn_instr.octet[j]=
 		}
+		
+		
 		printf("\n");
 	}
 

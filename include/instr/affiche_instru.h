@@ -3,7 +3,7 @@
 
 #include "desc/desc.h"
 
-int affichage_instr(uint val, DESC *R, DESC *JI);
+int affichage_instr(uint val, DESC *tab);
 int afficher_typeR(DESC *R ,int c, uint val);
 int afficher_typeI(DESC *JI ,int c, uint val);
 int afficher_typeJ( DESC *JI ,int c, uint val);
