@@ -10,7 +10,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "mipself.h"
+#include "elf/mipself.h"
 
 
 int main (int argc, char *argv[]) {
