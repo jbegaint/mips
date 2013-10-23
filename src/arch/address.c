@@ -8,29 +8,29 @@
 #include "commands.h"
 #include "notify.h"
 #include "parsers.h"
-#include "utils.h";
+#include "utils.h"
 
-int display_addr(ARCH arch, uint addr, char nl_flag) 
-{
-	uint val;
+int get_addr(ARCH arch, uint addr, uint* val) {
 	int section_index, offset;
 	section_index = get_section(arch, addr);
 
 	if (section_index == -1) {
 		/* not allocated memory */
+		*val = 0;
 		WARNING_MSG("address not allocated");
-		printf("00");
-		if (nl_flag)
-			printf("\n");
-		else
-			printf(" ");
-
 		return CMD_EXIT_SUCCESS;
 	}
 		
 	offset = get_offset(arch, addr, section_index);
-	val = *((arch->sections)[section_index].data + offset);
+	*val = *((arch->sections)[section_index].data + offset);
 	
+	return CMD_EXIT_SUCCESS;
+}
+
+int display_addr(ARCH arch, uint addr, char nl_flag) 
+{
+	uint val;
+	get_addr(arch, addr, &val);
 	printf("%02x", val);
 
 	if (nl_flag)

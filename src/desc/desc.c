@@ -22,11 +22,11 @@ void free_desc_array(void)
 
 void init_desc_array(void)
 {
-	char* filename = "desc.all";
-	char desc_filename[256];
+	DESC desc;
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
-	DESC desc;
+	char desc_filename[256];
+	char* filename = "desc.all";
 	int c, l = 0;
 
 	DEBUG_MSG("Init desc files parsing");
@@ -42,18 +42,14 @@ void init_desc_array(void)
 		if (c == '\n')
 		    l++;
 	}
-	fclose(f);
 	DEBUG_MSG("%d files in list\n", l);
 
 	DESC_ARRAY_LENGTH = l - 1;
 
 	/* allocate memory */
-	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH*sizeof(DESC));
+	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH * sizeof(DESC));
 
-	f = fopen(filename, "r");
-	if (!f) {
-		exit(EXIT_FAILURE);
-	}
+	fseek(f, 0, 0);
 
 	c = 0;
 	while (fgets(desc_filename, sizeof(desc_filename), f) != 0) {
