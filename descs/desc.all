@@ -13,3 +13,6 @@ div.desc
 jal.desc
 j.desc
 jr.desc
+lui.desc
+lw.desc
+mfhi.desc
