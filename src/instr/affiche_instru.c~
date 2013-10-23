@@ -158,7 +158,7 @@ int matchR(uint function, DESC *R)
 	int i;
 	int length_tab=30;
 
-	for (i = 0 ; i<length_tab+1 ; i++){
+	for (i = length_tab ; i>0 ; i--){
 		if ( (R+i)->function == function ){
             return i;
         }

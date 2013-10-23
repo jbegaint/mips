@@ -14,6 +14,10 @@
 #include "parsers.h"
 #include "utils.h"
 
+#include "instr/affiche_instru.h"
+
+extern DESC* DESC_ARRAY;
+
 int execute_cmd_ex()
 {
 	DEBUG_MSG("Bye Dave");
@@ -165,7 +169,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 {
 	uint addr;
 	int instr, i, j;
-	conversion lgn_instr;
+	INSTR lgn_instr;
 
 	char* args[2];
 
@@ -186,9 +190,10 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		printf("%08x: ", addr + 4*i);
 		for (j=0; j < 4; j++) {
 			display_addr(arch, addr + 4*i + j, 0);
-			lgn_instr.octet[j]=
+			get_addr(arch, addr + 4*i + j, &(lgn_instr.octet[3-j]));
 		}
-		
+
+		affichage_instr(lgn_instr.instr, DESC_ARRAY);
 		
 		printf("\n");
 	}

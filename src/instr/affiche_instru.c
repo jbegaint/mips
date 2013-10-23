@@ -30,7 +30,7 @@ int affichage_instr(uint val, DESC *tab)
         c = matchJI(opcode, tab);
         if ( tab[c].type == 'I' ) {
             afficher_typeI(tab, c,val);
-        }
+        }	
 
         else{
             afficher_typeJ(tab,c,val);

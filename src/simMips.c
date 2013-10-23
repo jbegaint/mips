@@ -197,7 +197,7 @@ int main(int argc, char* argv[])
 	ARCH arch = NULL;
 	arch = init_simu();
 
-	init_desc_array();
+	//init_desc_array();
 
 	print_info("Init");
 

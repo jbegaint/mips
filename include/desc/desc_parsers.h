@@ -8,6 +8,6 @@
 
 int is_desc_file(char*);
 int parse_desc_file(FILE*, DESC*);
-int parse_function(char*, int*);
+int parse_function(char*, uint*);
 
 #endif

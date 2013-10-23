@@ -17,11 +17,13 @@
 
 #define CMD_NOT_FOUND -4
 
+#include "arch/arch.h"
+
 typedef union
 {
 	uint instr;
-	char octet[4];
-} conversion;
+	uchar octet[4];
+} INSTR;
 
 int execute_cmd_testcmd(char*);
 int execute_cmd_ex();
