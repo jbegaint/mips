@@ -164,7 +164,7 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 int execute_cmd_da(ARCH arch, char* str_arg)
 {
 	uint addr;
-	int instr, i;
+	int instr, i, j;
 
 	char* args[2];
 
@@ -182,7 +182,11 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 	}
 
 	for (i=0; i < instr; i++) {
-		printf("%08x\n", addr + 4*i);
+		printf("%08x: ", addr + 4*i);
+		for (j=0; j < 4; j++) {
+			display_addr(arch, addr + 4*i + j, 0);
+		}
+		printf("\n");
 	}
 
 	WARNING_MSG("not implemented yet");
