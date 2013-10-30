@@ -1,1 +1,2 @@
 CMD TEST RESULT 0xb
+  HI : 00000000   

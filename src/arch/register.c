@@ -6,16 +6,20 @@
 #include "parsers.h"
 #include "utils.h"
 
-extern char* REG_NAMES[32];
+extern char* REG_NAMES[36];
 
 void display_reg_all(ARCH arch) {
 	int i;
 	
-	for (i=1; i <= 32; i++) {
+	for (i=1; i <= 36; i++) {
+		/* padding */
+		if (i != 1)
+			printf("  ");
+
 		display_reg(arch, i-1);
 
 	    if (i%4 == 0)
-	    	printf("\n  ");
+	    	printf("\n");
 	}
 }
 

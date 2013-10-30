@@ -18,7 +18,7 @@ typedef struct
 
 typedef struct
 {
-	uint regs[32];
+	uint regs[36];
 	SECTION sections[3];
 } *ARCH;
 

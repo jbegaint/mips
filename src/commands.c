@@ -98,7 +98,9 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 		print_error("$zero can't be modified");
 		return CMD_EXIT_INVALID_REG;
 	}
-
+	else if (reg >= 32) {
+		return CMD_EXIT_INVALID_REG;
+	}
 
 	if (!parse_reg_value(args[1], &val)) {
 		return CMD_EXIT_INVALID_REG_VALUE;
@@ -124,23 +126,20 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 		return CMD_EXIT_SUCCESS;
 	}
 
-	
-
 	while (ptr_arg != NULL) {
 	    reg_index = parse_register(ptr_arg);
 
 	    if (reg_index == -1)
 	    	return CMD_EXIT_INVALID_REG;
 
-	    if (i==1)
-	    	/* padding */
-			printf("  ");
+    	/* padding */
+		printf("  ");
 
 	    display_reg(arch, reg_index);
 	    ptr_arg = strtok(NULL, " ");
 
 	    if (i%4 == 0)
-	    	printf("\n  ");
+	    	printf("\n");
 	    i++;
 	}
 

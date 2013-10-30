@@ -10,7 +10,7 @@
 #include "parsers.h"
 #include "utils.h"
 
-extern char* REG_NAMES[32];
+extern char* REG_NAMES[36];
 
 int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 {
@@ -85,13 +85,13 @@ int parse_register(char* reg_str)
 	else if (strlen(reg_str) == 2 && isdigit(*reg_str) && isdigit(*(reg_str+1))) {
 		reg_index = atoi(reg_str);
 
-		if (reg_index < 32 && reg_index >= 0)
+		if (reg_index < 36 && reg_index >= 0)
 			return atoi(reg_str);
 		else
 			return -1;
 	}
 	else {
-		for (i=0; i < 32; i++) {
+		for (i=0; i < 36; i++) {
 			if (strcmp(*(REG_NAMES+i), reg_str) == 0) {
 				return i;
 			}
