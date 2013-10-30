@@ -1,2 +1,2 @@
 CMD TEST RESULT 0xb
-$t0 : 0x000000ff
+  t0 : 000000ff   

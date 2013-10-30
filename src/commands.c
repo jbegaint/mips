@@ -48,11 +48,11 @@ int execute_cmd_testcmd(char* str_arg)
 
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
-	uint addr = 600;
-	int section_index, offset;
-	char* args[2];
 	INSTR val;
+	char* args[2];
 	int i = 0;
+	int section_index, offset;
+	uint addr;
 
 	DEBUG_MSG("Execute lm <address> <addr_value>");
 
@@ -113,6 +113,7 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 
 	char* ptr_arg;
 	int reg_index;
+	int i = 1;
 
 	DEBUG_MSG("Execute dr <register>");
 
@@ -123,16 +124,29 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 		return CMD_EXIT_SUCCESS;
 	}
 
+	
+
 	while (ptr_arg != NULL) {
 	    reg_index = parse_register(ptr_arg);
 
 	    if (reg_index == -1)
 	    	return CMD_EXIT_INVALID_REG;
 
+	    if (i==1)
+	    	/* padding */
+			printf("  ");
+
 	    display_reg(arch, reg_index);
 	    ptr_arg = strtok(NULL, " ");
 
+	    if (i%4 == 0)
+	    	printf("\n  ");
+	    i++;
 	}
+
+	/* if last row not full */
+	if (i%4 != 0)
+	    	printf("\n");
 
 	return CMD_EXIT_SUCCESS;
 }
