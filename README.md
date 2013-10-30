@@ -11,7 +11,7 @@ Todo:
 Compilation:
 ------------
 
-* make release or make debug
+* make simMips ou make simMips-debug (par défaut)
 
 * make check pour lancer les tests
 
