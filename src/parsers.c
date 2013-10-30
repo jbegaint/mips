@@ -7,6 +7,7 @@
 #include "arch/arch.h"
 #include "arch/section.h"
 
+#include "parsers.h"
 #include "utils.h"
 
 extern char* REG_NAMES[32];
@@ -54,10 +55,14 @@ int parse_reg_value(char* reg_val_str, uint* reg_value)
 	return parse_addr(reg_val_str, reg_value);
 }
 
-int parse_addr_value(char* addr_value_str, uchar* addr_value)
+int parse_addr_value(char* addr_value_str, uint* addr_value)
 {
+	/* legacy code, specs has changed since */
 	/* 8 bits */
-	return parse_hex_value(addr_value_str, (uint*) addr_value, 2);
+	/*return parse_hex_value(addr_value_str, (uint*) addr_value, 2);*/
+
+	/* 32 bits */
+	return parse_addr(addr_value_str, addr_value);
 }
 
 int parse_register(char* reg_str) 

@@ -22,6 +22,12 @@ typedef struct
 	SECTION sections[3];
 } *ARCH;
 
+typedef union
+{
+	uint word;
+	uchar bytes[4];
+} INSTR;
+
 
 ARCH init_simu(void);
 void free_arch(ARCH);

@@ -19,12 +19,6 @@
 
 #include "arch/arch.h"
 
-typedef union
-{
-	uint instr;
-	uchar octet[4];
-} INSTR;
-
 int execute_cmd_testcmd(char*);
 int execute_cmd_ex();
 int execute_cmd_lp(ARCH, char*);

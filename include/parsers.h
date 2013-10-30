@@ -21,7 +21,7 @@ int parse_reg_value(char*, uint*);
 /*
 	return addr value
 */
-int parse_addr_value(char*, uchar*);
+int parse_addr_value(char*, uint*);
 
 /*
 	returns register index between 0 - 31 from string.

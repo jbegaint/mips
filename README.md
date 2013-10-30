@@ -1,6 +1,11 @@
 Simulateur MIPS
 ===============
 
+Todo:
+-----
+* dm (new behaviour)
+* dr (new display format)
+
 
 Compilation:
 ------------

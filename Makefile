@@ -42,4 +42,4 @@ check:
 
 # for testing purpose 
 mipself_test: src/elf/mipself_test.o src/elf/mipself.o
-	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $@
+	gcc $^ $(CFLAGS) $(LDFLAGS) -o $@

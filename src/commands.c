@@ -49,21 +49,21 @@ int execute_cmd_testcmd(char* str_arg)
 int execute_cmd_lm(ARCH arch, char* str_arg) 
 {
 	uint addr = 600;
-	uchar val;
 	int section_index, offset;
 	char* args[2];
+	INSTR val;
+	int i = 0;
 
 	DEBUG_MSG("Execute lm <address> <addr_value>");
 
 	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;	
 	
-	if (!parse_addr_value(args[1], &val))
+	if (!parse_addr_value(args[1], &val.word))
 		return CMD_EXIT_INVALID_ADDR_VALUE;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
-
 
 	section_index = get_section(arch, addr);
 
@@ -72,7 +72,9 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 
 	offset = get_offset(arch, addr, section_index);
 
-	*((arch->sections)[section_index].data + offset) = val;
+	for (i = 0; i < 4; i++) {
+		*((arch->sections)[section_index].data + offset + i) = val.bytes[i];
+	}
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -190,9 +192,9 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		printf("%08x: ", addr + 4*i);
 		for (j=0; j < 4; j++) {
 			display_addr(arch, addr + 4*i + j, 0);
-			get_addr(arch, addr + 4*i + j, &(lgn_instr.octet[3-j]));
+			get_addr(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j]));
 		}
-		affichage_instr(lgn_instr.instr, DESC_ARRAY);
+		affichage_instr(lgn_instr.word, DESC_ARRAY);
 	}
 
 	WARNING_MSG("not implemented yet");
