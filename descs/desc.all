@@ -14,3 +14,14 @@ jr.desc
 lui.desc
 lw.desc
 mfhi.desc
+mflo.desc
+mult.desc
+nop.desc
+or.desc
+rotr.desc
+sll.desc
+slt.desc
+srl.desc
+sub.desc
+sw.desc
+xor.desc
