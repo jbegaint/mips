@@ -14,7 +14,43 @@
 #include "notify.h"
 #include "utils.h"
 
+typedef int (*cmd_ptr)(ARCH, char*);
+
+typedef union {
+	int (*cmd_ptr_arch_and_args)(ARCH, char*);
+	int (*cmd_ptr_arch)(ARCH);
+	int (*cmd_ptr_args)(char*);
+} all_cmd;
+
+static struct {
+	const char* command;
+	cmd_ptr ptr;
+	const char* usage;
+	const char* help;
+} cmd_table[] = {
+	{"da", execute_cmd_da, "", ""},
+	{"di", execute_cmd_di, "", ""},
+	{"dm", execute_cmd_dm, "", ""},
+	{"dr", execute_cmd_dr, "", ""},
+	{"ex", execute_cmd_ex, "", ""},
+	{"lm", execute_cmd_lm, "", ""},
+	{"lp", execute_cmd_lp, "", ""},
+	{"lr", execute_cmd_lr, "", ""},
+	{"testcmd", execute_cmd_testcmd, "", ""},
+	/* stop hack (as seen in mpc)*/
+	{.command = NULL},
+};
+
 int execute_cmd(ARCH arch, char* cmd, char* args)
+{
+	for (int i = 0; cmd_table[i].command != NULL; i++) {
+		if (strcmp(cmd, cmd_table[i].command) == 0)
+			return (cmd_table+i)->ptr(arch, args);
+	}
+	return CMD_NOT_FOUND;
+}
+
+int execute_cmd2(ARCH arch, char* cmd, char* args)
 {
 	if (strcmp(cmd, "ex") == 0) {
 		return execute_cmd_ex();
