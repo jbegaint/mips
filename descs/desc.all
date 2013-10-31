@@ -5,7 +5,6 @@ beq.desc
 bgtz.desc
 blez.desc
 bne.desc
-buggy_file.desc
 desc.all
 div.desc
 jal.desc

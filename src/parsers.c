@@ -31,7 +31,7 @@ int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 		/* invalid address: 32bits, 4 bytes, 8 hex chars */	
 		return 0;
 
-	for (i=0; i < strlen(hex_str); i++) {
+	for (i = 0; i < strlen(hex_str); i++) {
 		if (!isxdigit(*(hex_str+i)))
 			return 0;
 	}

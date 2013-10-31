@@ -40,6 +40,7 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	else if (strcmp(cmd, "da") == 0) {
 		return execute_cmd_da(arch, args);
 	}
+	/* display all loaded instructions */
 	else if (strcmp(cmd, "di") == 0) {
 		return execute_cmd_di();
 	}
