@@ -18,34 +18,42 @@ typedef int (*cmd_ptr)(ARCH, char*);
 
 typedef union {
 	int (*cmd_ptr_arch_and_args)(ARCH, char*);
-	int (*cmd_ptr_arch)(ARCH);
 	int (*cmd_ptr_args)(char*);
-} all_cmd;
+	int (*cmd_ptr_void)(void);
+} cmd_wrapper;
 
 static struct {
 	const char* command;
-	cmd_ptr ptr;
+	cmd_wrapper ptr;
 	const char* usage;
 	const char* help;
+	char type;
 } cmd_table[] = {
-	{"da", execute_cmd_da, "", ""},
-	{"di", execute_cmd_di, "", ""},
-	{"dm", execute_cmd_dm, "", ""},
-	{"dr", execute_cmd_dr, "", ""},
-	{"ex", execute_cmd_ex, "", ""},
-	{"lm", execute_cmd_lm, "", ""},
-	{"lp", execute_cmd_lp, "", ""},
-	{"lr", execute_cmd_lr, "", ""},
-	{"testcmd", execute_cmd_testcmd, "", ""},
-	/* stop hack (as seen in mpc)*/
+	{"da", {execute_cmd_da}, "", "", 0},
+	{"dm", {execute_cmd_dm}, "", "", 0},
+	{"dr", {execute_cmd_dr}, "", "", 0},
+	{"lm", {execute_cmd_lm}, "", "", 0},
+	{"lp", {execute_cmd_lp}, "", "", 0},
+	{"lr", {execute_cmd_lr}, "", "", 0},
+	{"ex", {.cmd_ptr_void = execute_cmd_ex}, "", "", 1},
+	{"di", {.cmd_ptr_void = execute_cmd_di}, "", "", 1},
+	{"testcmd", {.cmd_ptr_args = execute_cmd_testcmd}, "", "", 2},
 	{.command = NULL},
 };
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
 	for (int i = 0; cmd_table[i].command != NULL; i++) {
-		if (strcmp(cmd, cmd_table[i].command) == 0)
-			return (cmd_table+i)->ptr(arch, args);
+		if (strcmp(cmd, cmd_table[i].command) == 0) {
+			switch (cmd_table[i].type) {
+			case 1:
+				return ((cmd_table+i)->ptr).cmd_ptr_void();
+			case 2:
+				return ((cmd_table+i)->ptr).cmd_ptr_args(args);
+			default:
+				return ((cmd_table+i)->ptr).cmd_ptr_arch_and_args(arch, args);
+			}
+		}
 	}
 	return CMD_NOT_FOUND;
 }
