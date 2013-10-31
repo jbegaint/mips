@@ -8,16 +8,12 @@
 #define CMD_QUIT 11
 
 #define CMD_EXIT_MISSING_ARG -1
-
 #define CMD_EXIT_INVALID_ADDR -2
 #define CMD_EXIT_INVALID_ADDR_VALUE -21
-
 #define CMD_EXIT_INVALID_REG -3
 #define CMD_EXIT_INVALID_REG_VALUE -31
 
 #define CMD_NOT_FOUND -4
-
-#include "arch/arch.h"
 
 int execute_cmd_da(ARCH, char*);
 int execute_cmd_di(void);
