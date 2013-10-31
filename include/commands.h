@@ -17,6 +17,15 @@
 
 #define UNUSED(x) (void)(x)
 
+typedef int (*cmd_ptr)(ARCH, char*);
+
+struct command {
+	const char* command;
+	cmd_ptr ptr;
+	const char* usage;
+	const char* help;
+};
+
 int execute_cmd_da(ARCH, char*);
 int execute_cmd_di(ARCH, char*);
 int execute_cmd_dm(ARCH, char*);

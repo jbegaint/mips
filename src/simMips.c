@@ -14,25 +14,16 @@
 #include "notify.h"
 #include "utils.h"
 
-typedef int (*cmd_ptr)(ARCH, char*);
-
-struct command {
-	const char* command;
-	cmd_ptr ptr;
-	const char* usage;
-	const char* help;
-};
-
 static struct command cmd_table[] = {
-	{"da", execute_cmd_da, "", ""},
-	{"dm", execute_cmd_dm, "", ""},
-	{"dr", execute_cmd_dr, "", ""},
-	{"lm", execute_cmd_lm, "", ""},
-	{"lp", execute_cmd_lp, "", ""},
-	{"lr", execute_cmd_lr, "", ""},
+	{"da", execute_cmd_da, "da <address>:<instructions number>", ""},
+	{"dm", execute_cmd_dm, "dm <address>", ""},
+	{"dr", execute_cmd_dr, "dr <register>", ""},
+	{"lm", execute_cmd_lm, "lm <address> <value>", ""},
+	{"lp", execute_cmd_lp, "lp <filename>", ""},
+	{"lr", execute_cmd_lr, "lr <register> <value>", ""},
 	{"ex", execute_cmd_ex, "", ""},
 	{"di", execute_cmd_di, "", ""},
-	{"testcmd", execute_cmd_testcmd, "", ""},
+	{"testcmd", execute_cmd_testcmd, "testcmd <address>", ""},
 	{.command = NULL},
 };
 
