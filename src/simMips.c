@@ -16,46 +16,31 @@
 
 typedef int (*cmd_ptr)(ARCH, char*);
 
-typedef union {
-	int (*arch_and_args)(ARCH, char*);
-	int (*args)(char*);
-	int (*noarg)(void);
-} cmd_wrapper;
-
 struct command {
 	const char* command;
-	cmd_wrapper ptr;
+	cmd_ptr ptr;
 	const char* usage;
 	const char* help;
-	char type; /* 0 for arch and args, 1 for void, 2 for args*/
 };
 
 static struct command cmd_table[] = {
-	{"da", {execute_cmd_da}, "", "", 0},
-	{"dm", {execute_cmd_dm}, "", "", 0},
-	{"dr", {execute_cmd_dr}, "", "", 0},
-	{"lm", {execute_cmd_lm}, "", "", 0},
-	{"lp", {execute_cmd_lp}, "", "", 0},
-	{"lr", {execute_cmd_lr}, "", "", 0},
-	{"ex", {.noarg = execute_cmd_ex}, "", "", 1},
-	{"di", {.noarg = execute_cmd_di}, "", "", 1},
-	{"testcmd", {.args = execute_cmd_testcmd}, "", "", 2},
+	{"da", execute_cmd_da, "", ""},
+	{"dm", execute_cmd_dm, "", ""},
+	{"dr", execute_cmd_dr, "", ""},
+	{"lm", execute_cmd_lm, "", ""},
+	{"lp", execute_cmd_lp, "", ""},
+	{"lr", execute_cmd_lr, "", ""},
+	{"ex", execute_cmd_ex, "", ""},
+	{"di", execute_cmd_di, "", ""},
+	{"testcmd", execute_cmd_testcmd, "", ""},
 	{.command = NULL},
 };
 
 int execute_cmd(ARCH arch, char* cmd, char* args)
 {
 	for (int i = 0; cmd_table[i].command != NULL; i++) {
-		if (strcmp(cmd, cmd_table[i].command) == 0) {
-			switch (cmd_table[i].type) {
-				case 1:
-					return ((cmd_table+i)->ptr).noarg();
-				case 2:
-					return ((cmd_table+i)->ptr).args(args);
-				default:
-					return ((cmd_table+i)->ptr).arch_and_args(arch, args);
-			}
-		}
+		if (strcmp(cmd, cmd_table[i].command) == 0)
+			return (cmd_table+i)->ptr(arch, args);
 	}
 	return CMD_NOT_FOUND;
 }

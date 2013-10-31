@@ -20,16 +20,21 @@
 
 extern DESC* DESC_ARRAY;
 
-int execute_cmd_ex()
+int execute_cmd_ex(ARCH arch, char* args)
 {
+	UNUSED(arch);
+	UNUSED(args);
+
 	DEBUG_MSG("Bye Dave");
 	return CMD_QUIT;
 }
 
-int execute_cmd_testcmd(char* str_arg)
+int execute_cmd_testcmd(ARCH arch, char* str_arg)
 {
 	uint addr;
 	char* args[1];
+
+	UNUSED(arch);
 
 	DEBUG_MSG("Execute testcmd <address>");
 	
@@ -247,8 +252,11 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 }
 
 
-int execute_cmd_di(void)
+int execute_cmd_di(ARCH arch, char* args)
 {
+	UNUSED(arch);
+	UNUSED(args);
+
 	display_desc_array();
 	return CMD_EXIT_SUCCESS;
 }
