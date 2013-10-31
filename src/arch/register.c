@@ -12,10 +12,10 @@ void display_reg_all(ARCH arch)
 {
 	int i;
 
-	for (i = 1; i <= 36; i++) {
-		display_reg(arch, i - 1);
+	for (i = 0; i < 36; i++) {
+		display_reg(arch, i);
 
-		if (i % 4 == 0)
+		if ((i+1) % 4 == 0)
 			printf("\n");
 		/* padding */
 	}
