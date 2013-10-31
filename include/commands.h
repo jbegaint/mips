@@ -20,12 +20,13 @@
 #include "arch/arch.h"
 
 int execute_cmd_testcmd(char*);
-int execute_cmd_ex();
+int execute_cmd_ex(void);
 int execute_cmd_lp(ARCH, char*);
 int execute_cmd_lm(ARCH, char*);
 int execute_cmd_lr(ARCH, char*);
 int execute_cmd_dr(ARCH, char *);
 int execute_cmd_dm(ARCH, char*);
 int execute_cmd_da(ARCH, char*);
+int execute_cmd_di(void);
 
 #endif

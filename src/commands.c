@@ -16,6 +16,8 @@
 
 #include "instr/affiche_instru.h"
 
+#include "desc/desc_utils.h"
+
 extern DESC* DESC_ARRAY;
 
 int execute_cmd_ex()
@@ -132,9 +134,6 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 	    if (reg_index == -1)
 	    	return CMD_EXIT_INVALID_REG;
 
-    	/* padding */
-		printf("  ");
-
 	    display_reg(arch, reg_index);
 	    ptr_arg = strtok(NULL, " ");
 
@@ -144,7 +143,7 @@ int execute_cmd_dr(ARCH arch, char *str_arg) {
 	}
 
 	/* if last row not full */
-	if (i%4 != 0)
+	if ((i-1)%4 != 0)
 	    	printf("\n");
 
 	return CMD_EXIT_SUCCESS;
@@ -244,5 +243,12 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
+	return CMD_EXIT_SUCCESS;
+}
+
+
+int execute_cmd_di(void)
+{
+	display_desc_array();
 	return CMD_EXIT_SUCCESS;
 }

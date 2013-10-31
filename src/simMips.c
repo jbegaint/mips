@@ -40,10 +40,8 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	else if (strcmp(cmd, "da") == 0) {
 		return execute_cmd_da(arch, args);
 	}
-	/* only for testing purpose */
-	else if (strcmp(cmd, "dd") == 0) {
-		display_desc_array();
-		return CMD_EXIT_SUCCESS;
+	else if (strcmp(cmd, "di") == 0) {
+		return execute_cmd_di();
 	}
 	else {
 		return CMD_NOT_FOUND;
