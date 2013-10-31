@@ -17,27 +17,29 @@
 typedef int (*cmd_ptr)(ARCH, char*);
 
 typedef union {
-	int (*cmd_ptr_arch_and_args)(ARCH, char*);
-	int (*cmd_ptr_args)(char*);
-	int (*cmd_ptr_void)(void);
+	int (*arch_and_args)(ARCH, char*);
+	int (*args)(char*);
+	int (*noarg)(void);
 } cmd_wrapper;
 
-static struct {
+struct command {
 	const char* command;
 	cmd_wrapper ptr;
 	const char* usage;
 	const char* help;
-	char type;
-} cmd_table[] = {
+	char type; /* 0 for arch and args, 1 for void, 2 for args*/
+};
+
+static struct command cmd_table[] = {
 	{"da", {execute_cmd_da}, "", "", 0},
 	{"dm", {execute_cmd_dm}, "", "", 0},
 	{"dr", {execute_cmd_dr}, "", "", 0},
 	{"lm", {execute_cmd_lm}, "", "", 0},
 	{"lp", {execute_cmd_lp}, "", "", 0},
 	{"lr", {execute_cmd_lr}, "", "", 0},
-	{"ex", {.cmd_ptr_void = execute_cmd_ex}, "", "", 1},
-	{"di", {.cmd_ptr_void = execute_cmd_di}, "", "", 1},
-	{"testcmd", {.cmd_ptr_args = execute_cmd_testcmd}, "", "", 2},
+	{"ex", {.noarg = execute_cmd_ex}, "", "", 1},
+	{"di", {.noarg = execute_cmd_di}, "", "", 1},
+	{"testcmd", {.args = execute_cmd_testcmd}, "", "", 2},
 	{.command = NULL},
 };
 
@@ -46,51 +48,16 @@ int execute_cmd(ARCH arch, char* cmd, char* args)
 	for (int i = 0; cmd_table[i].command != NULL; i++) {
 		if (strcmp(cmd, cmd_table[i].command) == 0) {
 			switch (cmd_table[i].type) {
-			case 1:
-				return ((cmd_table+i)->ptr).cmd_ptr_void();
-			case 2:
-				return ((cmd_table+i)->ptr).cmd_ptr_args(args);
-			default:
-				return ((cmd_table+i)->ptr).cmd_ptr_arch_and_args(arch, args);
+				case 1:
+					return ((cmd_table+i)->ptr).noarg();
+				case 2:
+					return ((cmd_table+i)->ptr).args(args);
+				default:
+					return ((cmd_table+i)->ptr).arch_and_args(arch, args);
 			}
 		}
 	}
 	return CMD_NOT_FOUND;
-}
-
-int execute_cmd2(ARCH arch, char* cmd, char* args)
-{
-	if (strcmp(cmd, "ex") == 0) {
-		return execute_cmd_ex();
-	} 
-	else if (strcmp(cmd, "testcmd") == 0) {
-		return execute_cmd_testcmd(args);
-	}
-	else if (strcmp(cmd, "lm") == 0) {
-		return execute_cmd_lm(arch, args);
-	}
-	else if (strcmp(cmd, "lr") == 0) {
-		return execute_cmd_lr(arch, args);
-	}
-	else if (strcmp(cmd, "dm") == 0) {
-		return execute_cmd_dm(arch, args);
-	}
-	else if (strcmp(cmd, "dr") == 0) {
-		return execute_cmd_dr(arch, args);
-	}
-	else if (strcmp(cmd, "lp") == 0) {
-		return execute_cmd_lp(arch, args);
-	}
-	else if (strcmp(cmd, "da") == 0) {
-		return execute_cmd_da(arch, args);
-	}
-	/* display all loaded instructions */
-	else if (strcmp(cmd, "di") == 0) {
-		return execute_cmd_di();
-	}
-	else {
-		return CMD_NOT_FOUND;
-	}
 }
 
 int parse_line(ARCH arch, FILE* f)
