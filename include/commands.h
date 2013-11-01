@@ -38,15 +38,15 @@ struct command {
 };
 
 static struct command cmd_table[] = {
-	{"da", execute_cmd_da, "da <address>:<instructions number>", ""},
-	{"dm", execute_cmd_dm, "dm <address>", ""},
-	{"dr", execute_cmd_dr, "dr <register>", ""},
-	{"lm", execute_cmd_lm, "lm <address> <value>", ""},
-	{"lp", execute_cmd_lp, "lp <filename>", ""},
-	{"lr", execute_cmd_lr, "lr <register> <value>", ""},
-	{"ex", execute_cmd_ex, "", ""},
-	{"di", execute_cmd_di, "", "display all instructions"},
-	{"testcmd", execute_cmd_testcmd, "testcmd <address>", ""},
+	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler"},
+	{"dm", execute_cmd_dm, "dm <address>", "display memory"},
+	{"dr", execute_cmd_dr, "dr <register>", "display register"},
+	{"lm", execute_cmd_lm, "lm <address> <value>", "load memory"},
+	{"lp", execute_cmd_lp, "lp <filename>", "load program"},
+	{"lr", execute_cmd_lr, "lr <register> <value>", "load register"},
+	{"ex", execute_cmd_ex, "", "Quit"},
+	{"di", execute_cmd_di, "", "display loaded instructions"},
+	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose"},
 	{"help", execute_cmd_help, "help [command]", "display command help"},
 	{.command = NULL},
 };
