@@ -282,3 +282,32 @@ int execute_cmd_help(ARCH arch, char* str_arg)
 	print_help(command);
 	return CMD_EXIT_SUCCESS;
 }
+
+void print_usage(struct command* command)
+{
+	fprintf(stderr, "Usage: ");
+	if (strcmp(command->usage, "") != 0) 
+		fprintf(stderr, "%s\n", command->usage);
+	else
+		fprintf(stderr, "%s\n", command->command);
+}
+
+void print_help(struct command* command)
+{
+	fprintf(stderr, "Name: %s\n", command->command);
+	print_usage(command);
+	fprintf(stderr, "Help: %s\n", command->help);
+}
+
+void print_help_all(void)
+{
+	int i;
+	int n = 5;
+	for (i = 0; cmd_table[i].command != NULL; i++) {
+		fprintf(stderr, "%-8s", (cmd_table+i)->command);
+		if ((i+1)%n == 0)
+			printf("\n");
+	}
+	if ((i)%n != 0)
+			printf("\n");
+}
