@@ -22,18 +22,64 @@ static struct command cmd_table[] = {
 	{"lp", execute_cmd_lp, "lp <filename>", ""},
 	{"lr", execute_cmd_lr, "lr <register> <value>", ""},
 	{"ex", execute_cmd_ex, "", ""},
-	{"di", execute_cmd_di, "", ""},
+	{"di", execute_cmd_di, "", "display all instructions"},
 	{"testcmd", execute_cmd_testcmd, "testcmd <address>", ""},
+	{"help", execute_cmd_help, "help [command]", "display command help"},
 	{.command = NULL},
 };
 
-int execute_cmd(ARCH arch, char* cmd, char* args)
+struct command* find_cmd(char* cmd)
 {
 	for (int i = 0; cmd_table[i].command != NULL; i++) {
-		if (strcmp(cmd, cmd_table[i].command) == 0)
-			return (cmd_table+i)->ptr(arch, args);
+		if (strcmp(cmd, cmd_table[i].command) == 0) {
+			return cmd_table+i;
+		}
 	}
-	return CMD_NOT_FOUND;
+	return NULL;
+}
+
+void print_usage(struct command* command)
+{
+	fprintf(stderr, "Usage: ");
+	if (strcmp(command->usage, "") != 0) 
+		fprintf(stderr, "%s\n", command->usage);
+	else
+		fprintf(stderr, "%s\n", command->command);
+}
+
+void print_help(struct command* command)
+{
+	fprintf(stderr, "Name: %s\n", command->command);
+	print_usage(command);
+	fprintf(stderr, "Help: %s\n", command->help);
+}
+
+void print_help_all(void)
+{
+	int i;
+	int n = 5;
+	for (i = 0; cmd_table[i].command != NULL; i++) {
+		fprintf(stderr, "%-8s", (cmd_table+i)->command);
+		if ((i+1)%n == 0)
+			printf("\n");
+	}
+	if ((i)%n != 0)
+			printf("\n");
+}
+
+int execute_cmd(ARCH arch, char* cmd, char* args)
+{
+	int res;
+	struct command* command;
+	
+	command = find_cmd(cmd);
+	if (command == NULL)
+		return CMD_NOT_FOUND;
+
+	res = command->ptr(arch, args);
+	if (res == CMD_EXIT_MISSING_ARG) 
+		print_usage(command);
+	return res;
 }
 
 int parse_line(ARCH arch, FILE* f)

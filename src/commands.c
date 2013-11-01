@@ -260,3 +260,25 @@ int execute_cmd_di(ARCH arch, char* args)
 	display_desc_array();
 	return CMD_EXIT_SUCCESS;
 }
+
+int execute_cmd_help(ARCH arch, char* str_arg)
+{
+	char* args[1];
+	UNUSED(arch);
+	struct command* command;
+
+	if (strlen(str_arg) == 0) {
+		print_help_all();
+		return CMD_EXIT_SUCCESS;
+	}
+
+	if (parse_args(str_arg, args, 1) != 1)
+		return CMD_EXIT_MISSING_ARG;
+
+	command = find_cmd(args[0]);
+	if (command == NULL)
+		return CMD_NOT_FOUND;
+
+	print_help(command);
+	return CMD_EXIT_SUCCESS;
+}
