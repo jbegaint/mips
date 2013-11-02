@@ -63,7 +63,7 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 {
 	int i;
 
-	for (i=0; i < bytes_nb ; i++) {
+	for (i = 0; i < bytes_nb ; i++) {
 	    
 	    /* print addr */
 		if (i%16 == 0) 
@@ -100,7 +100,7 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 
 	if (addr0 > addr1)
 		/* or swap maybe ? */
-		return CMD_EXIT_FAILURE;
+		return CMD_EXIT_ERROR;
 
 	return display_range_addr(arch, addr0, addr1 - addr0);
 	    
@@ -124,6 +124,11 @@ int display_bytes_from_addr(ARCH arch, char* str_arg)
 	if (sscanf(args[1], "%d", &bytes_nb) != 1) {
 		print_error("Invalid bytes range");
 		return CMD_EXIT_FAILURE;
+	}
+
+	if (bytes_nb < 0) {
+		WARNING_MSG("invalid number (positive expected)");
+		return CMD_EXIT_ERROR;
 	}
 
 	return display_range_addr(arch, addr, bytes_nb);
