@@ -284,6 +284,8 @@ int execute_cmd_help(ARCH arch, char* str_arg)
 
 int execute_cmd_ds(ARCH arch, char* str_arg) 
 {
+	UNUSED(str_arg);
+
 	for (int i = 0; i < 3; i++) {
 		printf("Section: %s\n", arch->sections[i].name);
 		printf("Start address: %d\n", arch->sections[i].start_addr);
