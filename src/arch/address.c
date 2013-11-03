@@ -17,27 +17,27 @@ int get_byte(ARCH arch, uint addr, uchar* val)
 
 	/* not allocated memory */
 	if (section_index == -1)
-		return 0;
+		return BYTE_NOT_ALLOCATED;
 		
 	offset = get_offset(arch, addr, section_index);
 	*val = *((arch->sections)[section_index].data + offset);
 	
-	return 1;
+	return BYTE_ALLOCATED;
 }
 
-int get_byte_info(ARCH arch, uint addr, uchar* val, int* section_index)
+int get_byte_details(ARCH arch, uint addr, uchar* val, int* section_index)
 {
 	int offset;
 	*section_index = get_section(arch, addr);
 
 	/* not allocated memory */
 	if (*section_index == -1)
-		return 0;
+		return BYTE_NOT_ALLOCATED;
 		
 	offset = get_offset(arch, addr, *section_index);
 	*val = *((arch->sections)[*section_index].data + offset);
 	
-	return 1;
+	return BYTE_ALLOCATED;
 }
 
 int display_byte(ARCH arch, uint addr) 
@@ -54,14 +54,25 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 	/* display 16 bytes per line */
 
 	int i;
+	uint c = 0;
 	int res, section_index;
 	int section_index_old = -1;
 	uchar val;
 
-	for (i = 0; i < bytes_nb ; i++) {
-	    
-	    res = get_byte_info(arch, addr_start+i, &val, &section_index);
+	for (i = 0; i < bytes_nb ; i++, c++) {
 
+		/* skip to next section, if what remains is empty */
+		if (section_index > 0) {
+			if (c + 1 == (arch->sections[section_index]).size) {
+				i = arch->sections[section_index+1].start_addr;
+				c = 0;
+				continue; 
+			}
+		}	
+
+		/* get all details on byte */
+		res = get_byte_details(arch, addr_start + i, &val, &section_index);
+	    
 	    if (section_index != section_index_old && section_index != -1) {
 	    	switch (section_index) {
 				case TEXT:
@@ -106,9 +117,9 @@ int display_addr(ARCH arch, uint addr)
 {
 	uint i;
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 4; i++)
 		display_byte(arch, addr + i);
-	}
+
 	printf("\n");
 	return CMD_EXIT_SUCCESS;
 }
@@ -119,14 +130,11 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 	uint addr0, addr1;
 	char* args[2];
 
-	if (parse_args(str_arg, args, 2) != 1) {
+	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
-	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1)) {
-		print_error("invalid address");
+	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1))
 		return CMD_EXIT_INVALID_ADDR;
-	}
 
 	if (addr0 > addr1)
 		/* or swap maybe ? */
@@ -142,18 +150,15 @@ int display_bytes_from_addr(ARCH arch, char* str_arg)
 	int bytes_nb;
 	char* args[2];
 
-	if (parse_args(str_arg, args, 2) != 1) {
+	if (parse_args(str_arg, args, 2) != 1)
 		return CMD_EXIT_MISSING_ARG;
-	}
 
-	if (!parse_addr(args[0], &addr)) {
-		print_error("invalid address");
+	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
-	}
 
 	if (sscanf(args[1], "%d", &bytes_nb) != 1) {
 		print_error("Invalid bytes range");
-		return CMD_EXIT_FAILURE;
+		return CMD_EXIT_ERROR;
 	}
 
 	if (bytes_nb < 0) {
@@ -173,10 +178,8 @@ int display_one_addr(ARCH arch, char* str_arg)
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
-	if (!parse_addr(args[0], &addr)) {
-		print_error("invalid address");
+	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
-	}
 
 	if (get_byte(arch, addr, &val)) {
 		printf("%08x: ", addr);

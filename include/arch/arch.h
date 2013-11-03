@@ -2,8 +2,8 @@
 #define _ARCH_H_
 
 #define TEXT 0
-#define BSS 1
-#define DATA 2
+#define DATA 1
+#define BSS 2
 
 typedef unsigned int uint;
 typedef unsigned char uchar;
