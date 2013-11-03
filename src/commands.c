@@ -208,14 +208,12 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 	for (i=0; i < instr; i++) {
 		printf("%08x: ", addr + 4*i);
-		for (j=0; j < 4; j++) {
-			display_addr(arch, addr + 4*i + j, 0);
-			get_addr(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j]));
+		for (j = 0; j < 4; j++) {
+			display_byte(arch, addr + 4*i + j);
+			get_byte(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j]));
 		}
 		affichage_instr(lgn_instr.word, DESC_ARRAY);
 	}
-
-	WARNING_MSG("not implemented yet");
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -274,12 +272,23 @@ int execute_cmd_help(ARCH arch, char* str_arg)
 	}
 
 	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
+		return CMD_EXIT_ERROR;
 
 	command = find_cmd(args[0]);
 	if (command == NULL)
 		return CMD_NOT_FOUND;
 
 	print_help(command);
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_ds(ARCH arch, char* str_arg) 
+{
+	for (int i = 0; i < 3; i++) {
+		printf("Section: %s\n", arch->sections[i].name);
+		printf("Start address: %d\n", arch->sections[i].start_addr);
+		printf("Size: %d\n", arch->sections[i].size);
+		printf("\n");
+	}
 	return CMD_EXIT_SUCCESS;
 }

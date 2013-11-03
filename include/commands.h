@@ -28,5 +28,6 @@ int execute_cmd_lp(ARCH, char*);
 int execute_cmd_lr(ARCH, char*);
 int execute_cmd_testcmd(ARCH, char*);
 int execute_cmd_help(ARCH, char*);
+int execute_cmd_ds(ARCH, char*);
 
 #endif

@@ -22,8 +22,9 @@ static struct command cmd_table[] = {
 	{"lm", execute_cmd_lm, "lm <address> <value>", "load memory"},
 	{"lp", execute_cmd_lp, "lp <filename>", "load program"},
 	{"lr", execute_cmd_lr, "lr <register> <value>", "load register"},
-	{"ex", execute_cmd_ex, "", "Quit"},
+	{"ex", execute_cmd_ex, "", "exit"},
 	{"di", execute_cmd_di, "", "display loaded instructions"},
+	{"ds", execute_cmd_ds, "", "display section infos"},
 	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose"},
 	{"help", execute_cmd_help, "help [command]", "display command help"},
 	{.command = NULL},
@@ -165,6 +166,11 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 		case CMD_NOT_FOUND:
 			*res = -1;
 			print_error("I'm sorry Dave, I'm afraid I can't do that.");
+			break;
+
+		case CMD_EXIT_ERROR:
+			*res = -1;
+			print_error("an error occured");
 			break;
 
 		case CMD_EXIT_FAILURE:

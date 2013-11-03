@@ -464,6 +464,8 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
     Elf32_Shdr  *shdr;   // entete de section elf
     Elf_Data    *data ;  // donnee elf qq
 
+    (void) (EnsZones);
+
     if (Zone->rel_scn == NULL)
         return ; // zone abstente, on ne fait rien
 

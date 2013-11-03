@@ -3,10 +3,8 @@ Simulateur MIPS
 
 Todo:
 -----
-* dm (new behavior)
-
-* tests for da
-* see new behavior for dm/ dr/ lm
+* dm (new behavior) 
+	→ still some work on displaying sections and so on...
 
 Compilation:
 ------------

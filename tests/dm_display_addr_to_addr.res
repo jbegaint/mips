@@ -1,2 +1,3 @@
 CMD TEST RESULT 0xb
+=== section .text ===
 00000400: 00 00 00 00 00 00 00 00 00 00 
