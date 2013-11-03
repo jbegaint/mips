@@ -3,9 +3,9 @@ TARGET=simMips
 INC_DIR=include
 SRC_DIR=src
 
-CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic #-O2
+CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic
 
-CFLAGS_RLS=$(CFLAGS)
+CFLAGS_RLS=$(CFLAGS) -O2
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 
 LDFLAGS=-lreadline -lcurses -lelf -lm
@@ -25,7 +25,7 @@ simMips-debug: $(OBJECTS_DBG)
 	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
 
 %.o: %.c
-	@gcc $< $(CFLAGS) $(LDFLAGS) -I$(dir $<) -c -o $@
+	@gcc $< $(CFLAGS) $(CFLAGS_RLS) -I$(dir $<) -c -o $@
 
 %.dbg.o : %.c
 	@gcc $< $(CFLAGS) $(CFLAGS_DBG) -I$(dir $<) -c -o $@

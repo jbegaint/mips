@@ -44,13 +44,14 @@ void init_desc_array(void)
 	}
 	DEBUG_MSG("%d files in list", l);
 
-	DESC_ARRAY_LENGTH = l - 1;
 
 	/* allocate memory */
+	DESC_ARRAY_LENGTH = l - 1;
 	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH * sizeof(DESC));
 
 	fseek(f, 0, 0);
 
+	/* parse files */
 	c = 0;
 	while (fgets(desc_filename, sizeof(desc_filename), f) != 0) {
 		sscanf(desc_filename, "%s", desc_filename);

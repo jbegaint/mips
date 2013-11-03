@@ -44,7 +44,7 @@ int display_byte(ARCH arch, uint addr)
 {
 	uchar val;
 	int res = get_byte(arch, addr, &val);
-	if (res == 1)
+	if (res)
 		printf("%02x ", val);
 	return res;
 }
@@ -73,7 +73,7 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 		/* get all details on byte */
 		res = get_byte_details(arch, addr_start + i, &val, &section_index);
 	    
-	    if (section_index != section_index_old && section_index != -1) {
+	    if (section_index != section_index_old && section_index >= 0) {
 	    	switch (section_index) {
 				case TEXT:
 					printf("=== section .text");

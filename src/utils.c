@@ -94,22 +94,21 @@ void print_section_info(SECTION section)
 
 uint get_hash(char *cmd)
 {
-	uint i;
 	uint res = 0;
 
-	for (i = 0; i < strlen(cmd) && i < 2; i++) {
+	for (uint i = 0; i < strlen(cmd) && i < 2; i++) {
 		res = res * 100;
 		res = res + (*(cmd + i) - 'a' + 1);
 	}
+	
 	return res;
 }
 
 char bin_to_dec(char *n)
 {
-	uint i;
 	char res = 0;
 
-	for (i = 0; i < strlen(n); i++) {
+	for (uint i = 0; i < strlen(n); i++) {
 		res = res * 2 + (n[i] - (int) '0');
 	}
 

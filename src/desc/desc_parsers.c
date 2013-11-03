@@ -27,9 +27,7 @@ int parse_type(char* str, char* type)
 
 int parse_name(char* str, char* name)
 {
-	uint i;
-
-	for (i=0; i < strlen(str); i++) {
+	for (uint i = 0; i < strlen(str); i++) {
 		if (!isalpha(*(str+i)))
 			return PARSE_ERROR;
 	}
@@ -42,12 +40,10 @@ int parse_name(char* str, char* name)
 
 int parse_opcode(char* str, uint* opcode)
 {
-	uint i;
-
 	if (strlen(str) != 6)
 		return PARSE_ERROR;
 
-	for (i=0; i < 6; i++) {
+	for (uint i = 0; i < 6; i++) {
 		if (!isdigit(*(str+i)))
 			return PARSE_ERROR;
 	}

@@ -9,7 +9,7 @@ extern int DESC_ARRAY_LENGTH;
 void display_desc_array(void)
 {	
 	int i;
-	for (i=0; i < DESC_ARRAY_LENGTH; i++) {
+	for (i = 0; i < DESC_ARRAY_LENGTH; i++) {
 		/* -6 : right padding */
 		fprintf(stderr, "%-6s", DESC_ARRAY[i].name);
 		if ((i+1)%4 == 0)
