@@ -5,12 +5,12 @@
 
 #define NO_MATCH -1
 
-int affichage_instr(uint val, DESC *tab);
-int afficher_typeR(DESC *R ,int c, uint val);
-int afficher_typeI(DESC *JI ,int c, uint val);
-int afficher_typeJ( DESC *JI ,int c, uint val);
+int display_instr(uint val);
+int display_typeR(int c, uint val);
+int afficher_typeI(int c, uint val);
+int afficher_typeJ(int c, uint val);
 
-int matchR(uint function, DESC *R);
-int matchJI(uint opcode, DESC *JI );
+int matchR(uint function);
+int matchJI(uint opcode);
 
 #endif // AFFICHE_INSTRU_H_INCLUDED

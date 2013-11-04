@@ -38,7 +38,7 @@ int execute_cmd_testcmd(ARCH arch, char* str_arg)
 	UNUSED(arch);
 
 	DEBUG_MSG("Execute testcmd <address>");
-	
+
 	if (parse_args(str_arg, args, 1) != 1)
 		return CMD_EXIT_MISSING_ARG;
 
@@ -46,7 +46,7 @@ int execute_cmd_testcmd(ARCH arch, char* str_arg)
 	if (sscanf(args[0], "%x", &addr) != 1)
 		return CMD_EXIT_FAILURE;
 
-	DEBUG_MSG("<address> = 0x%x", addr);	
+	DEBUG_MSG("<address> = 0x%x", addr);
 
 	addr++;
 
@@ -54,7 +54,7 @@ int execute_cmd_testcmd(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_lm(ARCH arch, char* str_arg) 
+int execute_cmd_lm(ARCH arch, char* str_arg)
 {
 	INSTR val;
 	char* args[2];
@@ -65,8 +65,8 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	DEBUG_MSG("Execute lm <address> <addr_value>");
 
 	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;	
-	
+		return CMD_EXIT_MISSING_ARG;
+
 	if (!parse_addr_value(args[1], &val.word))
 		return CMD_EXIT_INVALID_ADDR_VALUE;
 
@@ -87,7 +87,7 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_lr(ARCH arch, char* str_arg) 
+int execute_cmd_lr(ARCH arch, char* str_arg)
 {
 	int reg;
 	uint val;
@@ -204,7 +204,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
-	if ( addr < arch->sections[TEXT].start_addr || 
+	if ( addr < arch->sections[TEXT].start_addr ||
 		addr >= arch->sections[TEXT].size + arch->sections[TEXT].start_addr) {
 		print_error("address not in .text");
 		return CMD_EXIT_ERROR;
@@ -226,7 +226,7 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 			display_byte(arch, addr + 4*i + j);
 		}
-		if (!affichage_instr(lgn_instr.word, DESC_ARRAY)) {
+		if (!display_instr(lgn_instr.word)) {
 			printf("\n");
 			/*return CMD_EXIT_ERROR;*/
 			WARNING_MSG("no match");
@@ -245,7 +245,7 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 	found_tild = strchr(str_arg, '~');
 
 	if (!found_colon != !found_tild) {
-		/* xor */	
+		/* xor */
 
 		if (found_colon) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
@@ -258,8 +258,8 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 	}
 	else if (!found_tild && !found_colon) {
 		DEBUG_MSG("execute dm <address>");
-		return display_one_addr(arch, str_arg);		
-		
+		return display_one_addr(arch, str_arg);
+
 	}
 	else {
 		return CMD_EXIT_FAILURE;
@@ -300,7 +300,7 @@ int execute_cmd_help(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_ds(ARCH arch, char* str_arg) 
+int execute_cmd_ds(ARCH arch, char* str_arg)
 {
 	UNUSED(str_arg);
 
