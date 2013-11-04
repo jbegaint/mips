@@ -1,7 +1,7 @@
 /**
  * \author (c) Laurent Fesquet 2003,
  * \author (m) Matthieu Chabanas 2005
- * \author (m) François Portet 2013 <francois.portet@imag.fr>
+ * \author (m) FranÃ§ois Portet 2013 <francois.portet@imag.fr>
  * \brief test main for loading ELF file in memory.
  * A compiler avec "-DVERBOSE": pour trace d'execution
  *--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ int main (int argc, char *argv[]) {
     printELFSection(dataSection);
     printELFSection(bssSection);
 
-    /* Faire le ménage avant de sortir */
+    /* Faire le mÃ©nage avant de sortir */
     free(textSection);
     free(dataSection);
     free(bssSection);

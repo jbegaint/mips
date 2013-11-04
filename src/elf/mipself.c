@@ -1,7 +1,7 @@
 /**
  * \author (c) Laurent Fesquet 2003,
  * \author (m) Matthieu Chabanas 2005
- * \author (m) François Portet 2013 <francois.portet@imag.fr>
+ * \author (m) FranÃ§ois Portet 2013 <francois.portet@imag.fr>
  * \brief loading ELF file in memory.
  * A compiler avec "-DVERBOSE": pour trace d'execution
  *--------------------------------------------------------------------------
@@ -12,7 +12,7 @@
  *
  * Vous trouverez dans mipself.c :
  *   - des routines d'acces a des champs ELF (differentes tables, ....)
- *   - des outils basés sur une table de hachage (qui permettent de retrouver
+ *   - des outils basÃ©s sur une table de hachage (qui permettent de retrouver
  *			l'adresse memoire a laquelle un symbole est defini).
  *   - des operations sur les zones memoires (sections) a lire.
  *     A la fin du projet, vous devrez avoir complete la fonction
@@ -186,8 +186,8 @@ char *stName (unsigned char t)
 
 /*--------------------------------------------------------------------------*/
 /*
- * @param index indice de la section à récupérer dans la table des en-têtes ELF
- * @brief Acces au nom d'header d'une section à partir de l'index de la section ELF
+ * @param index indice de la section Ã  rÃ©cupÃ©rer dans la table des en-tÃªtes ELF
+ * @brief Acces au nom d'header d'une section Ã  partir de l'index de la section ELF
  *
  */
 char *getSectionHeaderName(Elf32_Word index)
@@ -203,8 +203,8 @@ char *getSectionHeaderName(Elf32_Word index)
 
 /*--------------------------------------------------------------------------*/
 /*
- * @param index indice de la chaine à récupérer dans la table des chaines ELF
- * @brief Acces à un nom dans la table des chaines ELF
+ * @param index indice de la chaine Ã  rÃ©cupÃ©rer dans la table des chaines ELF
+ * @brief Acces Ã  un nom dans la table des chaines ELF
  *
  */
 char *getName(Elf32_Word index)
@@ -220,8 +220,8 @@ char *getName(Elf32_Word index)
 
 /*--------------------------------------------------------------------------*/
 /*
- * @param index indice du symbole à récupérer dans la table des symboles ELF
- * @brief Accès à un nom de symbole dans la table des symboles ELF
+ * @param index indice du symbole Ã  rÃ©cupÃ©rer dans la table des symboles ELF
+ * @brief AccÃ¨s Ã  un nom de symbole dans la table des symboles ELF
  *
  */
 Elf32_Sym *getSymb(Elf32_Word index)
@@ -240,7 +240,7 @@ Elf32_Sym *getSymb(Elf32_Word index)
 //          La cle de hachage est l'adresse des symboles.
 //----------------------------------------------------------------------***/
 
-// Ces opérations servent à retrouver si des symboles existent à une adresse donnée en mémoire
+// Ces opÃ©rations servent Ã  retrouver si des symboles existent Ã  une adresse donnÃ©e en mÃ©moire
 
 #define HASHSIZE 37
 
@@ -255,7 +255,7 @@ struct nodeSymbol {
 typedef struct nodeSymbol *listSymboles ;
 
 /*--------------------------------------------------------------------------*/
-/** SymbHashTable est la table de hachage initialisée à zéro au démarrage du programme*/
+/** SymbHashTable est la table de hachage initialisÃ©e Ã  zÃ©ro au dÃ©marrage du programme*/
 static listSymboles SymbHashTable[HASHSIZE] = {0};
 
 /*--------------------------------------------------------------------------*/
@@ -263,7 +263,7 @@ static listSymboles SymbHashTable[HASHSIZE] = {0};
  *
  * @brief libere la memoire occupee par la table precedente
  *
- * on part du principe que la table a été correctement initialisée à zéro
+ * on part du principe que la table a Ã©tÃ© correctement initialisÃ©e Ã  zÃ©ro
  */
 void freeHashTable()
 {
@@ -290,8 +290,8 @@ int hashCode(unsigned long adr)
 
 /*--------------------------------------------------------------------------*/
 /*
- * @param adr	Adresse du symbole à ajouter
- * @param iden nom du symoble à ajouter
+ * @param adr	Adresse du symbole Ã  ajouter
+ * @param iden nom du symoble Ã  ajouter
  * @brief Ajout d'un symbole (adresse, nom) a la table de hachage.
  * La cle de hachage est l'adresse.
  *
@@ -321,7 +321,7 @@ void addSymbol (unsigned long adr, char *ident)
 /*
  * @param adr adresse
  * @return NULL si aucun symbole n'existe pour cette adresse
- *              sinon le symbole associé à cette adresse
+ *              sinon le symbole associÃ© Ã  cette adresse
  *              si plusieurs symboles a la meme adresse, retourne tjs le meme symbole
  * @brief recherche du nom d'une adresse
  */
@@ -341,8 +341,8 @@ char *getAddressName (unsigned long adr)
 
 
 /*--------------------------------------------------------------------------*/
-/* @param section adresse de la section à afficher
- * @brief printELFSection : affiche le contenu d'une Section ELF à l'écran
+/* @param section adresse de la section Ã  afficher
+ * @brief printELFSection : affiche le contenu d'une Section ELF Ã  l'Ã©cran
  */
 void printELFSection(SectionELF *section)
 {
@@ -377,12 +377,12 @@ void printELFSection(SectionELF *section)
 
 /*--------------------------------------------------------------------------*/
 /**
- * @param Zone segment de mémoire à initialiser
- * @param name nom de la zone à initialiser
- * @param section section à laquelle cette zone correspond (la section doit être allouée)
+ * @param Zone segment de mÃ©moire Ã  initialiser
+ * @param name nom de la zone Ã  initialiser
+ * @param section section Ã  laquelle cette zone correspond (la section doit Ãªtre allouÃ©e)
  * @param type type de la section (SHT_PROGBITS, SHT_NOBITS...)
  *
- * @brief Initialise une zone mémoire ELF et fait les liens entre la zone et la section
+ * @brief Initialise une zone mÃ©moire ELF et fait les liens entre la zone et la section
  */
 static void initZone(MemZone *Zone, char *name, SectionELF * section, Elf32_Half type)
 {
@@ -401,11 +401,11 @@ static void initZone(MemZone *Zone, char *name, SectionELF * section, Elf32_Half
 
 /*--------------------------------------------------------------------------*/
 /**
- * @param Zone adresse de la zone qui acceuillera les données
- * @param from Adresse de début de section; les sections lues seront toutes séparées d'au moins une page
+ * @param Zone adresse de la zone qui acceuillera les donnÃ©es
+ * @param from Adresse de dÃ©but de section; les sections lues seront toutes sÃ©parÃ©es d'au moins une page
  *
- * @brief les préconditions sont que Zone->scn != NULL et Zone->exportSection != NULL
- * @brief chargement des données d'une zone à partir du fichier ELF
+ * @brief les prÃ©conditions sont que Zone->scn != NULL et Zone->exportSection != NULL
+ * @brief chargement des donnÃ©es d'une zone Ã  partir du fichier ELF
  */
 
 static void loadZone(MemZone *Zone, WORD from) {
@@ -451,11 +451,11 @@ static void loadZone(MemZone *Zone, WORD from) {
 
 /*--------------------------------------------------------------------------  */
 /**
- * @param Zone adresse de la zone à reloger
+ * @param Zone adresse de la zone Ã  reloger
  * @param EnsZones adresse de l'ensemble des zones
  *
- * @brief Cette fonction effectue la relocation de la zone passée en parametres
- * @brief l'ensemble des zones (presentes) doit déjà avoir été chargé en memoire.
+ * @brief Cette fonction effectue la relocation de la zone passÃ©e en parametres
+ * @brief l'ensemble des zones (presentes) doit dÃ©jÃ  avoir Ã©tÃ© chargÃ© en memoire.
  * Pour chaque zone presente, on connait en particulier "mem_start" et "size"
  *
  * VOUS DEVEZ COMPLETER CETTE FONCTION POUR METTRE EN OEUVRE LA RELOCATION !!
@@ -505,31 +505,31 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 * @param filename nom du fichier a charger
 *
 *SORTIES :
-* @param textSection adresse des données de la section text
-* @param dataSection adresse des données de la section data
-* @param bssSection adresse des données de la section bss
+* @param textSection adresse des donnÃ©es de la section text
+* @param dataSection adresse des donnÃ©es de la section data
+* @param bssSection adresse des donnÃ©es de la section bss
 *
-* @return 0 si le chargement chargement s'est bien passé
+* @return 0 si le chargement chargement s'est bien passÃ©
 *
-* @brief mipsloader : charge un fichier ELF et renvoie les données contenues
-*!  Cette fonction lit le fichier ELF nommé "filename" et en extrait
-*  les informations sur les sections .text, .data et .bss (les données,
-*  leur taille, où les mettre en mémoire).
-*  Si une section ne contient pas de données après le chargement,
-*  son champ "size" est égal à zéro. Sinon, le tableau "data" de cette
-*  section contient "size" octets, qui doivent être placés dans la mémoire
-*  à partir de l'adresse "start_addr".
+* @brief mipsloader : charge un fichier ELF et renvoie les donnÃ©es contenues
+*!  Cette fonction lit le fichier ELF nommÃ© "filename" et en extrait
+*  les informations sur les sections .text, .data et .bss (les donnÃ©es,
+*  leur taille, oÃ¹ les mettre en mÃ©moire).
+*  Si une section ne contient pas de donnÃ©es aprÃ¨s le chargement,
+*  son champ "size" est Ã©gal Ã Â zÃ©ro. Sinon, le tableau "data" de cette
+*  section contient "size" octets, qui doivent Ãªtre placÃ©s dans la mÃ©moire
+*  Ã  partir de l'adresse "start_addr".
 *
 *  !!!! ATTENTION !!!!
 *      La version actuelle de cette fonction n'effectue pas de relocation!
-*      Les données des trois sections seront toujours lues, mais elles n'auront
-*      pas été mises à jours si une relocation était nécessaire! Le programme
-*      ne pourra donc pas être utilisé correctement!!
+*      Les donnÃ©es des trois sections seront toujours lues, mais elles n'auront
+*      pas Ã©tÃ© mises Ã  jours si une relocation Ã©tait nÃ©cessaire! Le programme
+*      ne pourra donc pas Ãªtre utilisÃ© correctement!!
 *      1. Dans un premier temps, ne chargez que des programmes sans relocation.
 *         Si le fichier contient des sections de relocations, elle ne seront pas
-*         traitées et un message d'erreur sera renvoyé.
-*      2. Ensuite, ce sera à vous de gérer la relocation pour toujours renvoyer
-*         un programme exécutable par le simulateur.
+*         traitÃ©es et un message d'erreur sera renvoyÃ©.
+*      2. Ensuite, ce sera Ã  vous de gÃ©rer la relocation pour toujours renvoyer
+*         un programme exÃ©cutable par le simulateur.
 *
 */
 
@@ -687,10 +687,10 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
 
     // CHARGEMENT EN MEMOIRE DES ZONES
     for (zone=EnsZones,cnt=0 ; zone < EnsZones+NUMZONE ; zone++) {
-        if (zone->scn!=NULL) {	// si la zone est bien présente dans le fichier.
+        if (zone->scn!=NULL) {	// si la zone est bien prÃ©sente dans le fichier.
             loadZone(zone, cnt) ;
 
-            // dernière adresse (pour déterminer le début de la zone suivante)
+            // derniÃ¨re adresse (pour dÃ©terminer le dÃ©but de la zone suivante)
             cnt += zone->mem_start + zone->size ;
         }
     }

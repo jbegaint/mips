@@ -49,10 +49,15 @@ int display_byte(ARCH arch, uint addr)
 	return res;
 }
 
+/**
+@brief display bytes (16 per line)
+@param ARCH arch 
+@param addr_start display bytes from 
+@param bytes_nb to
+*/
+
 int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 {
-	/* display 16 bytes per line */
-
 	int i;
 	uint c = 0;
 	int res, section_index;
@@ -97,16 +102,20 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 	    	section_index_old = section_index;	
 	    }
 
-	    /* print addr */
-		if (i%16 == 0 && res) 
-	   		printf("%08x: ", addr_start+i);
+	    if (res) {
+	    	/* print addr */
+			if (i%16 == 0) 
+		   		printf("%08x: ", addr_start+i);
 
-	   	if (res) 
+		   	/* print value */
 	   		printf("%02x ", val);
-	    
-	    if ((i+1)%16 == 0 && res) 
-	    	printf("\n");
+		    
+		    /* break line */
+		    if ((i+1)%16 == 0) 
+		    	printf("\n");
+		}
 
+		/* increment section-bytes counter */
 	    c++;
 	}
 
