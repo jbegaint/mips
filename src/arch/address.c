@@ -60,7 +60,8 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 {
 	int i;
 	uint c = 0;
-	int res, section_index;
+	int res;
+	int section_index = -1;
 	int section_index_old = -1;
 	uchar val;
 
