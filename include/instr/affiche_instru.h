@@ -7,8 +7,8 @@
 
 int display_instr(uint val);
 int display_typeR(int c, uint val);
-int afficher_typeI(int c, uint val);
-int afficher_typeJ(int c, uint val);
+int display_typeI(int c, uint val);
+int display_typeJ(int c, uint val);
 
 int matchR(uint function);
 int matchJI(uint opcode);
