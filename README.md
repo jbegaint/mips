@@ -1,10 +1,6 @@
 Simulateur MIPS
 ===============
 
-Todo:
------
-* tests for lp/ da/
-
 
 Compilation:
 ------------
