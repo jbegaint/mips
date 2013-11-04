@@ -96,7 +96,11 @@ int parse_desc_file(FILE* f, DESC* desc)
 		    	if (desc->type == 'R') {
 		    		if (!parse_function(value, &(desc->function)))
 	    				return PARSE_ERROR;
-		    	}			
+		    	}	
+		    	else {
+		    		desc->function = 0;
+		    	}	
+		    	break;	
     	}
     	c++;
     }

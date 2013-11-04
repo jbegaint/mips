@@ -204,6 +204,17 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
+	if ( addr < arch->sections[TEXT].start_addr || 
+		addr >= arch->sections[TEXT].size + arch->sections[TEXT].start_addr) {
+		print_error("address not in .text");
+		return CMD_EXIT_ERROR;
+	}
+
+	if (addr%4 != 0) {
+		print_error("address does not start an instruction");
+		return CMD_EXIT_ERROR;
+	}
+
 	for (i = 0; i < instr; i++) {
 		for (j = 0; j < 4; j++) {
 
@@ -215,7 +226,10 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 			display_byte(arch, addr + 4*i + j);
 		}
-		affichage_instr(lgn_instr.word, DESC_ARRAY);
+		if (!affichage_instr(lgn_instr.word, DESC_ARRAY)) {
+			printf("\n");
+			return CMD_EXIT_ERROR;
+		}
 	}
 
 	return CMD_EXIT_SUCCESS;

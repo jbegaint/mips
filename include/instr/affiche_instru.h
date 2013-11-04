@@ -3,6 +3,8 @@
 
 #include "desc/desc.h"
 
+#define NO_MATCH -1
+
 int affichage_instr(uint val, DESC *tab);
 int afficher_typeR(DESC *R ,int c, uint val);
 int afficher_typeI(DESC *JI ,int c, uint val);
