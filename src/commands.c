@@ -228,7 +228,8 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		}
 		if (!affichage_instr(lgn_instr.word, DESC_ARRAY)) {
 			printf("\n");
-			return CMD_EXIT_ERROR;
+			/*return CMD_EXIT_ERROR;*/
+			WARNING_MSG("no match");
 		}
 	}
 
