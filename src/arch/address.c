@@ -59,12 +59,13 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 	int section_index_old = -1;
 	uchar val;
 
-	for (i = 0; i < bytes_nb ; i++, c++) {
+	for (i = 0; i < bytes_nb ; i++) {
 
 		/* skip to next section, if what remains is empty */
-		if (section_index > 0) {
-			if (c + 1 == (arch->sections[section_index]).size) {
-				i = arch->sections[section_index+1].start_addr;
+		if (section_index >= 0) {
+			/*printf("HERE");*/
+			if (c  == (arch->sections[section_index]).size) {
+				i = arch->sections[section_index+1].start_addr - 1;
 				c = 0;
 				continue; 
 			}
@@ -106,6 +107,8 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 	    
 	    if ((i+1)%16 == 0 && res) 
 	    	printf("\n");
+
+	    c++;
 	}
 
     printf("\n");

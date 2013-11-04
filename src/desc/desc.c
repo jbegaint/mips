@@ -38,12 +38,11 @@ void init_desc_array(void)
 	if (!f)
 		exit(EXIT_FAILURE);
 
-	while ((c = getc(f)) != EOF) {
+	while ((c = getc(f)) != EOF)
 		if (c == '\n')
 		    l++;
-	}
+		
 	DEBUG_MSG("%d files in list", l);
-
 
 	/* allocate memory */
 	DESC_ARRAY_LENGTH = l - 1;
@@ -61,7 +60,7 @@ void init_desc_array(void)
 
 			if (f_desc) {
 				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
-					/*DEBUG_MSG("%s parsing succeeds", desc_filename);*/
+					DEBUG_MSG("%s parsing succeeds", desc_filename);
 					DESC_ARRAY[c] = desc;
 				} else {
 					WARNING_MSG("parsing fails for %s", desc_filename);

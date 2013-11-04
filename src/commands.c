@@ -171,9 +171,8 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 
 	f = open_file(args[0]);
-	if (f == NULL) {
-		return CMD_EXIT_FAILURE;
-	}
+	if (f == NULL)
+		return CMD_EXIT_FILE_NOT_FOUND;
 	fclose(f);
 	DEBUG_MSG("file closed");
 
@@ -187,11 +186,10 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 
 int execute_cmd_da(ARCH arch, char* str_arg)
 {
-	uint addr;
-	int instr, i, j;
 	INSTR lgn_instr;
-
 	char* args[2];
+	int instr, i, j;
+	uint addr;
 
 	DEBUG_MSG("Execute da <addr> <instr>");
 
@@ -206,11 +204,16 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 		return CMD_EXIT_FAILURE;
 	}
 
-	for (i=0; i < instr; i++) {
-		printf("%08x: ", addr + 4*i);
+	for (i = 0; i < instr; i++) {
 		for (j = 0; j < 4; j++) {
+
+			if (get_byte(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j])) == BYTE_NOT_ALLOCATED)
+				return CMD_EXIT_SUCCESS;
+
+			if (j == 0)
+				printf("%08x: ", addr + 4*i);
+
 			display_byte(arch, addr + 4*i + j);
-			get_byte(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j]));
 		}
 		affichage_instr(lgn_instr.word, DESC_ARRAY);
 	}

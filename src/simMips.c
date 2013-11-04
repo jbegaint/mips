@@ -139,42 +139,47 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			break;
 
 		case CMD_EXIT_MISSING_ARG:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("missing argument(s)");
 			break;
 
 		case CMD_EXIT_INVALID_ADDR:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("invalid address");				
 			break;
 
 		case CMD_EXIT_INVALID_ADDR_VALUE:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("invalid address value");				
 			break;
 
 		case CMD_EXIT_INVALID_REG:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("invalid register");
 			break;
 
 		case CMD_EXIT_INVALID_REG_VALUE:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("invalid register value");
 			break;
 
 		case CMD_NOT_FOUND:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("I'm sorry Dave, I'm afraid I can't do that.");
 			break;
 
 		case CMD_EXIT_ERROR:
-			*res = -1;
+			*res = CMD_EXIT_ERROR;
 			print_error("an error occured");
 			break;
 
+		case CMD_EXIT_FILE_NOT_FOUND:
+			*res = CMD_EXIT_ERROR;
+			print_error("file not found");
+			break;
+
 		case CMD_EXIT_FAILURE:
-			*res = 0;
+			*res = CMD_EXIT_FAILURE;
 			break;
 
 		case CMD_QUIT:
@@ -191,7 +196,7 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			break;
 
 		default:
-			*res = 0;
+			*res = CMD_EXIT_FAILURE;
 			print_error("unknown error code");
 			break;
 	}
@@ -209,9 +214,8 @@ void parse_file(ARCH arch, char* filename)
 
 	while (res == CMD_EXIT_SUCCESS || res == CMD_QUIT) {
 	    switch_return_code(arch, f, &res);
-	    if (res == CMD_QUIT) {
+	    if (res == CMD_QUIT)
 	    	break;
-	    }
 	}
 
 	close_file(f);
@@ -226,9 +230,8 @@ void parse_interpreter(ARCH arch)
 {
 	int res = 1;
 
-	while (res != CMD_EXIT_FAILURE && res != CMD_QUIT) {
+	while (res != CMD_EXIT_FAILURE && res != CMD_QUIT)
 		switch_return_code(arch, stdin, &res);
-	}
 }
 
 int main(int argc, char* argv[])

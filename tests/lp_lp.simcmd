@@ -1,0 +1,5 @@
+testcmd 0xa
+lp res/mult.o
+dm 0:100
+lp res/exempleELF.o
+dm 0:100

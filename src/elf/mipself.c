@@ -717,12 +717,10 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
     relocZone(Data, EnsZones) ;
     // on ignore les relocations en Bss
 
-#ifdef VERBOSE
     printf("\n------ Fichier ELF \"%s\" : sections lues lors du chargement ------\n", filename) ;
     printELFSection(textSection);
     printELFSection(dataSection);
     printELFSection(bssSection);
-#endif
 
     close(fd) ;
     return 0 ;

@@ -19,7 +19,7 @@ ARCH init_simu(void)
 	arch->sections[BSS].start_addr = 0xc00;
 	arch->sections[DATA].start_addr = 0x1400;
 
-	for (i=0; i < 3 ; i++) {
+	for (i = 0; i < 3 ; i++) {
 		section_ptr = &(arch->sections[i]);
 		section_ptr->size = 1024;
 		section_ptr->data = malloc((section_ptr->size)*1024);
@@ -28,9 +28,8 @@ ARCH init_simu(void)
 			return NULL;
 	}
 
-	for (i=0; i<3; i++) {
+	for (i = 0; i < 3; i++)
 		print_section_info(arch->sections[i]);
-	}
 
 	return arch;
 }
@@ -39,9 +38,7 @@ void free_arch(ARCH arch)
 {
 	int i;
 	/* free text, data, bss sections */
-	for (i=0; i < 3 ; i++) {
+	for (i = 0; i < 3 ; i++)
 		free((arch->sections[i]).data);
-	}
-
 	free(arch);
 }
