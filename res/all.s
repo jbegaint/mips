@@ -2,7 +2,7 @@
 ## not supposed to be run
 
 .data
-.space 8
+.space 80
 
 .text
 ADD $8, $9, $10	
@@ -23,7 +23,7 @@ MFLO $25
 MULT $4, $5
 NOP
 OR $4, $5, $6
-#SLL $10, $11, $12
+SLL $10, $11, $12
 SLT $13, $14, $15
 #SRL $16, $17, $18
 SUB $19, $20, $21
@@ -32,4 +32,4 @@ XOR $4, $5, $6
 
 .bss
 Tab: 
-.space 8	
+.space 80	
