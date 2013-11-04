@@ -152,7 +152,7 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 		/* or swap maybe ? */
 		return CMD_EXIT_ERROR;
 
-	return display_range_addr(arch, addr0, addr1 - addr0);
+	return display_range_addr(arch, addr0, (addr1 - addr0 + 1));
 	    
 }
 
