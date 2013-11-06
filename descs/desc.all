@@ -23,4 +23,5 @@ slt.desc
 srl.desc
 sub.desc
 sw.desc
+syscall.desc
 xor.desc
