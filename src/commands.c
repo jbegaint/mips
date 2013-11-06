@@ -312,3 +312,33 @@ int execute_cmd_ds(ARCH arch, char* str_arg)
 	}
 	return CMD_EXIT_SUCCESS;
 }
+
+int execute_cmd_run(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_s(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_si(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_bp(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_er(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_db(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
