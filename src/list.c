@@ -25,7 +25,7 @@ list_t add_head(void* elt, list_t head, size_t size_elt)
 	return new;
 }
 
-list_t add_tail(void* elt, list_t tail, size_t size_elt)
+list_t add_tail(void* elt, list_t list, size_t size_elt)
 {
 	list_t new;
 	list_t l;
@@ -44,13 +44,13 @@ list_t add_tail(void* elt, list_t tail, size_t size_elt)
 
 	memcpy(new->val, elt, size_elt);
 
-	if (!(is_list_empty(tail))) {
-		for (l = tail; !is_list_empty(l); l = l->next) {
+	if (!(is_list_empty(list))) {
+		for (l = list; !is_list_empty(l); l = l->next) {
 			if (is_list_empty(l->next))
 				break;
 		}
 		l->next = new;
-		return l;
+		return list;
 	}
 	return new;
 }
