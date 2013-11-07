@@ -72,10 +72,6 @@ char *_instr[]=
 
 int execute_all_instr (ARCH arch, uint32_t word);
 
-typedef void (*execute_instr) (uint,ARCH);
-typedef void (*display_instr) (uint,ARCH);
-
-
 void display_add(ARCH arch, uint32_t word);
 void execute_add(ARCH arch, uint32_t word);
 
