@@ -8,12 +8,7 @@
 typedef void (*display_instr)(ARCH, uint32_t);
 typedef void (*execute_instr)(ARCH, uint32_t);
 
-void display_addi(ARCH, uint32_t);
-
-
-#include "arch/arch.h"
-
-enum
+/*enum
 {
     _add = 0,
     _bgtz,
@@ -69,7 +64,7 @@ char *_instr[]=
     "sll",
     "srl"
 };
-
+*/
 int execute_all_instr (ARCH arch, uint32_t word);
 
 void display_add(ARCH arch, uint32_t word);

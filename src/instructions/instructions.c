@@ -11,11 +11,11 @@
 #include "notify.h"
 
 extern DESC* DESC_ARRAY;
-extern DESC_ARRAY_LENGTH;
+extern int DESC_ARRAY_LENGTH;
 
 int execute_all_instr (uint word, ARCH arch)
 {
-    execute_instr executor[DESC_ARRAY_LENGTH];
+   /* execute_instr executor[DESC_ARRAY_LENGTH];
     int c;
     int i = 0 ;
 
@@ -61,12 +61,14 @@ int execute_all_instr (uint word, ARCH arch)
         return NO_MATCH;
     }
     executor[i](word,arch);
+    */
+
     return 1;
 }
 
 int display_all_instr (uint word, ARCH arch)
 {
-    display_instr display[40];
+  /*  display_instr display[40];
     int c;
     int i=0;
 
@@ -113,6 +115,6 @@ int display_all_instr (uint word, ARCH arch)
         return NO_MATCH;
     }
     display[i](word,arch);
-
+*/
     return 1;
 }
