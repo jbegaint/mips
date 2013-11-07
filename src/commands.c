@@ -356,7 +356,9 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 
 	BP_LIST = (list_t) add_sort(&addr, BP_LIST, sizeof(uint32_t));
 
-	display_list(BP_LIST);
+	/*display_list(BP_LIST);*/
+
+	fprintf(stdout, "bp at 0x%08x added\n", addr);
 
 	return CMD_EXIT_SUCCESS;
 }

@@ -1,0 +1,2 @@
+CMD TEST RESULT 0xb
+bp at 0x00000004 added
