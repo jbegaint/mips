@@ -4,28 +4,35 @@ Simulateur MIPS
 TODO
 ====
 
-implémenter les fonctions de l'interpréteur (Jean)
+* implémenter les fonctions de l'interpréteur (Jean)
+	
+	* bp (done)
+	* db
+	* er
+	* s
+	* si
+	* run
 
-init du tableau des pointeurs de fonctions
+*init du tableau des pointeurs de fonctions
 
-implémenter toutes les instructions assembleurs en C. (execute_addi, execute_jal, etc...) (Marion)
+* implémenter toutes les instructions assembleurs en C. (execute_addi, execute_jal, etc...) (Marion)
 pointeur de fonction :
 typedef void (*display_instr) (ARCH, uint32_t)
 typedef void (*execute_instr) (ARCH, uint32_t)
 remplacer les fonctions de display_instru.c
 
-Pour la fonction run (Jean):
+* Pour la fonction run (Jean):
 faire la boucle d'éxécution du programme
 enum des états du programme chargé en mémoire
 mettre en place la liste des bkp
 
-nettoyage de code:
+*nettoyage de code:
 (display_instruc)
 uint32_t
 nettoyage habituel
 (parsing des paramètres)
 
-tests, plein de tests
+*tests, tests everywhere
 
 
 Compilation:
