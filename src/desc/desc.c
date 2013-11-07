@@ -10,10 +10,15 @@
 
 #include "notify.h"
 #include "utils.h"
+#include "globals.h"
 
-extern DESC* DESC_ARRAY;
+/*extern DESC* DESC_ARRAY;
 extern int DESC_ARRAY_LENGTH;
-extern char* DESC_DIR;
+extern char* DESC_DIR;*/
+
+const char* DESC_DIR = "./descs/";
+int DESC_ARRAY_LENGTH;
+DESC* DESC_ARRAY;
 
 void free_desc_array(void)
 {

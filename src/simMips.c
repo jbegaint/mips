@@ -9,8 +9,8 @@
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-#include "commands.h"
 #include "globals.h"
+#include "commands.h"
 #include "notify.h"
 #include "utils.h"
 #include "simMips.h"

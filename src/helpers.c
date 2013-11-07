@@ -5,7 +5,9 @@
 #include "list.h"
 #include "arch/arch.h"
 
-extern list_t BP_LIST;
+#include "globals.h"
+
+list_t BP_LIST;
 
 void set_breakpoint(uint32_t address)
 {

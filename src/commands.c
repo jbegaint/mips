@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdint.h>
 
+#include "globals.h"
+
 #include "arch/arch.h"
 #include "arch/address.h"
 #include "arch/register.h"
@@ -21,8 +23,8 @@
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-extern DESC* DESC_ARRAY;
-extern list_t BP_LIST;
+/*extern DESC* DESC_ARRAY;*/
+/*extern list_t BP_LIST;*/
 
 int execute_cmd_ex(ARCH arch, char* args)
 {
@@ -325,6 +327,10 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
+	set_breakpoint(arch->regs[PC] + 4);
+	
+	/* launch run */
+
 	return CMD_EXIT_SUCCESS;
 }
 
