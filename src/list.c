@@ -13,7 +13,9 @@ int is_list_empty(list_t l)
 int cmp_val(void* elt_1, void* elt_2)
 {
 	/* return elt_1 < elt_2 */
-	return (*(uint32_t*) elt_1 < *(uint32_t*) elt_2);
+	int res = (*(uint32_t*) elt_1 < *(uint32_t*) elt_2);
+	printf("%d %d %d\n", *(uint32_t*) elt_1 , *(uint32_t*) elt_2, res);
+	return res;
 }
 
 list_t add_head(void* elt, list_t head, size_t size_elt) 
@@ -86,7 +88,7 @@ list_t add_sort(void* elt, list_t list, size_t size_elt)
 	list_t l;
 
 	if (is_list_empty(list) || cmp_val(elt, list->val))
-		return add_tail(elt, list, size_elt);
+		return add_head(elt, list, size_elt);
 
 	for (l = list; !is_list_empty(l->next); l = l->next) {
 		if (cmp_val(elt, l->next->val))

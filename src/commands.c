@@ -344,6 +344,16 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
+	if (addr >= arch->sections[TEXT].start_addr + arch->sections[TEXT].size) {
+		print_error("address not in text");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	if (addr%4 != 0) {
+		print_error("address does not start an instruction");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
 	BP_LIST = (list_t) add_sort(&addr, BP_LIST, sizeof(uint32_t));
 
 	display_list(BP_LIST);
