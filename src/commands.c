@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "arch/arch.h"
 #include "arch/address.h"
@@ -10,6 +11,7 @@
 #include "elf/mipself.h"
 
 #include "commands.h"
+#include "list.h"
 #include "notify.h"
 #include "parsers.h"
 #include "utils.h"
@@ -20,6 +22,7 @@
 #include "desc/desc_utils.h"
 
 extern DESC* DESC_ARRAY;
+extern list_t BP_LIST;
 
 int execute_cmd_ex(ARCH arch, char* args)
 {
@@ -310,5 +313,62 @@ int execute_cmd_ds(ARCH arch, char* str_arg)
 		printf("Size: %d\n", arch->sections[i].size);
 		printf("\n");
 	}
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_run(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_s(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_si(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_bp(ARCH arch, char* str_arg)
+{
+	char* args[1];
+	uint32_t addr;
+
+	DEBUG_MSG("Execute bp <address>");
+
+	if (parse_args(str_arg, args, 1) != 1)
+		return CMD_EXIT_MISSING_ARG;
+
+	if (!parse_addr(args[0], &addr))
+		return CMD_EXIT_INVALID_ADDR;
+
+	if (addr >= arch->sections[TEXT].start_addr + arch->sections[TEXT].size) {
+		print_error("address not in text");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	if (addr%4 != 0) {
+		print_error("address does not start an instruction");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	BP_LIST = (list_t) add_sort(&addr, BP_LIST, sizeof(uint32_t));
+
+	/*display_list(BP_LIST);*/
+
+	fprintf(stdout, "bp at 0x%08x added\n", addr);
+
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_er(ARCH arch, char* str_arg)
+{
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_db(ARCH arch, char* str_arg)
+{
 	return CMD_EXIT_SUCCESS;
 }

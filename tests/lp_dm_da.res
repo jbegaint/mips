@@ -1,6 +1,4 @@
 CMD TEST RESULT 0xb
-
------- Fichier ELF "res/exempleELF.o" : sections lues lors du chargement ------
 === section .text (8 bytes) ===
 00000000: 21 08 00 11 21 08 00 12 
 === section .data (4 bytes) ===

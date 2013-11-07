@@ -27,10 +27,9 @@ int parse_type(char* str, char* type)
 
 int parse_name(char* str, char* name)
 {
-	for (uint i = 0; i < strlen(str); i++) {
+	for (uint i = 0; i < strlen(str); i++)
 		if (!isalpha(*(str+i)))
 			return PARSE_ERROR;
-	}
 
 	if (sscanf(str, "%s", name) != 1)
 		return PARSE_ERROR;
@@ -43,10 +42,9 @@ int parse_opcode(char* str, uint* opcode)
 	if (strlen(str) != 6)
 		return PARSE_ERROR;
 
-	for (uint i = 0; i < 6; i++) {
+	for (uint i = 0; i < 6; i++)
 		if (!isdigit(*(str+i)))
 			return PARSE_ERROR;
-	}
 
 	*opcode = bin_to_dec(str);
 
@@ -89,7 +87,7 @@ int parse_desc_file(FILE* f, DESC* desc)
 
 	    	case 2:
 		    	if (!parse_opcode(value, &(desc->opcode)))
-	    				return PARSE_ERROR;
+	    			return PARSE_ERROR;
 		    		break;
 
 		    case 3:

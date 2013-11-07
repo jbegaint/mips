@@ -19,16 +19,16 @@ OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 all: simMips-debug
 
 simMips: $(OBJECTS)
-	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
+	@gcc $^ $(LDFLAGS) -o $(TARGET)
 
 simMips-debug: $(OBJECTS_DBG)
-	@gcc $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET)
+	@gcc $^ $(LDFLAGS) -o $(TARGET)
 
 %.o: %.c
-	@gcc $< $(CFLAGS) $(CFLAGS_RLS) -I$(dir $<) -c -o $@
+	@gcc $< $(CFLAGS_RLS) -I$(dir $<) -c -o $@
 
 %.dbg.o : %.c
-	@gcc $< $(CFLAGS) $(CFLAGS_DBG) -I$(dir $<) -c -o $@
+	@gcc $< $(CFLAGS_DBG) -I$(dir $<) -c -o $@
 
 clean:
 	@rm -f $(OBJECTS) $(OBJECTS_DBG)
