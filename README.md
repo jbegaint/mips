@@ -13,7 +13,7 @@ TODO
 	* si
 	* run
 
-*init du tableau des pointeurs de fonctions
+* init du tableau des pointeurs de fonctions
 
 * implémenter toutes les instructions assembleurs en C. (execute_addi, execute_jal, etc...) (Marion)
 pointeur de fonction :
@@ -26,13 +26,13 @@ faire la boucle d'éxécution du programme
 enum des états du programme chargé en mémoire
 mettre en place la liste des bkp
 
-*nettoyage de code:
-(display_instruc)
-uint32_t
-nettoyage habituel
-(parsing des paramètres)
+* nettoyage de code:
+	* (display_instruc)
+	* uint32_t
+	* nettoyage habituel
+	* (parsing des paramètres)
 
-*tests, tests everywhere
+* tests, tests everywhere
 
 
 Compilation:
