@@ -7,6 +7,7 @@ typedef struct list_elt {
 } *list_t;
 
 int is_list_empty(list_t);
+int cmp_val(void*, void*);
 list_t add_head(void*, list_t, size_t);
 list_t add_sort(void*, list_t, size_t);
 list_t add_tail(void*, list_t, size_t);

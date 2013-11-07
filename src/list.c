@@ -1,12 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "list.h"
 
 int is_list_empty(list_t l)
 {
 	return !l;
+}
+
+int cmp_val(void* elt_1, void* elt_2)
+{
+	/* return elt_1 < elt_2 */
+	return (*(uint32_t*) elt_1 < *(uint32_t*) elt_2);
 }
 
 list_t add_head(void* elt, list_t head, size_t size_elt) 
@@ -71,12 +78,6 @@ list_t del_head(list_t head)
 	free(head);
 
 	return new;
-}
-
-int cmp_val(void* elt_1, void* elt_2)
-{
-	/* return elt_1 < elt_2 */
-	return (*(unsigned int*) elt_1 < *(unsigned int*) elt_2);
 }
 
 list_t add_sort(void* elt, list_t list, size_t size_elt)
