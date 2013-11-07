@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_mfhi(uint word, ARCH arch)
+void display_mfhi(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,7 +22,7 @@ void display_mfhi(uint word, ARCH arch)
 	return;
 }
 
-void execute_mfhi(uint word, ARCH arch)
+void execute_mfhi(ARCH arch, uint32_t word)
 {
 	return ;
 }

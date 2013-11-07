@@ -10,7 +10,7 @@
 
 #include "notify.h"
 
-void display_j(uint word, ARCH arch)
+void display_j(ARCH arch, uint32_t word)
 {
     uint target;
     parser_typeJ(word,&target);
@@ -18,7 +18,7 @@ void display_j(uint word, ARCH arch)
     return;
 }
 
-void execute_j(uint word, ARCH arch)
+void execute_j(ARCH arch, uint32_t word)
 {
 	return ;
 }

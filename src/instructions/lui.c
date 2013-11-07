@@ -3,22 +3,25 @@
 
 #include "arch/arch.h"
 
-#include "instructions"r/instructions"ructions.h"
-#include "instructions"r/parser_instructions"ru.h"
-#include "instructions"r/get_instructions"r.h"
+#include "instructions/instructions.h"
+#include "instructions/parser_instructions.h"
+#include "instructions/get_instructions.h"
 
 #include "notify.h"
 
 
-void display_lui(uint word, ARCH arch)
+void display_lui(ARCH arch, uint32_t word)
 {
-    uint rs;    uint rt;    uint immediate;
-    parser_typeI(word,&rs,&rt,&immediate);
+    uint rs;
+    uint rt;
+    uint immediate;
+
+    parser_typeI(word,&rs,&rt,&immediate);
     fprintf(stdout,"LUI $%u, 0x%x\n",rt,immediate);
 	return;
 }
 
-void execute_lui(uint word, ARCH arch)
+void execute_lui(ARCH arch, uint32_t word)
 {
 	return ;
 }

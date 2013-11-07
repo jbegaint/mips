@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_or(uint word, ARCH arch)
+void display_or(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,7 +22,7 @@ void display_or(uint word, ARCH arch)
     return;
 }
 
-void execute_or(uint word, ARCH arch)
+void execute_or(ARCH arch, uint32_t word)
 {
 	return ;
 }

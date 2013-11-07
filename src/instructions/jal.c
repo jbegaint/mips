@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_jal(uint word, ARCH arch)
+void display_jal(ARCH arch, uint32_t word)
 {
     uint target;
     parser_typeJ(word,&target);
@@ -17,7 +17,7 @@ void display_jal(uint word, ARCH arch)
     return;
 }
 
-void execute_jal(uint word, ARCH arch)
+void execute_jal(ARCH arch, uint32_t word)
 {
 	return ;
 }

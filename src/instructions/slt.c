@@ -10,7 +10,7 @@
 #include "notify.h"
 
 
-void display_slt(uint word, ARCH arch)
+void display_slt(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -23,7 +23,7 @@ void display_slt(uint word, ARCH arch)
     return;
 }
 
-void execute_slt(uint word, ARCH arch)
+void execute_slt(ARCH arch, uint32_t word)
 {
 	return ;
 }

@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_srl(uint word, ARCH arch)
+void display_srl(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -21,7 +21,7 @@ void display_srl(uint word, ARCH arch)
 	return;
 }
 
-void execute_srl(uint word, ARCH arch)
+void execute_srl(ARCH arch, uint32_t word)
 {
 	return ;
 }

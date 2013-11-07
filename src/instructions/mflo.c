@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_mflo(uint word, ARCH arch)
+void display_mflo(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,7 +22,7 @@ void display_mflo(uint word, ARCH arch)
 	return;
 }
 
-void execute_mflo(uint word, ARCH arch)
+void execute_mflo(ARCH arch, uint32_t word)
 {
 	return ;
 }

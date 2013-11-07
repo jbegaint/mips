@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_addi(uint word, ARCH arch)
+void display_addi(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -20,7 +20,7 @@ void display_addi(uint word, ARCH arch)
 	return;
 }
 
-void execute_addi(uint word, ARCH arch)
+void execute_addi(ARCH arch, uint32_t word)
 {
 	return ;
 }

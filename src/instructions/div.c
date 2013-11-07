@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_div(uint word, ARCH arch)
+void display_div(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,7 +22,7 @@ void display_div(uint word, ARCH arch)
     return;
 }
 
-void execute_div(uint word, ARCH arch)
+void execute_div(ARCH arch, uint32_t word)
 {
 	return ;
 }

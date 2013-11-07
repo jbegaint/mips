@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_mult(uint word, ARCH arch)
+void display_mult(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,7 +22,7 @@ void display_mult(uint word, ARCH arch)
     return;
 }
 
-void execute_mult(uint word, ARCH arch)
+void execute_mult(ARCH arch, uint32_t word)
 {
 	return ;
 }

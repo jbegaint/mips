@@ -9,7 +9,7 @@
 
 #include "notify.h"
 
-void display_bgtz(uint word, ARCH arch)
+void display_bgtz(ARCH arch, uint32_t word)
 {
     uint rs;
     uint rt;
@@ -20,7 +20,7 @@ void display_bgtz(uint word, ARCH arch)
 	return;
 }
 
-void execute_bgtz(uint word, ARCH arch)
+void execute_bgtz(ARCH arch, uint32_t word)
 {
 	return ;
 }

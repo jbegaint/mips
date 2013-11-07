@@ -12,13 +12,13 @@
 
 #include "commands.h"
 #include "list.h"
+#include "helpers.h"
 #include "notify.h"
 #include "parsers.h"
 #include "utils.h"
 #include "simMips.h"
 
-#include "instr/affiche_instru.h"
-
+#include "desc/desc.h"
 #include "desc/desc_utils.h"
 
 extern DESC* DESC_ARRAY;
@@ -229,11 +229,13 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 
 			display_byte(arch, addr + 4*i + j);
 		}
-		if (!display_instr(lgn_instr.word)) {
+		/*if (!display_instr(lgn_instr.word)) {
 			printf("\n");
-			/*return CMD_EXIT_ERROR;*/
+			return CMD_EXIT_ERROR;
 			WARNING_MSG("no match");
-		}
+		}*/
+
+		DEBUG_MSG("NOT YET RE-IMPLEMENTED");
 	}
 
 	return CMD_EXIT_SUCCESS;
@@ -354,9 +356,7 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	BP_LIST = (list_t) add_sort(&addr, BP_LIST, sizeof(uint32_t));
-
-	/*display_list(BP_LIST);*/
+	set_breakpoint(addr);
 
 	fprintf(stdout, "bp at 0x%08x added\n", addr);
 
