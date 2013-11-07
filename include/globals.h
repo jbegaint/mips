@@ -5,6 +5,9 @@
 #define PARSING_FILE_NON_CMD_LINE 2
 
 #include "desc/desc.h"
+#include "list.h"
+
+list_t BP_LIST;
 
 const DESC* DESC_ARRAY;
 const int DESC_ARRAY_LENGTH;

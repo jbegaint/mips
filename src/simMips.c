@@ -28,7 +28,7 @@ static struct command cmd_table[] = {
 	{"run", execute_cmd_run, "run [address]", ""},
 	{"s", execute_cmd_s, "", "run step by step (line per line)"},
 	{"si", execute_cmd_si, "", "step into"},
-	{"bp", execute_cmd_bp, "", "break point"},
+	{"bp", execute_cmd_bp, "bp <address>", "break point"},
 	{"er", execute_cmd_er, "er <address>", "erase"},
 	{"db", execute_cmd_db, "", "display break point"},
 	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose"},

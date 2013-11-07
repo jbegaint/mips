@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "arch/arch.h"
 #include "arch/address.h"
@@ -10,6 +11,7 @@
 #include "elf/mipself.h"
 
 #include "commands.h"
+#include "list.h"
 #include "notify.h"
 #include "parsers.h"
 #include "utils.h"
@@ -20,6 +22,7 @@
 #include "desc/desc_utils.h"
 
 extern DESC* DESC_ARRAY;
+extern list_t BP_LIST;
 
 int execute_cmd_ex(ARCH arch, char* args)
 {
@@ -330,6 +333,21 @@ int execute_cmd_si(ARCH arch, char* str_arg)
 
 int execute_cmd_bp(ARCH arch, char* str_arg)
 {
+	char* args[1];
+	uint32_t addr;
+
+	DEBUG_MSG("Execute bp <address>");
+
+	if (parse_args(str_arg, args, 1) != 1)
+		return CMD_EXIT_MISSING_ARG;
+
+	if (!parse_addr(args[0], &addr))
+		return CMD_EXIT_INVALID_ADDR;
+
+	BP_LIST = (list_t) add_sort(&addr, BP_LIST, sizeof(uint32_t));
+
+	display_list(BP_LIST);
+
 	return CMD_EXIT_SUCCESS;
 }
 

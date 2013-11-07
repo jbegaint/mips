@@ -88,8 +88,8 @@ list_t add_sort(void* elt, list_t list, size_t size_elt)
 	if (is_list_empty(list) || cmp_val(elt, list->val))
 		return add_tail(elt, list, size_elt);
 
-	for (l = list; !is_list_empty(l); l = l->next) {
-		if (cmp_val(elt, l->val))
+	for (l = list; !is_list_empty(l->next); l = l->next) {
+		if (cmp_val(elt, l->next->val))
 			break;
 	}
 
@@ -101,4 +101,17 @@ list_t add_sort(void* elt, list_t list, size_t size_elt)
 	l->next = new;
 
 	return list;
+}
+
+void display_list(list_t list)
+{
+	list_t l;
+
+	if (!is_list_empty(list)) {
+		for (l = list; !is_list_empty(l); l = l->next) {
+			printf("0x%08x ", *(uint32_t*) l->val);
+		}
+	}
+
+	printf("\n");
 }
