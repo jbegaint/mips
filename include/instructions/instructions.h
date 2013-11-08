@@ -65,6 +65,7 @@ char *_instr[]=
     "srl"
 };
 */
+
 int execute_all_instr(ARCH, uint32_t);
 
 void display_add(ARCH, uint32_t);

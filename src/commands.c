@@ -251,13 +251,11 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 	found_colon = strchr(str_arg, ':');
 	found_tild = strchr(str_arg, '~');
 
-	if (!found_colon != !found_tild) {
-		/* xor */
-
+	if (!found_colon != !found_tild) { /* xor */
+		
 		if (found_colon) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
 			return display_bytes_from_addr(arch, str_arg);
-
 		} else {
 			DEBUG_MSG("Execute dm <address>~<address>");
 			return display_addr_to_addr(arch, str_arg);
@@ -328,6 +326,8 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
 	set_breakpoint(arch->regs[PC] + 4);
+	/* if jump, stop at next instruction after jump */
+	/*set_breakpoint(arch->regs[PC] + 8);*/
 	
 	/* launch run */
 
@@ -336,6 +336,9 @@ int execute_cmd_s(ARCH arch, char* str_arg)
 
 int execute_cmd_si(ARCH arch, char* str_arg)
 {
+	/* stop at next instruction */
+	set_breakpoint(arch->regs[PC] + 4);
+
 	return CMD_EXIT_SUCCESS;
 }
 
@@ -383,18 +386,17 @@ int execute_cmd_er(ARCH arch, char* str_arg)
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	if (addr >= arch->sections[TEXT].start_addr + arch->sections[TEXT].size) {
+	if (addr >= (arch->sections[TEXT].start_addr + arch->sections[TEXT].size)) {
 		print_error("address not in text");
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	if (addr%4 != 0) {
+	if ((addr%4) != 0) {
 		print_error("address does not start an instruction");
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	id = get_breakpoint_id(addr);
-	if (id == -1) {
+	if ((id = get_breakpoint_id(addr)) == -1) {
 		print_error("breakpoint does not exist");
 		return CMD_EXIT_ERROR;
 	}

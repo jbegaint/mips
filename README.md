@@ -8,8 +8,8 @@ TODO
 	
 	* bp (done)
 	* db
-	* er
-	* s
+	* er (done)
+	* s (done)
 	* si
 	* run
 
