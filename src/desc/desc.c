@@ -4,19 +4,16 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "globals.h"
+
 #include "desc/desc.h"
 #include "desc/desc_parsers.h"
 #include "desc/desc_utils.h"
 
 #include "notify.h"
 #include "utils.h"
-#include "globals.h"
 
-/*extern DESC* DESC_ARRAY;
-extern int DESC_ARRAY_LENGTH;
-extern char* DESC_DIR;*/
-
-const char* DESC_DIR = "./descs/";
+char* DESC_DIR = "./descs/";
 int DESC_ARRAY_LENGTH;
 DESC* DESC_ARRAY;
 

@@ -1,12 +1,10 @@
 #include <stdio.h>
 
+#include "globals.h"
+
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-#include "globals.h"
-/*
-extern DESC* DESC_ARRAY;
-extern int DESC_ARRAY_LENGTH;*/
 
 void display_desc_array(void)
 {	

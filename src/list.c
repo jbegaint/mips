@@ -10,14 +10,6 @@ int is_list_empty(list_t l)
 	return !l;
 }
 
-int cmp_val(void* elt_1, void* elt_2)
-{
-	/* return elt_1 < elt_2 */
-	int res = (*(uint32_t*) elt_1 < *(uint32_t*) elt_2);
-	printf("%d %d %d\n", *(uint32_t*) elt_1 , *(uint32_t*) elt_2, res);
-	return res;
-}
-
 list_t add_head(void* elt, list_t head, size_t size_elt) 
 {
 	list_t new;
@@ -87,11 +79,11 @@ list_t add_sort(void* elt, list_t list, size_t size_elt)
 	list_t new;
 	list_t l;
 
-	if (is_list_empty(list) || cmp_val(elt, list->val))
+	if (is_list_empty(list) || cmp_val_int(elt, list->val))
 		return add_head(elt, list, size_elt);
 
 	for (l = list; !is_list_empty(l->next); l = l->next) {
-		if (cmp_val(elt, l->next->val))
+		if (cmp_val_int(elt, l->next->val))
 			break;
 	}
 
@@ -116,4 +108,50 @@ void display_list(list_t list)
 	}
 
 	printf("\n");
+}
+
+int cmp_val_int(void* elt_1, void* elt_2)
+{
+	if (*(uint32_t*) elt_1 < *(uint32_t*) elt_2) 
+		return 1;
+	else if (*(uint32_t*) elt_1 == *(uint32_t*) elt_2)
+		return 2;
+	return 0;
+}
+
+int find_elt_int(void* elt, list_t list)
+{
+	int i = 0;
+
+	if (is_list_empty(list))
+		return -1;
+
+	for (list_t l = list; !is_list_empty(l); l = l->next) {
+		if (cmp_val_int(elt, l->val) == 2)
+			return i;
+		i++;
+	}
+
+	return -1;
+}
+
+list_t del_elt_n(list_t list, int n)
+{
+	list_t l, tmp;
+	int i = 0;
+
+	if (n == 0)
+		return del_head(list);
+
+	for (l = list; !is_list_empty(l); l = l->next) {
+		if (i == n - 1) 
+			break;
+		i++;
+	}
+
+	tmp = l->next;
+	l->next = tmp->next;
+	free(tmp);
+	
+	return list;
 }

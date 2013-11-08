@@ -371,10 +371,52 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 
 int execute_cmd_er(ARCH arch, char* str_arg)
 {
+	char* args[1];
+	uint32_t addr;
+	int id;
+
+	DEBUG_MSG("Execute bp <address>");
+
+	if (parse_args(str_arg, args, 1) != 1)
+		return CMD_EXIT_MISSING_ARG;
+
+	if (!parse_addr(args[0], &addr))
+		return CMD_EXIT_INVALID_ADDR;
+
+	if (addr >= arch->sections[TEXT].start_addr + arch->sections[TEXT].size) {
+		print_error("address not in text");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	if (addr%4 != 0) {
+		print_error("address does not start an instruction");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	id = get_breakpoint_id(addr);
+	if (id == -1) {
+		print_error("breakpoint does not exist");
+		return CMD_EXIT_ERROR;
+	}
+
+	del_breakpoint(id);
+
+	fprintf(stdout, "bp at 0x%08x deleted\n", addr);
+
 	return CMD_EXIT_SUCCESS;
 }
 
 int execute_cmd_db(ARCH arch, char* str_arg)
 {
+	UNUSED(arch);
+	UNUSED(str_arg);
+
+	/* for i in BP_LIST
+		display i + da(i)
+	*/
+
+	/* temporary */
+	display_list(BP_LIST);
+
 	return CMD_EXIT_SUCCESS;
 }

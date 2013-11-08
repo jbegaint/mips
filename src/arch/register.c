@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include "globals.h"
+
 #include "arch/arch.h"
 #include "arch/register.h"
 

@@ -11,9 +11,9 @@ extern list_t BP_LIST;
 
 extern DESC* DESC_ARRAY;
 extern int DESC_ARRAY_LENGTH;
-extern const char* DESC_DIR; 
+extern char* DESC_DIR; 
 
-extern const char* REG_NAMES[36];
+extern char* REG_NAMES[36];
 
 #define PC 35
 
