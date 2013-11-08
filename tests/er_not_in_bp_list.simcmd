@@ -1,0 +1,4 @@
+testcmd 0xa
+lp res/exempleELF.o
+bp 0
+er 4
