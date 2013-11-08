@@ -8,6 +8,7 @@ struct command {
 	cmd_ptr ptr;
 	const char* usage;
 	const char* help;
+	const int min, max; /* min, max arguments, -1 unlimited, (0,0) => no args */
 };
 
 struct command* find_cmd(char*);

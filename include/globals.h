@@ -6,6 +6,9 @@
 
 #include "desc/desc.h"
 #include "list.h"
+#include "simMips.h"
+
+extern struct command cmd_table[];
 
 extern list_t BP_LIST;
 

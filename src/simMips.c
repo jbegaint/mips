@@ -15,24 +15,25 @@
 #include "utils.h"
 #include "simMips.h"
 
-static struct command cmd_table[] = {
-	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler"},
-	{"dm", execute_cmd_dm, "dm <address>", "display memory"},
-	{"dr", execute_cmd_dr, "dr <register>", "display register"},
-	{"lm", execute_cmd_lm, "lm <address> <value>", "load memory"},
-	{"lp", execute_cmd_lp, "lp <filename>", "load program"},
-	{"lr", execute_cmd_lr, "lr <register> <value>", "load register"},
-	{"ex", execute_cmd_ex, "", "exit"},
-	{"di", execute_cmd_di, "", "display loaded instructions"},
-	{"ds", execute_cmd_ds, "", "display section infos"},
-	{"run", execute_cmd_run, "run [address]", ""},
-	{"s", execute_cmd_s, "", "run step by step (line per line)"},
-	{"si", execute_cmd_si, "", "step into"},
-	{"bp", execute_cmd_bp, "bp <address>", "break point"},
-	{"er", execute_cmd_er, "er <address>", "erase"},
-	{"db", execute_cmd_db, "", "display break point"},
-	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose"},
-	{"help", execute_cmd_help, "help [command]", "display command help"},
+struct command cmd_table[] = {
+	/* name, ptr, usage, help, min, max */
+	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},
+	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler", 2, 2},
+	{"db", execute_cmd_db, "", "display break point", 0, 0},
+	{"di", execute_cmd_di, "", "display loaded instructions", 0, 0},
+	{"dm", execute_cmd_dm, "dm <address>", "display memory", 1, 1},
+	{"dr", execute_cmd_dr, "dr <register>", "display register", 0, -1},
+	{"ds", execute_cmd_ds, "", "display section infos", 0, 0},
+	{"er", execute_cmd_er, "er <address>", "erase breakpoint", 1, 1},
+	{"ex", execute_cmd_ex, "", "exit", 0, 0},
+	{"help", execute_cmd_help, "help [command]", "display command help", 0, 1},
+	{"lm", execute_cmd_lm, "lm <address> <value>", "load memory", 2, 2},
+	{"lp", execute_cmd_lp, "lp <filename>", "load program", 1, 1},
+	{"lr", execute_cmd_lr, "lr <register> <value>", "load register", 2, 2},
+	{"run", execute_cmd_run, "run [address]", "", 1, 1},
+	{"s", execute_cmd_s, "", "run step by step (line per line)", 0, 0},
+	{"si", execute_cmd_si, "", "step into", 0, 0},
+	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose", 1, 1},
 	{.command = NULL},
 };
 
