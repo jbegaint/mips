@@ -5,7 +5,8 @@
 #include "arch/arch.h"
 
 void set_breakpoint(uint32_t);
-void del_breakpoint(int);
+void del_breakpoint_by_id(int);
+void del_breakpoint_by_addr(uint32_t);
 int get_breakpoint_id(uint32_t);
 void reset_breakpoints(void);
 

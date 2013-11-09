@@ -5,6 +5,7 @@
 
 typedef enum {
 	NOT_STARTED,
+	STEP,
 	PAUSED,
 	FINISHED
 } state_t;

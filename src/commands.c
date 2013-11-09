@@ -182,14 +182,12 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 
 	reset_breakpoints();
 	reset_registers(arch);
+	state = NOT_STARTED;
 
 	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
 
 	if (res != 0)
 		return CMD_EXIT_FAILURE;
-
-	/* bp for run loop */
-	set_breakpoint(arch->sections[TEXT].start_addr + arch->sections[TEXT].size);
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -360,8 +358,14 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
-	set_breakpoint(arch->regs[PC] + 4);
-		
+	if (state == FINISHED) {
+		reset_registers(arch);
+		set_breakpoint(4);
+	}
+	else {
+		set_breakpoint(get_pc(arch) + 4);
+	}
+
 	run(arch);
 
 	return CMD_EXIT_SUCCESS;
@@ -445,7 +449,7 @@ int execute_cmd_er(ARCH arch, char* str_arg)
 		return CMD_EXIT_ERROR;
 	}
 
-	del_breakpoint(id);
+	del_breakpoint_by_id(id);
 
 	fprintf(stdout, "bp at 0x%08x deleted\n", addr);
 

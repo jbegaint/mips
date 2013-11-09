@@ -16,9 +16,16 @@ void set_breakpoint(uint32_t address)
 		BP_LIST = (list_t) add_sort(&address, BP_LIST, sizeof(uint32_t));
 }
 
-void del_breakpoint(int id)
+void del_breakpoint_by_id(int id)
 {
 	BP_LIST = (list_t) del_elt_n(BP_LIST, id);
+}
+
+void del_breakpoint_by_addr(uint32_t address) 
+{
+	int id;
+	if ((id = get_breakpoint_id(address)) != -1)
+		del_breakpoint_by_id(id);
 }
 
 int get_breakpoint_id(uint32_t address)
