@@ -76,16 +76,41 @@ void print_help_all(void)
 			printf("\n");
 }
 
-int execute_cmd(ARCH arch, char* cmd, char* args)
+int check_args(struct command* cmd, char* str_arg1, char** args)
+{
+	int i = 0;
+	char* dems = " :~";
+	char* ptr_arg;
+	char* str_arg = malloc(256*sizeof(*str_arg));
+	str_arg = strcpy(str_arg, str_arg1);
+
+	ptr_arg = strtok(str_arg, dems);
+
+	while (ptr_arg != NULL) {
+
+		fprintf(stderr, "%s", ptr_arg);
+
+	    ptr_arg = strtok(NULL, " ");
+
+	    i++;
+	}
+	fprintf(stderr, "%d\n", i);
+	return i;
+}
+
+int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 {
 	int res;
 	struct command* command;
+	char** args;
 	
 	command = find_cmd(cmd);
 	if (command == NULL)
 		return CMD_NOT_FOUND;
 
-	res = command->ptr(arch, args);
+	check_args(command, str_arg, args);
+
+	res = command->ptr(arch, str_arg);
 	if (res == CMD_EXIT_MISSING_ARG) 
 		print_usage(command);
 	return res;
