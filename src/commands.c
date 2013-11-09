@@ -186,6 +186,9 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	if (res != 0)
 		return CMD_EXIT_FAILURE;
 
+	/* bp for run loop */
+	set_breakpoint(arch->sections[TEXT].start_addr + arch->sections[TEXT].size);
+
 	return CMD_EXIT_SUCCESS;
 }
 
@@ -326,9 +329,7 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
 	set_breakpoint(arch->regs[PC] + 4);
-	/* if jump, stop at next instruction after jump */
-	/*set_breakpoint(arch->regs[PC] + 8);*/
-	
+		
 	/* launch run */
 
 	return CMD_EXIT_SUCCESS;
@@ -337,7 +338,11 @@ int execute_cmd_s(ARCH arch, char* str_arg)
 int execute_cmd_si(ARCH arch, char* str_arg)
 {
 	/* stop at next instruction */
+	/* if jump, stop at next instruction after jump */
+	/* set_breakpoint(jump_adress) ;*/
 	set_breakpoint(arch->regs[PC] + 4);
+
+	/* launch run */
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -363,6 +368,11 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 	if (addr%4 != 0) {
 		print_error("address does not start an instruction");
 		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	if (get_breakpoint_id(addr) != -1) {
+		print_error("breakpoint already exists");
+		return CMD_EXIT_ERROR;
 	}
 
 	set_breakpoint(addr);
