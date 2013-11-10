@@ -6,9 +6,12 @@
 
 #include "desc/desc.h"
 #include "list.h"
+#include "run.h"
 #include "simMips.h"
 
 extern struct command cmd_table[];
+
+extern state_t state;
 
 extern list_t BP_LIST;
 
@@ -16,8 +19,7 @@ extern DESC* DESC_ARRAY;
 extern int DESC_ARRAY_LENGTH;
 extern char* DESC_DIR; 
 
-extern char* REG_NAMES[36];
-
 #define PC 35
+extern char* REG_NAMES[36];
 
 #endif

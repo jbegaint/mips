@@ -1,30 +1,29 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
 
 #include "globals.h"
 
-#include "arch/arch.h"
 #include "arch/address.h"
+#include "arch/arch.h"
 #include "arch/register.h"
 #include "arch/section.h"
 
 #include "elf/mipself.h"
 
 #include "commands.h"
-#include "list.h"
 #include "helpers.h"
+#include "list.h"
 #include "notify.h"
 #include "parsers.h"
-#include "utils.h"
+#include "run.h"
 #include "simMips.h"
+#include "utils.h"
 
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-/*extern DESC* DESC_ARRAY;*/
-/*extern list_t BP_LIST;*/
 
 int execute_cmd_ex(ARCH arch, char* args)
 {
@@ -181,6 +180,10 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	fclose(f);
 	DEBUG_MSG("file closed");
 
+	reset_breakpoints();
+	reset_registers(arch);
+	state = NOT_STARTED;
+
 	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
 
 	if (res != 0)
@@ -320,16 +323,47 @@ int execute_cmd_ds(ARCH arch, char* str_arg)
 
 int execute_cmd_run(ARCH arch, char* str_arg)
 {
+	char* args[1];
+	uint32_t addr;
+
+	DEBUG_MSG("Execute run [address]");
+
+	if (strlen(str_arg) == 0) {
+		run(arch);
+		return CMD_EXIT_SUCCESS;
+	}
+
+	if (parse_args(str_arg, args, 1) != 1)
+		return CMD_EXIT_MISSING_ARG;
+
+	if (!parse_addr(args[0], &addr))
+		return CMD_EXIT_INVALID_ADDR;
+
+	if (addr >= arch->sections[TEXT].start_addr + arch->sections[TEXT].size) {
+		print_error("address not in text");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	/* check if addr is a correct instruction address */
+	if (addr%4 != 0) {
+		print_error("address does not start an instruction");
+		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	set_pc(arch, addr);
+	run(arch);
+
 	return CMD_EXIT_SUCCESS;
 }
 
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
-	set_breakpoint(arch->regs[PC] + 4);
-	/* if jump, stop at next instruction after jump */
-	/*set_breakpoint(arch->regs[PC] + 8);*/
-	
-	/* launch run */
+	if (state == FINISHED)
+		set_breakpoint(4);
+	else
+		set_breakpoint(get_pc(arch) + 4);
+
+	run(arch);
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -337,7 +371,11 @@ int execute_cmd_s(ARCH arch, char* str_arg)
 int execute_cmd_si(ARCH arch, char* str_arg)
 {
 	/* stop at next instruction */
+	/* if jump, stop at next instruction after jump */
+	/* set_breakpoint(jump_adress) ;*/
 	set_breakpoint(arch->regs[PC] + 4);
+
+	/* launch run */
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -360,9 +398,16 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
+	/* check if addr is a correct instruction address */
 	if (addr%4 != 0) {
 		print_error("address does not start an instruction");
 		return CMD_EXIT_INVALID_ADDR;
+	}
+
+	/* check if bp already in list */
+	if (get_breakpoint_id(addr) != -1) {
+		print_error("breakpoint already exists");
+		return CMD_EXIT_ERROR;
 	}
 
 	set_breakpoint(addr);
@@ -386,7 +431,7 @@ int execute_cmd_er(ARCH arch, char* str_arg)
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	if (addr >= (arch->sections[TEXT].start_addr + arch->sections[TEXT].size)) {
+	if (addr > (arch->sections[TEXT].start_addr + arch->sections[TEXT].size)) {
 		print_error("address not in text");
 		return CMD_EXIT_INVALID_ADDR;
 	}
@@ -401,7 +446,7 @@ int execute_cmd_er(ARCH arch, char* str_arg)
 		return CMD_EXIT_ERROR;
 	}
 
-	del_breakpoint(id);
+	del_breakpoint_by_id(id);
 
 	fprintf(stdout, "bp at 0x%08x deleted\n", addr);
 

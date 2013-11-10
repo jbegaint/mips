@@ -202,7 +202,6 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 
 		case CMD_EXIT_ERROR:
 			*res = CMD_EXIT_ERROR;
-			print_error("an error occured");
 			break;
 
 		case CMD_EXIT_FILE_NOT_FOUND:

@@ -11,7 +11,7 @@ TODO
 	* er (done)
 	* s (done)
 	* si
-	* run
+	* run (done)
 
 * init du tableau des pointeurs de fonctions
 
