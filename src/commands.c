@@ -358,13 +358,10 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 
 int execute_cmd_s(ARCH arch, char* str_arg)
 {
-	if (state == FINISHED) {
-		reset_registers(arch);
+	if (state == FINISHED)
 		set_breakpoint(4);
-	}
-	else {
+	else
 		set_breakpoint(get_pc(arch) + 4);
-	}
 
 	run(arch);
 
