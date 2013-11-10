@@ -76,43 +76,46 @@ void print_help_all(void)
 			printf("\n");
 }
 
-int check_args(struct command* cmd, char* str_arg1, char** args)
+
+int check_args(struct command* cmd, char* str_arg, char** args)
 {
-	int i = 0;
-	char* dems = " :~";
+	char* str;
 	char* ptr_arg;
-	char* str_arg = malloc(256*sizeof(*str_arg));
-	str_arg = strcpy(str_arg, str_arg1);
+	int i;
 
-	ptr_arg = strtok(str_arg, dems);
+	char* delim = " ";
 
-	while (ptr_arg != NULL) {
+	for (i = 0, str = str_arg; ; str = NULL, i++) {
+		ptr_arg = strtok(str, delim);
+		*(args+i) = ptr_arg;
 
-		fprintf(stderr, "%s", ptr_arg);
-
-	    ptr_arg = strtok(NULL, " ");
-
-	    i++;
+		if (ptr_arg == NULL)
+			break;
 	}
-	fprintf(stderr, "%d\n", i);
-	return i;
+
+	/* check usage */
+	if (i < cmd->min || ( i > cmd->max && cmd->max != -1))
+		return 0;
+	
+	return 1;
 }
 
 int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 {
 	int res;
 	struct command* command;
-	char** args;
-	
-	command = find_cmd(cmd);
-	if (command == NULL)
+
+	char** args = malloc(MAX_ARGS*sizeof(*args));
+
+	if ((command = find_cmd(cmd)) == NULL)
 		return CMD_NOT_FOUND;
 
-	check_args(command, str_arg, args);
-
-	res = command->ptr(arch, str_arg);
-	if (res == CMD_EXIT_MISSING_ARG) 
+	if (!check_args(command, str_arg, args)) {
 		print_usage(command);
+		return CMD_EXIT_ERROR;
+	}
+
+	res = command->ptr(arch, args);
 	return res;
 }
 

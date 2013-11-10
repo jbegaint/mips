@@ -1,14 +1,16 @@
 #ifndef _SIMMIPS_H_
 #define _SIMMIPS_H_
 
-typedef int (*cmd_ptr)(ARCH, char*);
+#define MAX_ARGS 50
+
+typedef int (*cmd_ptr)(ARCH, char**);
 
 struct command {
 	const char* command;
 	cmd_ptr ptr;
 	const char* usage;
 	const char* help;
-	const int min, max; /* min, max arguments, -1 unlimited, (0,0) => no args */
+	const int min, max; /* min, max arguments (-1 "unlimited" == MAX_ARGS) */
 };
 
 struct command* find_cmd(char*);

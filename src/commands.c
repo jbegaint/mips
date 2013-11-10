@@ -25,7 +25,7 @@
 #include "desc/desc_utils.h"
 
 
-int execute_cmd_ex(ARCH arch, char* args)
+int execute_cmd_ex(ARCH arch, char** args)
 {
 	UNUSED(arch);
 	UNUSED(args);
@@ -34,17 +34,13 @@ int execute_cmd_ex(ARCH arch, char* args)
 	return CMD_QUIT;
 }
 
-int execute_cmd_testcmd(ARCH arch, char* str_arg)
+int execute_cmd_testcmd(ARCH arch, char** args)
 {
 	uint addr;
-	char* args[1];
 
 	UNUSED(arch);
 
 	DEBUG_MSG("Execute testcmd <address>");
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	/* address not in hexa, or negative  */
 	if (sscanf(args[0], "%x", &addr) != 1)
@@ -58,18 +54,14 @@ int execute_cmd_testcmd(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_lm(ARCH arch, char* str_arg)
+int execute_cmd_lm(ARCH arch, char** args)
 {
 	INSTR val;
-	char* args[2];
 	int i = 0;
 	int section_index, offset;
 	uint addr;
 
 	DEBUG_MSG("Execute lm <address> <addr_value>");
-
-	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr_value(args[1], &val.word))
 		return CMD_EXIT_INVALID_ADDR_VALUE;
@@ -91,16 +83,12 @@ int execute_cmd_lm(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_lr(ARCH arch, char* str_arg)
+int execute_cmd_lr(ARCH arch, char** args)
 {
 	int reg;
 	uint val;
-	char* args[2];
 
 	DEBUG_MSG("Execute lr <register> <reg_value>");
-
-	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	reg = parse_register(args[0]);
 
@@ -123,52 +111,45 @@ int execute_cmd_lr(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 
 }
-int execute_cmd_dr(ARCH arch, char *str_arg) {
+int execute_cmd_dr(ARCH arch, char** args) {
 
-	char* ptr_arg;
 	int reg_index;
-	int i = 1;
+	int i = 0;
 
 	DEBUG_MSG("Execute dr <register>");
 
-	ptr_arg = strtok(str_arg, " ");
-
-	if (ptr_arg == NULL) {
+	if (*args == NULL) {
 		display_reg_all(arch);
 		return CMD_EXIT_SUCCESS;
 	}
 
-	while (ptr_arg != NULL) {
-	    reg_index = parse_register(ptr_arg);
+	while (*(args+i) != NULL) {
+
+	    reg_index = parse_register(*(args+i));
 
 	    if (reg_index == -1)
 	    	return CMD_EXIT_INVALID_REG;
 
 	    display_reg(arch, reg_index);
-	    ptr_arg = strtok(NULL, " ");
 
-	    if (i%4 == 0)
+	    if ((i+1)%4 == 0)
 	    	printf("\n");
 	    i++;
 	}
 
 	/* if last row not full */
-	if ((i-1)%4 != 0)
-	    	printf("\n");
+	if (i%4 != 0)
+		printf("\n");
 
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_lp(ARCH arch, char* str_arg)
+int execute_cmd_lp(ARCH arch, char** args)
 {
 	FILE* f;
-	char* args[1];
 	int res;
 
 	DEBUG_MSG("Execute lp <elf_file>");
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	/* rm new line if any */
 	if (sscanf(args[0], "%s", args[0]) != 1)
@@ -192,17 +173,13 @@ int execute_cmd_lp(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_da(ARCH arch, char* str_arg)
+int execute_cmd_da(ARCH arch, char** args)
 {
 	INSTR lgn_instr;
-	char* args[2];
 	int instr, i, j;
 	uint addr;
 
-	DEBUG_MSG("Execute da <addr> <instr>");
-
-	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;
+	DEBUG_MSG("Execute da <addr>:<instr>");
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -246,28 +223,27 @@ int execute_cmd_da(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_dm(ARCH arch, char* str_arg)
+int execute_cmd_dm(ARCH arch, char** args)
 {
 	char* found_colon;
 	char* found_tild;
 
-	found_colon = strchr(str_arg, ':');
-	found_tild = strchr(str_arg, '~');
+	found_colon = strchr(*args, ':');
+	found_tild = strchr(*args, '~');
 
-	if (!found_colon != !found_tild) { /* xor */
-		
+	if (!found_colon != !found_tild) { 
+
 		if (found_colon) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
-			return display_bytes_from_addr(arch, str_arg);
+			return display_bytes_from_addr(arch, *args);
 		} else {
 			DEBUG_MSG("Execute dm <address>~<address>");
-			return display_addr_to_addr(arch, str_arg);
+			return display_addr_to_addr(arch, *args);
 		}
 	}
 	else if (!found_tild && !found_colon) {
 		DEBUG_MSG("execute dm <address>");
-		return display_one_addr(arch, str_arg);
-
+		return display_one_addr(arch, *args);
 	}
 	else {
 		return CMD_EXIT_FAILURE;
@@ -277,7 +253,7 @@ int execute_cmd_dm(ARCH arch, char* str_arg)
 }
 
 
-int execute_cmd_di(ARCH arch, char* args)
+int execute_cmd_di(ARCH arch, char** args)
 {
 	UNUSED(arch);
 	UNUSED(args);
@@ -286,31 +262,9 @@ int execute_cmd_di(ARCH arch, char* args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_help(ARCH arch, char* str_arg)
+int execute_cmd_ds(ARCH arch, char** args)
 {
-	char* args[1];
-	UNUSED(arch);
-	struct command* command;
-
-	if (strlen(str_arg) == 0) {
-		print_help_all();
-		return CMD_EXIT_SUCCESS;
-	}
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_ERROR;
-
-	command = find_cmd(args[0]);
-	if (command == NULL)
-		return CMD_NOT_FOUND;
-
-	print_help(command);
-	return CMD_EXIT_SUCCESS;
-}
-
-int execute_cmd_ds(ARCH arch, char* str_arg)
-{
-	UNUSED(str_arg);
+	UNUSED(args);
 
 	for (int i = 0; i < 3; i++) {
 		printf("Section: %s\n", arch->sections[i].name);
@@ -321,20 +275,16 @@ int execute_cmd_ds(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_run(ARCH arch, char* str_arg)
+int execute_cmd_run(ARCH arch, char** args)
 {
-	char* args[1];
 	uint32_t addr;
 
 	DEBUG_MSG("Execute run [address]");
 
-	if (strlen(str_arg) == 0) {
+	if (*args == NULL) {
 		run(arch);
 		return CMD_EXIT_SUCCESS;
 	}
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -356,7 +306,7 @@ int execute_cmd_run(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_s(ARCH arch, char* str_arg)
+int execute_cmd_s(ARCH arch, char** args)
 {
 	if (state == FINISHED)
 		set_breakpoint(4);
@@ -368,8 +318,9 @@ int execute_cmd_s(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_si(ARCH arch, char* str_arg)
+int execute_cmd_si(ARCH arch, char** args)
 {
+	UNUSED(args);
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* set_breakpoint(jump_adress) ;*/
@@ -380,15 +331,11 @@ int execute_cmd_si(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_bp(ARCH arch, char* str_arg)
+int execute_cmd_bp(ARCH arch, char** args)
 {
-	char* args[1];
 	uint32_t addr;
 
 	DEBUG_MSG("Execute bp <address>");
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -417,16 +364,12 @@ int execute_cmd_bp(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_er(ARCH arch, char* str_arg)
+int execute_cmd_er(ARCH arch, char** args)
 {
-	char* args[1];
 	uint32_t addr;
 	int id;
 
 	DEBUG_MSG("Execute bp <address>");
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -453,10 +396,10 @@ int execute_cmd_er(ARCH arch, char* str_arg)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_db(ARCH arch, char* str_arg)
+int execute_cmd_db(ARCH arch, char** args)
 {
 	UNUSED(arch);
-	UNUSED(str_arg);
+	UNUSED(args);
 
 	/* for i in BP_LIST
 		display i + da(i)
@@ -465,5 +408,23 @@ int execute_cmd_db(ARCH arch, char* str_arg)
 	/* temporary */
 	display_list(BP_LIST);
 
+	return CMD_EXIT_SUCCESS;
+}
+
+int execute_cmd_help(ARCH arch, char** args)
+{
+	UNUSED(arch);
+	struct command* command;
+
+	if (*args == NULL) {
+		print_help_all();
+		return CMD_EXIT_SUCCESS;
+	}
+
+	command = find_cmd(args[0]);
+	if (command == NULL)
+		return CMD_NOT_FOUND;
+
+	print_help(command);
 	return CMD_EXIT_SUCCESS;
 }

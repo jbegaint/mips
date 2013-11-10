@@ -10,6 +10,8 @@
 #include "parsers.h"
 #include "utils.h"
 
+#include "simMips.h"
+
 extern char* REG_NAMES[36];
 
 int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
@@ -22,9 +24,8 @@ int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 
 	/* if str begins with 0x, shift it */
 	if (strlen(hex_str) > 1) {
-		if (*(hex_str) == '0' && *(hex_str+1) == 'x') {
+		if (*(hex_str) == '0' && *(hex_str+1) == 'x')
 			hex_str += 2;
-		}
 	}
 
 	if (strlen(hex_str) > hex_leng)
@@ -92,9 +93,8 @@ int parse_register(char* reg_str)
 	}
 	else {
 		for (i=0; i < 36; i++) {
-			if (strcmp(*(REG_NAMES+i), reg_str) == 0) {
+			if (strcmp(*(REG_NAMES+i), reg_str) == 0)
 				return i;
-			}
 		}
 	}
 
@@ -107,16 +107,14 @@ int parse_args(char* str_arg, char* args[], int args_len)
 
 	args[0] = strtok(str_arg, " :~");
 
-	if (args[0] == NULL) {
+	if (args[0] == NULL)
 		return -1;
-	}
 
-	for (i=1; i < args_len; i++) {
+	for (i = 1; i < args_len; i++) {
 		args[i] = strtok(NULL, " :~");
 
-		if (args[i] == NULL) {
+		if (args[i] == NULL)
 			return -1;
-		}
 	}
 
 	return 1;
