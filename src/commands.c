@@ -308,6 +308,8 @@ int execute_cmd_run(ARCH arch, char** args)
 
 int execute_cmd_s(ARCH arch, char** args)
 {
+	UNUSED(args);
+
 	if (state == FINISHED)
 		set_breakpoint(4);
 	else

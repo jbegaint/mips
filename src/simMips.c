@@ -21,7 +21,7 @@ struct command cmd_table[] = {
 	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler", 2, 2},
 	{"db", execute_cmd_db, "", "display break point", 0, 0},
 	{"di", execute_cmd_di, "", "display loaded instructions", 0, 0},
-	{"dm", execute_cmd_dm, "dm <address>", "display memory", 1, 1},
+	{"dm", execute_cmd_dm, "dm <address>", "display memory", 1, 2},
 	{"dr", execute_cmd_dr, "dr <register>", "display register", 0, -1},
 	{"ds", execute_cmd_ds, "", "display section infos", 0, 0},
 	{"er", execute_cmd_er, "er <address>", "erase breakpoint", 1, 1},
@@ -79,24 +79,42 @@ void print_help_all(void)
 
 int check_args(struct command* cmd, char* str_arg, char** args)
 {
-	char* str;
-	char* ptr_arg;
+	char* str1, *str2;
+	char* token, *subtoken;
+	char* found_colon;
 	int i;
 
 	char* delim = " ";
 
-	for (i = 0, str = str_arg; ; str = NULL, i++) {
-		ptr_arg = strtok(str, delim);
-		*(args+i) = ptr_arg;
+	for (i = 0, str1 = str_arg; ; str1 = NULL, i++) {
+		token = strtok(str1, delim);
 
-		if (ptr_arg == NULL)
+		if (token == NULL)
 			break;
+
+		*(args+i) = token;
+
+		if ((found_colon = strchr(token, ':'))) {
+			for (str2 = token; ; str2 = NULL, i++) {
+
+				subtoken = strtok(str2, ":");
+
+				if (subtoken == NULL) {
+					i--;  /* remove null from count */
+ 					break;
+				}
+
+				*(args+i) = subtoken;
+			}
+		}
 	}
+
+	fprintf(stderr, "I %d\n", i);
 
 	/* check usage */
 	if (i < cmd->min || ( i > cmd->max && cmd->max != -1))
 		return 0;
-	
+
 	return 1;
 }
 
