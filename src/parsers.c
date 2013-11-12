@@ -71,8 +71,6 @@ int parse_register(char* reg_str)
 	int i;
 	int reg_index = -1;
 
-	fprintf(stderr, "%s\n", reg_str);
-
 	if (*reg_str == '$') {
 		/* + 1 char shift for the '$' character */
 		reg_str++;
@@ -120,7 +118,7 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
 				if ((subtoken = strtok(str2, ":")) == NULL) {
  					break;
 				}
-				fprintf(stderr, "%d %s\n", i, subtoken);
+				/*fprintf(stderr, "%d %s\n", i, subtoken);*/
 				*(args+i) = subtoken;
 			}
 			*(args+i) = ":";				
@@ -132,12 +130,12 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
  					break;
 				}
 				*(args+i) = subtoken;
-				fprintf(stderr, "%d %s\n", i, subtoken);
+				/*fprintf(stderr, "%d %s\n", i, subtoken);*/
 			}
 			*(args+i) = "~";				
 		}
 	}
-	fprintf(stderr, "I %d\n", i);
+	/*fprintf(stderr, "I %d\n", i);*/
 
 	/* check usage */
 	if (i < cmd->min || ( i > cmd->max && cmd->max != -1))

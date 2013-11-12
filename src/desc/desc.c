@@ -67,8 +67,9 @@ void init_desc_array(void)
 	/* plugins stuff */
 	char* error;
 	char plugin_filename[80];
-	display_f display;
 	execute_f execute;
+	display_f display;
+
 	void* plugin;
 	/* end plugins stuff */
 
@@ -105,31 +106,39 @@ void init_desc_array(void)
 			if (f_desc) {
 				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
 					DEBUG_MSG("%s parsing succeeds", desc_filename);
-					DESC_ARRAY[c] = desc;
 
+					sprintf(plugin_filename, "descs/%s.so", desc.name);
 
-					sprintf(plugin_filename, "%s.so", desc.name);
-					
+				
 					/* lower str */
 					for (int i = 0; plugin_filename[i]; i++)
 						plugin_filename[i] = tolower(plugin_filename[i]);
 				
-					plugin = dlopen("descs/add.so", RTLD_NOW);
+					/* open *.so */
+					plugin = dlopen(plugin_filename, RTLD_NOW);
 
 					if (!plugin) {
 						fprintf(stderr, "%s\n", dlerror());
 					}
 					else {
+						
 						*(void**) &display = dlsym(plugin, "display");
+
 						if ((error = dlerror()) != NULL)
 								fprintf(stderr, "%s\n", error);
+						else
+							desc.display = display;
 
 						*(void**) &execute = dlsym(plugin, "execute");
+
 						if ((error = dlerror()) != NULL)
 							fprintf(stderr, "%s\n", error);
-						desc.display = display;
-						desc.execute = execute;
+						else
+							desc.execute = execute;
 					}
+
+					DESC_ARRAY[c] = desc;
+
 
 				} else {
 					WARNING_MSG("parsing fails for %s", desc_filename);

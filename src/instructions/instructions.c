@@ -86,7 +86,14 @@ int display_instruction(uint32_t word)
     if ((c = get_instr(word)) == NO_MATCH)
         return NO_MATCH;
 
-    display[c](NULL, word);
+    if (c == 1) {
+        DEBUG_MSG("TEST PLUGIN FOR ADDI");
+        DESC_ARRAY[c].display(word);
+        /*DESC_ARRAY[c].execute(NULL, word);*/
+    }
+    else {
+        display[c](NULL, word);
+    }
 
     return MATCH;
 }
