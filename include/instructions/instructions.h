@@ -8,63 +8,9 @@
 typedef void (*display_instr)(ARCH, uint32_t);
 typedef void (*execute_instr)(ARCH, uint32_t);
 
-/*enum
-{
-    _add = 0,
-    _bgtz,
-    _addi,
-    _and,
-    _beq,
-    _rrotr,
-    _blez,
-    _bne,
-    _div,
-    _j,
-    _jal,
-    _jr,
-    _lui,
-    _lw,
-    _mfhi,
-    _mflo,
-    _mult,
-    _or,
-    _sub,
-    _sw,
-    _syscall,
-    _xor,
-    _slt,
-    _sll,
-    _srl
-};
-char *_instr[]=
-{
-    "add",
-    "bgtz",
-    "addi",
-    "and",
-    "beq",
-    "rrotr",
-    "blez",
-    "bne",
-    "div",
-    "j",
-    "jal",
-    "jr",
-    "lui",
-    "lw",
-    "mfhi",
-    "mflo",
-    "mult",
-    "or",
-    "sub",
-    "sw",
-    "syscall",
-    "xor",
-    "slt",
-    "sll",
-    "srl"
-};
-*/
+void init_display(void);
+
+int display_instruction(uint32_t);
 
 int execute_all_instr(ARCH, uint32_t);
 
@@ -102,6 +48,7 @@ void display_sub(ARCH, uint32_t);
 void display_sw(ARCH, uint32_t);
 void display_syscall(ARCH, uint32_t);
 void display_xor(ARCH, uint32_t);
+
 void execute_bgtz(ARCH, uint32_t);
 void execute_blez(ARCH, uint32_t);
 void execute_bne(ARCH, uint32_t);

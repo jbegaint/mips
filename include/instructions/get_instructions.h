@@ -2,7 +2,8 @@
 #define GET_INSTR_H_INCLUDED
 
 
-#define NO_MATCH -1
+#define MATCH 1
+#define NO_MATCH 0
 
 #include "arch/arch.h"
 

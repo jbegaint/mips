@@ -16,6 +16,8 @@
 #include "simMips.h"
 #include "parsers.h"
 
+#include "instructions/instructions.h"
+
 struct command cmd_table[] = {
 	/* name, ptr, usage, help, min, max */
 	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},
@@ -251,6 +253,7 @@ int main(int argc, char* argv[])
 	arch = init_simu();
 
 	init_desc_array();
+	init_display();
 
 	print_info("Init");
 

@@ -24,6 +24,8 @@
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
+#include "instructions/instructions.h"
+
 
 int execute_cmd_ex(ARCH arch, char** args)
 {
@@ -213,13 +215,12 @@ int execute_cmd_da(ARCH arch, char** args)
 
 			display_byte(arch, addr + 4*i + j);
 		}
-		/*if (!display_instr(lgn_instr.word)) {
+	
+		if (!display_instruction(lgn_instr.word)) {
 			printf("\n");
-			return CMD_EXIT_ERROR;
 			WARNING_MSG("no match");
-		}*/
-
-		DEBUG_MSG("NOT YET RE-IMPLEMENTED");
+			return CMD_EXIT_ERROR;
+		}
 	}
 
 	return CMD_EXIT_SUCCESS;

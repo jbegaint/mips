@@ -12,9 +12,104 @@
 
 #include "notify.h"
 
+display_instr *display;
+execute_instr *executor;
+
+enum
+{
+    _add,
+    _addi,
+    _and,
+    _beq,
+    _bgtz,
+    _blez,
+    _bne,
+    _div,
+    _j,
+    _jal,
+    _jr,
+    _lui,
+    _lw,
+    _mfhi,
+    _mflo,
+    _mult,
+    _or,
+    _rrotr,
+    _sll,
+    _slt,
+    _srl,
+    _sub,
+    _sw,
+    _syscall,
+    _xor
+};
+
+void init_display()
+{
+    display = malloc(DESC_ARRAY_LENGTH*sizeof(*display));
+
+    display[_add] = display_add;
+    display[_addi] = display_addi;
+    display[_and] = display_and;
+    display[_beq] = display_beq;
+    display[_bgtz] = display_bgtz;
+    display[_blez] = display_blez;
+    display[_bne] = display_bne;
+    display[_j] = display_j;
+    display[_jal] = display_jal;
+    display[_jr] = display_jr;
+    display[_lui] = display_lui;
+    display[_lw] = display_lw;
+    display[_mfhi] = display_mfhi;
+    display[_mflo] = display_mflo;
+    display[_mult] = display_mult;
+    display[_or] = display_or;
+    display[_rrotr] = display_rotr;
+    display[_sll] = display_sll;
+    display[_slt] = display_slt;
+    display[_srl] = display_srl;
+    display[_sub] = display_sub;
+    display[_sw] = display_sw;
+    display[_syscall] = display_syscall;
+    display[_xor] = display_xor;
+}
+
+int display_instruction(uint32_t word)
+{
+    int c;
+
+    if ((c = get_instr(word)) == NO_MATCH)
+        return NO_MATCH;
+
+    display[c](NULL, word);
+
+    return MATCH;
+}
+
+int display_all_instr (ARCH arch, uint32_t word)
+{/*
+    int c;
+    int i = 0;*/
+/*    if ((c = get_instr(word)) == NO_MATCH)
+        return NO_MATCH;
+    }
+
+    for (i = 0; i < DESC_ARRAY_LENGTH; i++) {
+        if (strcmp(_instr[i], DESC_ARRAY[c].name)
+            break;
+    }
+
+    if (i == DESC_ARRAY_LENGTH)
+        return NO_MATCH;
+
+    display[i](word, arch);*/
+
+    return 1;
+}
+
 int init_executor(ARCH arch, uint32_t word)
 {
-    /*execute_instr executor[DESC_ARRAY_LENGTH];
+    /*
 
     int c;
     int i = 0;*/
@@ -59,54 +154,5 @@ int init_executor(ARCH arch, uint32_t word)
 
     executor[i](word, arch);
 */
-    return 1;
-}
-
-int display_all_instr (ARCH arch, uint32_t word)
-{
-   /* display_instr display[DESC_ARRAY_LENGTH];
-
-    int c;
-    int i = 0;
-*/
-/*    display[_srl] = display_srl(ARCH arch, uint32_t word);
-    display[_slt] = display_slt(ARCH arch, uint32_t word);
-    display[_sll] = display_sll(ARCH arch, uint32_t word);
-    display[_xor] = display_xor(ARCH arch, uint32_t word);
-    display[_syscall] = display_syscall(ARCH arch, uint32_t word);
-    display[_sw] = display_sw(ARCH arch, uint32_t word);
-    display[_sub] = display_sub(ARCH arch, uint32_t word);
-    display[_or] = display_or(ARCH arch, uint32_t word);
-    display[_mult] = display_mult(ARCH arch, uint32_t word);
-    display[_mflo] = display_mflo(ARCH arch, uint32_t word);
-    display[_mfhi] = display_mfhi(ARCH arch, uint32_t word);
-    display[_lw] = display_lw(ARCH arch, uint32_t word);
-    display[_lui] = display_lui(ARCH arch, uint32_t word);
-    display[_jr] = display_jr(ARCH arch, uint32_t word);
-    display[_j] = display_j(ARCH arch, uint32_t word);
-    display[_jal] = display_jal(ARCH arch, uint32_t word);
-    display[_bne] = display_bne(ARCH arch, uint32_t word);
-    display[_blez] = display_blez(ARCH arch, uint32_t word);
-    display[_rrotr] = display_rotr(ARCH arch, uint32_t word);
-    display[_beq] = display_beq(ARCH arch, uint32_t word);
-    display[_and] = display_and(ARCH arch, uint32_t word);
-    display[_addi] = display_addi(ARCH arch, uint32_t word);
-    display[_bgtz] = display_bgtz(ARCH arch, uint32_t word);
-    display[_add] = display_add(ARCH arch, uint32_t word);*/
-
-/*    if ((c = get_instr(word)) == NO_MATCH)
-        return NO_MATCH;
-    }
-
-    for (i = 0; i < DESC_ARRAY_LENGTH; i++) {
-        if (strcmp(_instr[i], DESC_ARRAY[c].name)
-            break;
-    }
-
-    if (i == DESC_ARRAY_LENGTH)
-        return NO_MATCH;
-
-    display[i](word, arch);*/
-
     return 1;
 }

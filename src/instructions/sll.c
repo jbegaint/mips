@@ -18,7 +18,7 @@ void display_sll(ARCH arch, uint32_t word)
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
     if (rs==0 && rt==0 && rd==0 && sa==0){
-        display_nop(word,arch);
+        display_nop(arch, word);
     }
 
 	fprintf(stdout,"SLL $%u, $%u, $%u\n",rd,rt,sa);
