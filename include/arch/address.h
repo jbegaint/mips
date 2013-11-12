@@ -7,12 +7,14 @@
 #define BYTE_NOT_ALLOCATED 0
 
 int display_addr(ARCH, uint);
-int display_addr_to_addr(ARCH, char*);
 int display_byte(ARCH, uint);
-int display_bytes_from_addr(ARCH, char*);
-int display_one_addr(ARCH, char*);
 int display_range_addr(ARCH, uint, int);
+
 int get_byte(ARCH, uint, uchar*);
 int get_byte_details(ARCH, uint, uchar*, int*);
+
+int display_addr_to_addr(ARCH, char**);
+int display_bytes_from_addr(ARCH, char**);
+int display_one_addr(ARCH, char**);
 
 #endif

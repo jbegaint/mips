@@ -101,7 +101,7 @@ int parse_register(char* reg_str)
 	return reg_index;
 }
 
-int parse_args(char* str_arg, char* args[], int args_len)
+int parse1_args(char* str_arg, char* args[], int args_len)
 {
 	int i = 0;
 
@@ -116,6 +116,52 @@ int parse_args(char* str_arg, char* args[], int args_len)
 		if (args[i] == NULL)
 			return -1;
 	}
+
+	return 1;
+}
+
+int parse_args(struct command* cmd, char* str_arg, char** args)
+{
+	char* str1, *str2;
+	char* token, *subtoken;
+	char* found_colon, *found_tild;
+	int i;
+
+	char* delim = " ";
+
+	for (i = 0, str1 = str_arg; ; str1 = NULL, i++) {
+
+		if ((token = strtok(str1, delim)) == NULL)
+			break;
+
+		*(args+i) = token;
+
+		if ((found_colon = strchr(token, ':'))) {
+			for (str2 = token; ; str2 = NULL, i++) {
+				if ((subtoken = strtok(str2, ":")) == NULL) {
+ 					break;
+				}
+				*(args+i) = subtoken;
+			}
+			*(args+i) = ":";				
+		}
+
+		if ((found_tild = strchr(token, '~'))) {
+			for (str2 = token; ; str2 = NULL, i++) {
+				if ((subtoken = strtok(str2, "~")) == NULL) {
+ 					break;
+				}
+				*(args+i) = subtoken;
+				fprintf(stderr, "%d %s\n", i, subtoken);
+			}
+			*(args+i) = "~";				
+		}
+	}
+	fprintf(stderr, "I %d\n", i);
+
+	/* check usage */
+	if (i < cmd->min || ( i > cmd->max && cmd->max != -1))
+		return 0;
 
 	return 1;
 }

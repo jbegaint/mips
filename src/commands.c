@@ -181,6 +181,8 @@ int execute_cmd_da(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
 
+	fprintf(stderr, "%s %s %s\n", args[0], args[1], args[2]);
+
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
@@ -225,31 +227,27 @@ int execute_cmd_da(ARCH arch, char** args)
 
 int execute_cmd_dm(ARCH arch, char** args)
 {
-	char* found_colon;
-	char* found_tild;
-
-	found_colon = strchr(*args, ':');
-	found_tild = strchr(*args, '~');
-
-	if (!found_colon != !found_tild) { 
-
-		if (found_colon) {
+	/* case ~ or : */
+	if (*(args+2) != NULL) {
+		if (strcmp(*(args+2), ":") == 0) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
-			return display_bytes_from_addr(arch, *args);
-		} else {
+			return display_bytes_from_addr(arch, args);
+		}
+		else if (strcmp(*(args+2), "~") == 0) {
 			DEBUG_MSG("Execute dm <address>~<address>");
-			return display_addr_to_addr(arch, *args);
+			return display_addr_to_addr(arch, args);
+		}
+		else {
+			return CMD_EXIT_ERROR;
 		}
 	}
-	else if (!found_tild && !found_colon) {
+	else if (*(args+1) == NULL) {
 		DEBUG_MSG("execute dm <address>");
-		return display_one_addr(arch, *args);
+		return display_one_addr(arch, args);
 	}
 	else {
-		return CMD_EXIT_FAILURE;
+		return CMD_EXIT_ERROR;
 	}
-
-	return CMD_EXIT_SUCCESS;
 }
 
 

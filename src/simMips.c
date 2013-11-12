@@ -14,14 +14,15 @@
 #include "notify.h"
 #include "utils.h"
 #include "simMips.h"
+#include "parsers.h"
 
 struct command cmd_table[] = {
 	/* name, ptr, usage, help, min, max */
 	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},
-	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler", 2, 2},
+	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler", 2, 3},
 	{"db", execute_cmd_db, "", "display break point", 0, 0},
 	{"di", execute_cmd_di, "", "display loaded instructions", 0, 0},
-	{"dm", execute_cmd_dm, "dm <address>", "display memory", 1, 2},
+	{"dm", execute_cmd_dm, "dm <address>", "display memory", 1, 3},
 	{"dr", execute_cmd_dr, "dr <register>", "display register", 0, -1},
 	{"ds", execute_cmd_ds, "", "display section infos", 0, 0},
 	{"er", execute_cmd_er, "er <address>", "erase breakpoint", 1, 1},
@@ -76,48 +77,6 @@ void print_help_all(void)
 			printf("\n");
 }
 
-
-int check_args(struct command* cmd, char* str_arg, char** args)
-{
-	char* str1, *str2;
-	char* token, *subtoken;
-	char* found_colon;
-	int i;
-
-	char* delim = " ";
-
-	for (i = 0, str1 = str_arg; ; str1 = NULL, i++) {
-		token = strtok(str1, delim);
-
-		if (token == NULL)
-			break;
-
-		*(args+i) = token;
-
-		if ((found_colon = strchr(token, ':'))) {
-			for (str2 = token; ; str2 = NULL, i++) {
-
-				subtoken = strtok(str2, ":");
-
-				if (subtoken == NULL) {
-					i--;  /* remove null from count */
- 					break;
-				}
-
-				*(args+i) = subtoken;
-			}
-		}
-	}
-
-	fprintf(stderr, "I %d\n", i);
-
-	/* check usage */
-	if (i < cmd->min || ( i > cmd->max && cmd->max != -1))
-		return 0;
-
-	return 1;
-}
-
 int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 {
 	int res;
@@ -128,7 +87,7 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 	if ((command = find_cmd(cmd)) == NULL)
 		return CMD_NOT_FOUND;
 
-	if (!check_args(command, str_arg, args)) {
+	if (!parse_args(command, str_arg, args)) {
 		print_usage(command);
 		return CMD_EXIT_ERROR;
 	}

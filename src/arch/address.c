@@ -137,13 +137,9 @@ int display_addr(ARCH arch, uint addr)
 }
 
 
-int display_addr_to_addr(ARCH arch, char* str_arg)
+int display_addr_to_addr(ARCH arch, char** args)
 {
 	uint addr0, addr1;
-	char* args[2];
-
-	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1))
 		return CMD_EXIT_INVALID_ADDR;
@@ -156,14 +152,10 @@ int display_addr_to_addr(ARCH arch, char* str_arg)
 	    
 }
 
-int display_bytes_from_addr(ARCH arch, char* str_arg)
+int display_bytes_from_addr(ARCH arch, char** args)
 {
 	uint addr;
 	int bytes_nb;
-	char* args[2];
-
-	if (parse_args(str_arg, args, 2) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -181,14 +173,10 @@ int display_bytes_from_addr(ARCH arch, char* str_arg)
 	return display_range_addr(arch, addr, bytes_nb);
 }
 
-int display_one_addr(ARCH arch, char* str_arg)
+int display_one_addr(ARCH arch, char** args)
 {
-	char* args[1];
 	uint addr;
 	uchar val;
-
-	if (parse_args(str_arg, args, 1) != 1)
-		return CMD_EXIT_MISSING_ARG;
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;

@@ -1,6 +1,8 @@
 #ifndef _PARSERS_H_
 #define _PARSERS_H_
 
+#include "simMips.h"
+
 /*
 	returns 1 if no error, value in ptr
 */
@@ -34,6 +36,6 @@ int parse_register(char*);
 /*
 	returns args from str in string array
 */
-int parse_args(char*, char**, int);
+int parse_args(struct command*, char*, char**);
 
 #endif
