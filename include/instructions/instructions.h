@@ -9,6 +9,7 @@ typedef void (*display_instr)(ARCH, uint32_t);
 typedef void (*execute_instr)(ARCH, uint32_t);
 
 void init_display(void);
+void free_display(void);
 
 int display_instruction(uint32_t);
 

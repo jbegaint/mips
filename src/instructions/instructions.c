@@ -74,6 +74,11 @@ void init_display()
     display[_xor] = display_xor;
 }
 
+void free_display()
+{
+    free(display);
+}
+
 int display_instruction(uint32_t word)
 {
     int c;

@@ -4,12 +4,15 @@ INC_DIR=include
 SRC_DIR=src
 
 # CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic
-CFLAGS=-I$(INC_DIR) -Wall -std=c99 -pedantic
+CFLAGS=-I$(INC_DIR) -Wall -std=c99 -pedantic -rdynamic
+
+# -shared -fPIC
+# gcc add.c -o add.so -shared -fPIC -I../include
 
 CFLAGS_RLS=$(CFLAGS) -O2
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 
-LDFLAGS=-lreadline -lcurses -lelf -lm
+LDFLAGS=-lreadline -lcurses -lelf -lm -ldl
 
 SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 
@@ -30,6 +33,8 @@ simMips-debug: $(OBJECTS_DBG)
 
 %.dbg.o : %.c
 	@gcc $< $(CFLAGS_DBG) -I$(dir $<) -c -o $@
+
+plugins:
 
 clean:
 	@rm -f $(OBJECTS) $(OBJECTS_DBG)

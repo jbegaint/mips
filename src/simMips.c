@@ -84,7 +84,10 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 	int res;
 	struct command* command;
 
-	char** args = malloc(MAX_ARGS*sizeof(*args));
+	/*char** args = malloc(MAX_ARGS*sizeof(*args));*/
+	/* pb with free to solve */
+
+	char* args[50];
 
 	if ((command = find_cmd(cmd)) == NULL)
 		return CMD_NOT_FOUND;
@@ -95,6 +98,7 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 	}
 
 	res = command->ptr(arch, args);
+
 	return res;
 }
 
@@ -254,6 +258,7 @@ int main(int argc, char* argv[])
 
 	init_desc_array();
 	init_display();
+	test_init_plugins();
 
 	print_info("Init");
 
@@ -282,5 +287,6 @@ int main(int argc, char* argv[])
 	print_info("Exit");
 	free_arch(arch);
 	free_desc_array();
+	free_display();
 	exit(EXIT_SUCCESS);
 }

@@ -1,11 +1,13 @@
 #ifndef _ARCH_H_
 #define _ARCH_H_
 
+#include <stdint.h>
+
 #define TEXT 0
 #define DATA 1
 #define BSS 2
 
-typedef unsigned int uint;
+typedef uint32_t uint;
 typedef unsigned char uchar;
 
 typedef struct 

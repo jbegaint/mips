@@ -127,10 +127,14 @@ int execute_cmd_dr(ARCH arch, char** args) {
 
 	while (*(args+i) != NULL) {
 
+		DEBUG_MSG("parsing register: %s", *(args+i));
+
 	    reg_index = parse_register(*(args+i));
 
-	    if (reg_index == -1)
+	    if (reg_index == -1) {
+	    	printf("\n"); /* clear output */
 	    	return CMD_EXIT_INVALID_REG;
+		}
 
 	    display_reg(arch, reg_index);
 

@@ -34,6 +34,10 @@ mettre en place la liste des bkp
 
 * tests, tests everywhere
 
+---
+
+* clean parse_args
+
 
 Compilation:
 ------------
@@ -57,4 +61,10 @@ Auteurs:
 * Bégaint J.
 
 * Revolle M.
+
+Links:
+------
+
+* http://stackoverflow.com/questions/384121/creating-a-module-system-dynamic-loading-in-c
+* 
 
