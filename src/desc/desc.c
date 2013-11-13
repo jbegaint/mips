@@ -67,10 +67,10 @@ void init_desc_array(void)
 	/* plugins stuff */
 	char* error;
 	char plugin_filename[80];
+	void* plugin;
 	execute_f execute;
 	display_f display;
 
-	void* plugin;
 	/* end plugins stuff */
 
 	DEBUG_MSG("Init desc files parsing");
@@ -103,13 +103,14 @@ void init_desc_array(void)
 			chdir(DESC_DIR);
 			f_desc = open_file(desc_filename);
 			chdir("..");
+
 			if (f_desc) {
 				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
+
 					DEBUG_MSG("%s parsing succeeds", desc_filename);
 
 					sprintf(plugin_filename, "descs/%s.so", desc.name);
-
-				
+			
 					/* lower str */
 					for (int i = 0; plugin_filename[i]; i++)
 						plugin_filename[i] = tolower(plugin_filename[i]);

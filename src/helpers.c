@@ -78,6 +78,11 @@ void reset_sr(ARCH arch)
 	arch->registers[SR] = 0;
 }
 
+void set_sr(ARCH arch, uint32_t word)
+{
+	arch->registers[SR] = word;
+}
+
 /* INSTRUCTIONS */
 void print_decoded_instruction(ARCH arch, uint32_t address)
 {
