@@ -27,7 +27,6 @@ void execute(ARCH arch, uint32_t word)
 	uint32_t isol_low=0;
 	uint32_t val_rt;
 	uint32_t val_sa;
-	/*uint32_t val_rd;*/
     uint i;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);

@@ -28,10 +28,10 @@ void execute (ARCH arch, uint32_t word)
 	uint val_rs;
 	uint64_t add;
 
-    parser_typeI(word,&rs,&rt,&immediate);
+    parser_typeI(word, &rs, &rt, &immediate);
 	val_rs = (arch->registers)[rs];
 
-	add = rs + immediate;
+	add = val_rs + immediate;
 
 	if (add>0xFFFFFFFF) {
 		fprintf(stderr,"SR modifie\n");
