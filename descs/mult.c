@@ -28,9 +28,10 @@ void execute_mult(ARCH arch, uint32_t word)
 	uint64_t isol_lo=0;
 	uint64_t isol_hi=0;
 
+    uint i;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
-	reslut = rs*rt;
+	result = rs*rt;
 
     for (i=0; i<32; i++){
         isol_lo |= (1<<i) ;

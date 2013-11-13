@@ -12,7 +12,6 @@
 
 #include "notify.h"
 
-
 int display_instruction(uint32_t word)
 {
     int c;

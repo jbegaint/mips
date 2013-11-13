@@ -41,7 +41,7 @@ plugins: $(OBJECTS_SO)
 	@gcc $< $(CFLAGS_DBG) -I$(dir $<) -c -o $@
 
 %.so : %.c
-	@gcc $< $(CFLAGS_DYNAMIC) -I$(dir $<) -c -o $@
+	gcc $< $(CFLAGS_DYNAMIC) -I$(dir $<)  -o $@
 
 clean:
 	@rm -f $(OBJECTS) $(OBJECTS_DBG)

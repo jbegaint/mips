@@ -34,7 +34,7 @@ void execute (ARCH arch, uint32_t word)
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
 	val_rs = (arch->registers)[rs];
-	val_rt = (arch->registers)[rt]
+	val_rt = (arch->registers)[rt];
 
 	addi = val_rs + val_rt;
 	if (addi>0xFFFFFFFF) {
