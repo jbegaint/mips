@@ -25,9 +25,11 @@ void execute (ARCH arch, uint32_t word)
 	uint rs;
     uint rt;
     uint immediate;
+	uint val_rs;
 	uint64_t add;
 
     parser_typeI(word,&rs,&rt,&immediate);
+	val_rs = (arch->registers)[rs];
 
 	add = rs + immediate;
 

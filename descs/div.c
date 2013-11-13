@@ -29,18 +29,22 @@ void execute (ARCH arch, uint32_t word)
     uint sa;
 	uint q;
 	uint reste;
+	uint val_rs;
+	uint val_rt;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
+	val_rs = (arch->registers)[rs];
+	val_rt = (arch->registers)[rt];
 	
-	if (rt == 0) {
+	if (val_rt == 0) {
 		set_SR( arch, 4096);
 		WARNING_MSG("Division by zero");
 		fprintf(stderr,"SR modify\n");
 		return;
 	}
 	else {
-		q=rs/rt;
-		reste = rs%rt;
+		q = val_rs / val_rt;
+		reste = val_rs % val_rt;
 		set_HI( arch, q);
 		set_LO( arch, reste);
 	}
