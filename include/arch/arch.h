@@ -16,12 +16,20 @@ typedef struct
 	uchar* data;
 	uint start_addr;
 	uint size;
-} SECTION;
+} section_t;
+
+typedef enum {
+	NOT_STARTED,
+	STEP,
+	PAUSED,
+	FINISHED
+} state_t;
 
 typedef struct
 {
-	uint regs[36];
-	SECTION sections[3];
+	uint registers[36];
+	section_t sections[3];
+	state_t state;
 } *ARCH;
 
 typedef union

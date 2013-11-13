@@ -35,7 +35,7 @@
     WORD   startAddress;  // Adresse du début la section en memoire
 } SectionELF ;*/
 
-typedef SECTION SectionELF;
+typedef section_t SectionELF;
 
 
 /*--------------------------------------------------------------------------*/

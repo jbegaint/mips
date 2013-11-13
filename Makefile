@@ -13,6 +13,7 @@ CFLAGS_RLS=$(CFLAGS) -O2
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 
 LDFLAGS=-lreadline -lcurses -lelf -lm -ldl
+LDFLAGS_DYNAMIC=$(LDFLAGS) -rdynamic
 
 SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 
@@ -23,10 +24,10 @@ OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 all: simMips-debug
 
 simMips: $(OBJECTS)
-	@gcc $^ $(LDFLAGS) -o $(TARGET)
+	@gcc $^ $(LDFLAGS_DYNAMIC) -o $(TARGET)
 
 simMips-debug: $(OBJECTS_DBG)
-	@gcc $^ $(LDFLAGS) -o $(TARGET) -rdynamic
+	@gcc $^ $(LDFLAGS_DYNAMIC) -o $(TARGET)
 
 %.o: %.c
 	@gcc $< $(CFLAGS_RLS) -I$(dir $<) -c -o $@

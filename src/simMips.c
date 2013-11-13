@@ -43,9 +43,8 @@ struct command cmd_table[] = {
 struct command* find_cmd(char* cmd)
 {
 	for (int i = 0; cmd_table[i].command != NULL; i++) {
-		if (strcmp(cmd, cmd_table[i].command) == 0) {
+		if (strcmp(cmd, cmd_table[i].command) == 0)
 			return cmd_table+i;
-		}
 	}
 	return NULL;
 }
@@ -76,7 +75,7 @@ void print_help_all(void)
 			printf("\n");
 	}
 	if ((i)%n != 0)
-			printf("\n");
+		printf("\n");
 }
 
 int execute_cmd(ARCH arch, char* cmd, char* str_arg)

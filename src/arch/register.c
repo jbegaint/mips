@@ -27,7 +27,7 @@ void display_reg_all(ARCH arch)
 void display_reg(ARCH arch, int reg_index)
 {
 	char *reg_name = REG_NAMES[reg_index];
-	uint reg_value = (arch->regs)[reg_index];
+	uint reg_value = (arch->registers)[reg_index];
 
 	fprintf(stdout, "%4s : %08x   ", reg_name, reg_value);
 }

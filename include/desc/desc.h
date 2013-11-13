@@ -3,8 +3,8 @@
 
 #include "arch/arch.h"
 
-typedef void (*display_f)(uint32_t);
-typedef void (*execute_f)(ARCH, uint32_t);
+typedef void (*display_f)(uint);
+typedef void (*execute_f)(ARCH, uint);
 
 typedef struct {
 	char name[8]; /* todo: check max name length in doc */

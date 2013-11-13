@@ -12,6 +12,7 @@ void reset_breakpoints(void);
 
 void set_pc(ARCH, uint32_t);
 uint32_t get_pc(ARCH);
+void reset_sr(ARCH);
 
 void set_sr(ARCH, uint32_t);
 uint32_t get_sr(ARCH);
@@ -26,4 +27,4 @@ uint32_t get_section_end(ARCH, int);
 
 void reset_registers(ARCH);
 
-#endif
+void print_decoded_instruction(ARCH, uint32_t);

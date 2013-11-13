@@ -3,7 +3,7 @@
 
 #define MAX_ARGS 50
 
-typedef int (*cmd_ptr)(ARCH, char**);
+typedef int (*cmd_ptr)();
 
 struct command {
 	const char* command;

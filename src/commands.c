@@ -27,11 +27,8 @@
 #include "instructions/instructions.h"
 
 
-int execute_cmd_ex(ARCH arch, char** args)
+int execute_cmd_ex()
 {
-	UNUSED(arch);
-	UNUSED(args);
-
 	DEBUG_MSG("Bye Dave");
 	return CMD_QUIT;
 }
@@ -39,7 +36,6 @@ int execute_cmd_ex(ARCH arch, char** args)
 int execute_cmd_testcmd(ARCH arch, char** args)
 {
 	uint addr;
-
 	UNUSED(arch);
 
 	DEBUG_MSG("Execute testcmd <address>");
@@ -108,7 +104,7 @@ int execute_cmd_lr(ARCH arch, char** args)
 		return CMD_EXIT_INVALID_REG_VALUE;
 	}
 
-	(arch->regs)[reg] = (uint) val;
+	(arch->registers)[reg] = (uint) val;
 
 	return CMD_EXIT_SUCCESS;
 
@@ -169,7 +165,7 @@ int execute_cmd_lp(ARCH arch, char** args)
 
 	reset_breakpoints();
 	reset_registers(arch);
-	state = NOT_STARTED;
+	arch->state = NOT_STARTED;
 
 	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
 
@@ -186,8 +182,6 @@ int execute_cmd_da(ARCH arch, char** args)
 	uint addr;
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
-
-	fprintf(stderr, "%s %s %s\n", args[0], args[1], args[2]);
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -256,19 +250,14 @@ int execute_cmd_dm(ARCH arch, char** args)
 }
 
 
-int execute_cmd_di(ARCH arch, char** args)
+int execute_cmd_di()
 {
-	UNUSED(arch);
-	UNUSED(args);
-
 	display_desc_array();
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_ds(ARCH arch, char** args)
+int execute_cmd_ds(ARCH arch)
 {
-	UNUSED(args);
-
 	for (int i = 0; i < 3; i++) {
 		printf("Section: %s\n", arch->sections[i].name);
 		printf("Start address: %0x\n", arch->sections[i].start_addr);
@@ -309,11 +298,9 @@ int execute_cmd_run(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_s(ARCH arch, char** args)
+int execute_cmd_s(ARCH arch)
 {
-	UNUSED(args);
-
-	if (state == FINISHED)
+	if (arch->state == FINISHED)
 		set_breakpoint(4);
 	else
 		set_breakpoint(get_pc(arch) + 4);
@@ -323,13 +310,12 @@ int execute_cmd_s(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_si(ARCH arch, char** args)
+int execute_cmd_si(ARCH arch)
 {
-	UNUSED(args);
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* set_breakpoint(jump_adress) ;*/
-	set_breakpoint(arch->regs[PC] + 4);
+	set_breakpoint(arch->registers[PC] + 4);
 
 	/* launch run */
 
@@ -401,17 +387,21 @@ int execute_cmd_er(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_db(ARCH arch, char** args)
+int execute_cmd_db(ARCH arch)
 {
-	UNUSED(arch);
-	UNUSED(args);
+	list_t list;
+	uint32_t val;
 
-	/* for i in BP_LIST
-		display i + da(i)
-	*/
+	fprintf(stdout, "breakpoints\n");
+	
+	if (is_list_empty(BP_LIST))
+		return CMD_EXIT_SUCCESS;
 
-	/* temporary */
-	display_list(BP_LIST);
+	for (list = BP_LIST; !is_list_empty(list); list = list->next) {
+		val = *(uint32_t*) list->val;
+		printf("%08x  ", val);
+		print_decoded_instruction(arch, val);
+	}
 
 	return CMD_EXIT_SUCCESS;
 }
