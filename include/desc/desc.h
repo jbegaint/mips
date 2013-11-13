@@ -11,7 +11,6 @@ typedef struct {
 	char type;
 	uint opcode;
 	uint function;
-	
 	display_f display;
 	execute_f execute;
 } DESC;

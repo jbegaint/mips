@@ -40,6 +40,16 @@ void reset_breakpoints(ARCH arch)
 	arch->breakpoints = (list_t) NULL;
 }
 
+void display_breakpoints(ARCH arch)
+{
+	uint val;
+	for (list_t list = arch->breakpoints; !is_list_empty(list); list = list->next) {
+		val = *(uint*) list->val;
+		printf("%08x  ", val);
+		print_decoded_instruction(arch, val);
+	}
+}
+
 /* SECTIONS */
 uint get_section_end(ARCH arch, int section_id) 
 {
@@ -50,20 +60,13 @@ uint get_section_end(ARCH arch, int section_id)
 void reset_registers(ARCH arch)
 {
 	for (int i = 1; i < 36; i++)
-		arch->registers[i] = 0;
+		reset_register(arch, i);
 }
 
-void print_instruction_bytes(INSTR instr)
+void reset_register(ARCH arch, int index)
 {
-	for (int i = 0; i < 4; i++)
-		printf("%02x ", instr.bytes[3-i]);
+	arch->registers[index] = 0;
 }
-
-void reset_sr(ARCH arch)
-{
-	arch->registers[SR] = 0;
-}
-
 
 void set_register(ARCH arch, int index, uint value)
 {
@@ -73,21 +76,6 @@ void set_register(ARCH arch, int index, uint value)
 uint get_register(ARCH arch, int index)
 {
 	return arch->registers[index];
-}
-
-uint get_pc(ARCH arch)
-{
-	return get_register(arch, PC);
-}
-
-uint get_HI(ARCH arch)
-{
-	return get_register(arch, HI);
-}
-
-uint get_LO(ARCH arch)
-{
-	return get_register(arch, LO);
 }
 
 /* INSTRUCTIONS */
@@ -100,4 +88,10 @@ void print_decoded_instruction(ARCH arch, uint address)
 
 	print_instruction_bytes(instr);
 	display_instruction(instr.word);
+}
+
+void print_instruction_bytes(INSTR instr)
+{
+	for (int i = 0; i < 4; i++)
+		printf("%02x ", instr.bytes[3-i]);
 }

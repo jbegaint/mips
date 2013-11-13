@@ -18,7 +18,9 @@ void run(ARCH arch)
 	while (get_register(arch, PC) < get_section_end(arch, TEXT)) {
 		fprintf(stderr, "%08x\n", get_register(arch, PC));
 
-		/* reset_sr puis execution */
+		/* reset_sr then execution */
+		reset_register(arch, SR);
+
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
 

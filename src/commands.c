@@ -389,19 +389,12 @@ int execute_cmd_er(ARCH arch, char** args)
 
 int execute_cmd_db(ARCH arch)
 {
-	list_t list;
-	uint32_t val;
-
 	fprintf(stdout, "breakpoints\n");
 	
 	if (is_list_empty(arch->breakpoints))
 		return CMD_EXIT_SUCCESS;
 
-	for (list = arch->breakpoints; !is_list_empty(list); list = list->next) {
-		val = *(uint32_t*) list->val;
-		printf("%08x  ", val);
-		print_decoded_instruction(arch, val);
-	}
+	display_breakpoints(arch);
 
 	return CMD_EXIT_SUCCESS;
 }
