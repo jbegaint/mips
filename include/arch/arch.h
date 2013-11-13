@@ -7,6 +7,12 @@
 #define DATA 1
 #define BSS 2
 
+/* common purpose registers index */
+#define HI 32
+#define LO 33 
+#define SR 34
+#define PC 35
+
 typedef uint32_t uint;
 typedef unsigned char uchar;
 

@@ -292,7 +292,7 @@ int execute_cmd_run(ARCH arch, char** args)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	set_pc(arch, addr);
+	set_register(arch, PC, addr);
 	run(arch);
 
 	return CMD_EXIT_SUCCESS;
@@ -303,7 +303,7 @@ int execute_cmd_s(ARCH arch)
 	if (arch->state == FINISHED)
 		set_breakpoint(4);
 	else
-		set_breakpoint(get_pc(arch) + 4);
+		set_breakpoint(get_register(arch, PC) + 4);
 
 	run(arch);
 

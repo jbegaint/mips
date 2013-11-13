@@ -42,18 +42,6 @@ void reset_breakpoints(void)
 	BP_LIST = (list_t) NULL;
 }
 
-
-/* PC */
-void set_pc(ARCH arch, uint32_t address)
-{
-	arch->registers[PC] = address;
-}
-
-uint32_t get_pc(ARCH arch)
-{
-	return arch->registers[PC];
-}
-
 /* SECTIONS */
 uint32_t get_section_end(ARCH arch, int section_id) 
 {
@@ -78,9 +66,30 @@ void reset_sr(ARCH arch)
 	arch->registers[SR] = 0;
 }
 
-void set_sr(ARCH arch, uint32_t word)
+
+void set_register(ARCH arch, int index, uint32_t value)
 {
-	arch->registers[SR] = word;
+	arch->registers[index] = value;
+}
+
+uint32_t get_register(ARCH arch, int index)
+{
+	return arch->registers[index];
+}
+
+uint32_t get_pc(ARCH arch)
+{
+	return get_register(arch, PC);
+}
+
+uint32_t get_HI(ARCH arch)
+{
+	return get_register(arch, HI);
+}
+
+uint32_t get_LO(ARCH arch)
+{
+	return get_register(arch, LO);
 }
 
 /* INSTRUCTIONS */

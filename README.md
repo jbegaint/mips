@@ -4,6 +4,8 @@ Simulateur MIPS
 TODO
 ====
 
+* cas srl/ rotr
+
 * implémenter les fonctions de l'interpréteur (Jean)
 	
 	* bp (done)

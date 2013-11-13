@@ -15,22 +15,22 @@ void run(ARCH arch)
 	if (arch->state == FINISHED)
 		reset_registers(arch);
 
-	while (get_pc(arch) < get_section_end(arch, TEXT)) {
-		fprintf(stderr, "%08x\n", get_pc(arch));
+	while (get_register(arch, PC) < get_section_end(arch, TEXT)) {
+		fprintf(stderr, "%08x\n", get_register(arch, PC));
 
 		/* reset_sr puis execution */
 
-		set_pc(arch, get_pc(arch) + 4);
+		set_register(arch, PC, get_register(arch, PC) + 4);
 
-		if (get_breakpoint_id(get_pc(arch)) != -1) {
+		if (get_breakpoint_id(get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;
 			DEBUG_MSG("state: PAUSED");
-			del_breakpoint_by_addr(get_pc(arch));
+			del_breakpoint_by_addr(get_register(arch, PC));
 			break;
 		}
 	}
 
-	if (get_pc(arch) == get_section_end(arch, TEXT)) {
+	if (get_register(arch, PC) == get_section_end(arch, TEXT)) {
 		DEBUG_MSG("state: FINISHED");
 		arch->state = FINISHED;
 	}

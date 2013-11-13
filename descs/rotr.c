@@ -7,22 +7,16 @@
 
 void display(uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+    uint rs, rt, rd, sa;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
 	fprintf(stdout,"RTOR $%u, $%u, $%u\n",rd,rt,sa);
-	return;
 }
 
 void execute(ARCH arch, uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+    uint rs, rt, rd, sa;
+
 	uint32_t isol_high=0;
 	uint32_t isol_low=0;
 	uint32_t val_rt;
@@ -31,20 +25,18 @@ void execute(ARCH arch, uint32_t word)
     parser_typeR(word,&rs,&rt,&rd,&sa);
 	val_rt = (arch->registers)[rt];
 
-    for (i=0; i<sa; i++){
+    for (i = 0; i < sa; i++){
         isol_low |= (1<<i) ;
     }
-    for (i=sa; i<32; i++){
+    for (i = sa; i < 32; i++){
         isol_high |= (1<<i) ;
     }
 
 	isol_high = isol_high & val_rt;
 	isol_low = isol_low & val_rt;
-	isol_high = isol_high >> (32-val_sa);
-	isol_low = isol_low << val_sa;
+	isol_high = isol_high >> (32-sa);
+	isol_low = isol_low << sa;
 
 	(arch->registers)[rd] = isol_low | isol_high;
-
-	return ;
 }
 

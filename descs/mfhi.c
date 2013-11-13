@@ -4,31 +4,20 @@
 #include "arch/arch.h"
 
 #include "instructions/parser_instructions.h"
+#include "helpers.h"
 
 
-void display (uint32_t word)
+void display(uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+	uint rs, rt, rd, sa;
 
-    parser_typeR(word,&rs,&rt,&rd,&sa);
-	fprintf(stdout,"MFHI $%u \n",rd);
-
-	return;
+	parser_typeR(word, &rs, &rt, &rd, &sa);
+	fprintf(stdout, "MFHI $%u \n", rd);
 }
 
-void execute (ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
-
-    parser_typeR(word,&rs,&rt,&rd,&sa);
+    uint rs, rt, rd, sa;
+	parser_typeR(word, &rs, &rt, &rd, &sa);
 	(arch->registers)[rd] = get_HI(arch);
-
-	return ;
 }
-

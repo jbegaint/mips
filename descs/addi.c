@@ -11,21 +11,16 @@
 
 void display (uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint immediate;
+    uint rs, rt, immediate;
 
-    parser_typeI(word,&rs,&rt,&immediate);
-    fprintf(stdout,"ADDI $%u, $%u, %u\n",rt,rs,immediate);
-	return;
+    parser_typeI(word, &rs, &rt, &immediate);
+    fprintf(stdout,"ADDI $%u, $%u, %u\n", rt, rs, immediate);
 }
 
 void execute (ARCH arch, uint32_t word)
 {
-	uint rs;
-    uint rt;
-    uint immediate;
-	uint val_rs;
+	uint rs, rt;
+    uint immediate, val_rs;
 	uint64_t add;
 
     parser_typeI(word, &rs, &rt, &immediate);
@@ -33,15 +28,10 @@ void execute (ARCH arch, uint32_t word)
 
 	add = val_rs + immediate;
 
-	if (add > 0xFFFFFFFF) {
-		fprintf(stderr, "SR modifie\n");
+	if (add > 0xFFFFFFFF)
 		/* implement set bit sr */
-		set_sr(arch, 2049); // modification du bit C (0) et O (11)
-		return;
-	}
-	else {
+		set_register(arch, SR, 2049);
+	else
 		(arch->registers)[rt] = add;
-	}
-	return ;
 }
 

@@ -5,29 +5,18 @@
 
 #include "instructions/parser_instructions.h"
 
-void display (uint32_t word)
+void display(uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+	uint rs, rt, rd, sa;
 
-    parser_typeR(word,&rs,&rt,&rd,&sa);
-	fprintf(stdout,"MFLO $%u \n",rd);
-
-	return;
+	parser_typeR(word, &rs, &rt, &rd, &sa);
+	fprintf(stdout, "MFLO $%u \n", rd);
 }
 
-void execute (ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+	uint rs, rt, rd, sa;
 
-    parser_typeR(word,&rs,&rt,&rd,&sa);
+	parser_typeR(word, &rs, &rt, &rd, &sa);
 	(arch->registers)[rd] = get_LO(arch);
-
-	return ;
 }
-
