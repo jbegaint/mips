@@ -29,9 +29,14 @@ void execute (ARCH arch, uint32_t word)
     uint rt;
     uint rd;
     uint sa;
+	uint val_rs;
+	uint val_rt;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
-	addi = rs + rt;
+	val_rs = (arch->registers)[rs];
+	val_rt = (arch->registers)[rt]
+
+	addi = val_rs + val_rt;
 	if (addi>0xFFFFFFFF) {
 		fprintf(stderr,"SR modifie\n");
 		set_sr(arch,2049); // modification du bit C (0) et O (11)
