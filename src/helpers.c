@@ -10,6 +10,7 @@
 
 #include "arch/address.h"
 #include "instructions/instructions.h"
+#include "notify.h"
 
 /* BREAKPOINTS */
 void add_breakpoint(ARCH arch, uint address)
@@ -43,6 +44,7 @@ void reset_breakpoints(ARCH arch)
 void display_breakpoints(ARCH arch)
 {
 	uint val;
+
 	for (list_t list = arch->breakpoints; !is_list_empty(list); list = list->next) {
 		val = *(uint*) list->val;
 		printf("%08x  ", val);
@@ -59,13 +61,14 @@ uint get_section_end(ARCH arch, int section_id)
 /* REGISTERS */
 void reset_registers(ARCH arch)
 {
+	DEBUG_MSG("all registers reset");
 	for (int i = 1; i < 36; i++)
 		reset_register(arch, i);
 }
 
 void reset_register(ARCH arch, int index)
 {
-	arch->registers[index] = 0;
+	set_register(arch, index, 0);
 }
 
 void set_register(ARCH arch, int index, uint value)
@@ -94,4 +97,14 @@ void print_instruction_bytes(INSTR instr)
 {
 	for (int i = 0; i < 4; i++)
 		printf("%02x ", instr.bytes[3-i]);
+}
+
+INSTR get_instr_from_addr(ARCH arch, uint address)
+{
+	INSTR instr;
+
+	for (int j = 0; j < 4; j++)
+		get_byte(arch, address + j, &(instr.bytes[3-j]));
+
+	return instr;
 }

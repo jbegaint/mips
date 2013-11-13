@@ -70,6 +70,10 @@ int parse_register(char* reg_str)
 {
 	int i;
 	int reg_index = -1;
+		
+	/* prevent new line bug */
+	if (sscanf(reg_str, "%s", reg_str) != 1)
+		return 0;
 
 	if (*reg_str == '$') {
 		/* + 1 char shift for the '$' character */

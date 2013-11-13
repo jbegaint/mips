@@ -11,16 +11,19 @@
 void run(ARCH arch)
 {
 	DEBUG_MSG("run start");
+	INSTR instr;
 
 	if (arch->state == FINISHED)
 		reset_registers(arch);
 
 	while (get_register(arch, PC) < get_section_end(arch, TEXT)) {
-		fprintf(stderr, "%08x\n", get_register(arch, PC));
-
+		
 		/* reset_sr then execution */
 		reset_register(arch, SR);
+		instr = get_instr_from_addr(arch, get_register(arch, PC));
+		execute_instruction(arch, instr.word);
 
+		DEBUG_MSG("execute: %08x", get_register(arch, PC));
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
 

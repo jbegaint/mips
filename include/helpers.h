@@ -21,5 +21,6 @@ uint get_section_end(ARCH, int);
 
 void print_decoded_instruction(ARCH, uint);
 void print_instruction_bytes(INSTR);
+INSTR get_instr_from_addr(ARCH, uint);
 
 #endif

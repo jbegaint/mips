@@ -33,7 +33,7 @@ struct command cmd_table[] = {
 	{"lm", execute_cmd_lm, "lm <address> <value>", "load memory", 2, 2},
 	{"lp", execute_cmd_lp, "lp <filename>", "load program", 1, 1},
 	{"lr", execute_cmd_lr, "lr <register> <value>", "load register", 2, 2},
-	{"run", execute_cmd_run, "run [address]", "", 1, 1},
+	{"run", execute_cmd_run, "run [address]", "", 0, 1},
 	{"s", execute_cmd_s, "", "run step by step (line per line)", 0, 0},
 	{"si", execute_cmd_si, "", "step into", 0, 0},
 	{"testcmd", execute_cmd_testcmd, "testcmd <address>", "useful only for testing purpose", 1, 1},
