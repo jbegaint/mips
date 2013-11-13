@@ -16,6 +16,7 @@ void display(uint32_t word)
 void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, rd, sa;
+    uint val_rt;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
 	val_rt = (arch->registers)[rt];
