@@ -69,9 +69,8 @@ void reset_registers(ARCH arch)
 
 void print_instruction_bytes(INSTR instr)
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++)
 		printf("%02x ", instr.bytes[3-i]);
-	}
 }
 
 void reset_sr(ARCH arch)
