@@ -3,13 +3,10 @@
 
 #include "arch/arch.h"
 
-#include "instructions/instructions.h"
 #include "instructions/parser_instructions.h"
-#include "instructions/get_instructions.h"
 
-#include "notify.h"
 
-void display_bgtz(ARCH arch, uint32_t word)
+void display (uint32_t word)
 {
     uint rs;
     uint rt;
@@ -20,7 +17,7 @@ void display_bgtz(ARCH arch, uint32_t word)
 	return;
 }
 
-void execute_bgtz(ARCH arch, uint32_t word)
+void execute (ARCH arch, uint32_t word)
 {
 	return ;
 }

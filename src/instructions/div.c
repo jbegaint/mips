@@ -3,13 +3,12 @@
 
 #include "arch/arch.h"
 
-#include "instructions/instructions.h"
 #include "instructions/parser_instructions.h"
-#include "instructions/get_instructions.h"
 
 #include "notify.h"
 
-void display_div(ARCH arch, uint32_t word)
+
+void display (uint32_t word)
 {
     uint rs;
     uint rt;
@@ -22,8 +21,29 @@ void display_div(ARCH arch, uint32_t word)
     return;
 }
 
-void execute_div(ARCH arch, uint32_t word)
+void execute (ARCH arch, uint32_t word)
 {
+    uint rs;
+    uint rt;
+    uint rd;
+    uint sa;
+	uint q;
+	uint reste;
+
+    parser_typeR(word,&rs,&rt,&rd,&sa);
+	
+	if (rt == 0) {
+		set_SR( arch, 4096);
+		WARNING_MSG("Division by zero");
+		fprintf(stderr,"SR modify\n");
+		return;
+	}
+	else {
+		q=rs/rt;
+		reste = rs%rt;
+		set_HI( arch, q);
+		set_LO( arch, reste);
+	}
 	return ;
 }
 
