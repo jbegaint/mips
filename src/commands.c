@@ -27,11 +27,8 @@
 #include "instructions/instructions.h"
 
 
-int execute_cmd_ex(ARCH arch, char** args)
+int execute_cmd_ex()
 {
-	UNUSED(arch);
-	UNUSED(args);
-
 	DEBUG_MSG("Bye Dave");
 	return CMD_QUIT;
 }
@@ -39,7 +36,6 @@ int execute_cmd_ex(ARCH arch, char** args)
 int execute_cmd_testcmd(ARCH arch, char** args)
 {
 	uint addr;
-
 	UNUSED(arch);
 
 	DEBUG_MSG("Execute testcmd <address>");
@@ -254,19 +250,14 @@ int execute_cmd_dm(ARCH arch, char** args)
 }
 
 
-int execute_cmd_di(ARCH arch, char** args)
+int execute_cmd_di()
 {
-	UNUSED(arch);
-	UNUSED(args);
-
 	display_desc_array();
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_ds(ARCH arch, char** args)
+int execute_cmd_ds(ARCH arch)
 {
-	UNUSED(args);
-
 	for (int i = 0; i < 3; i++) {
 		printf("Section: %s\n", arch->sections[i].name);
 		printf("Start address: %0x\n", arch->sections[i].start_addr);
@@ -307,10 +298,8 @@ int execute_cmd_run(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_s(ARCH arch, char** args)
+int execute_cmd_s(ARCH arch)
 {
-	UNUSED(args);
-
 	if (state == FINISHED)
 		set_breakpoint(4);
 	else
@@ -321,9 +310,8 @@ int execute_cmd_s(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_si(ARCH arch, char** args)
+int execute_cmd_si(ARCH arch)
 {
-	UNUSED(args);
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* set_breakpoint(jump_adress) ;*/
@@ -399,11 +387,8 @@ int execute_cmd_er(ARCH arch, char** args)
 	return CMD_EXIT_SUCCESS;
 }
 
-int execute_cmd_db(ARCH arch, char** args)
+int execute_cmd_db(ARCH arch)
 {
-	UNUSED(arch);
-	UNUSED(args);
-
 	list_t list;
 	uint32_t val;
 

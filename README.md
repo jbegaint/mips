@@ -13,18 +13,13 @@ TODO
 	* si
 	* run (done)
 
-* init du tableau des pointeurs de fonctions
+* init des "plugins"
 
 * implémenter toutes les instructions assembleurs en C. (execute_addi, execute_jal, etc...) (Marion)
 pointeur de fonction :
-typedef void (*display_instr) (ARCH, uint32_t)
-typedef void (*execute_instr) (ARCH, uint32_t)
+typedef void (*display) (uint32_t)
+typedef void (*execute) (ARCH, uint32_t)
 remplacer les fonctions de display_instru.c
-
-* Pour la fonction run (Jean):
-faire la boucle d'éxécution du programme
-enum des états du programme chargé en mémoire
-mettre en place la liste des bkp
 
 * nettoyage de code:
 	* (display_instruc)
