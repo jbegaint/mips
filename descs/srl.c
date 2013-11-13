@@ -11,14 +11,10 @@
 
 void display_srl(ARCH arch, uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint rd;
-    uint sa;
+    uint rs, rt, rd, sa;
 
-    parser_typeR(word,&rs,&rt,&rd,&sa);
-	fprintf(stdout,"SRL $%u, $%u, $%u\n",rd,rt,sa);
-	return;
+    parser_typeR(word, &rs, &rt, &rd, &sa);
+	fprintf(stdout,"SRL $%u, $%u, $%u\n", rd, rt ,sa);
 }
 
 void execute_srl(ARCH arch, uint32_t word)
