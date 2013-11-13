@@ -187,8 +187,6 @@ int execute_cmd_da(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
 
-	fprintf(stderr, "%s %s %s\n", args[0], args[1], args[2]);
-
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
@@ -406,12 +404,20 @@ int execute_cmd_db(ARCH arch, char** args)
 	UNUSED(arch);
 	UNUSED(args);
 
-	/* for i in BP_LIST
-		display i + da(i)
-	*/
+	list_t list;
+	uint32_t val;
 
-	/* temporary */
-	display_list(BP_LIST);
+	fprintf(stdout, "breakpoints\n");
+	
+	if (is_list_empty(BP_LIST))
+		return CMD_EXIT_SUCCESS;
+
+	for (list = BP_LIST; !is_list_empty(list); list = list->next) {
+		val = *(uint32_t*) list->val;
+		printf("%08x  ", val);
+		print_decoded_instruction(arch, val);
+	}
+
 
 	return CMD_EXIT_SUCCESS;
 }

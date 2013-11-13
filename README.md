@@ -7,7 +7,7 @@ TODO
 * implémenter les fonctions de l'interpréteur (Jean)
 	
 	* bp (done)
-	* db
+	* db (done)
 	* er (done)
 	* s (done)
 	* si

@@ -1,11 +1,15 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #include "globals.h"
 
 #include "arch/arch.h"
 #include "helpers.h"
 #include "list.h"
+
+#include "arch/address.h"
+#include "instructions/instructions.h"
 
 list_t BP_LIST;
 
@@ -61,4 +65,23 @@ void reset_registers(ARCH arch)
 {
 	for (int i = 1; i < 36; i++)
 		arch->regs[i] = 0;
+}
+
+void print_instruction_bytes(INSTR instr)
+{
+	for (int i = 0; i < 4; i++) {
+		printf("%02x ", instr.bytes[3-i]);
+	}
+}
+
+/* INSTRUCTIONS */
+void print_decoded_instruction(ARCH arch, uint32_t address)
+{
+	INSTR instr;
+
+	for (int j = 0; j < 4; j++)
+		get_byte(arch, address + j, &(instr.bytes[3-j]));
+
+	print_instruction_bytes(instr);
+	display_instruction(instr.word);
 }
