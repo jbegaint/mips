@@ -5,7 +5,6 @@
 
 #include "instructions/parser_instructions.h"
 
-#include "notify.h"
 
 void display (uint32_t word)
 {
@@ -15,9 +14,9 @@ void display (uint32_t word)
     uint sa;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
-    fprintf(stdout,"AND $%u, $%u, $%u\n",rd,rs,rt);
+	fprintf(stdout,"MFHI $%u \n",rd);
 
-    return;
+	return;
 }
 
 void execute (ARCH arch, uint32_t word)
@@ -28,8 +27,8 @@ void execute (ARCH arch, uint32_t word)
     uint sa;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
-	
-	(arch->regs)[rd] = rs&rt;
+	(arch->registers)[rd] = get_HI(arch);
+
 	return ;
 }
 

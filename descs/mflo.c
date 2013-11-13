@@ -26,7 +26,7 @@ void execute (ARCH arch, uint32_t word)
     uint sa;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
-	(arch->regs)[rd] = get_LO(arch);
+	(arch->registers)[rd] = get_LO(arch);
 
 	return ;
 }

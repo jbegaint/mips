@@ -28,3 +28,5 @@ uint32_t get_section_end(ARCH, int);
 void reset_registers(ARCH);
 
 void print_decoded_instruction(ARCH, uint32_t);
+
+#endif
