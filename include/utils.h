@@ -12,7 +12,7 @@ void close_file(FILE*);
 void print_str(char*, char*, int);
 void print_error(char*);
 void print_info(char*);
-void print_section_info(SECTION);
+void print_section_info(section_t);
 
 uint get_hash(char*);
 char bin_to_dec(char*);

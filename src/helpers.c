@@ -46,12 +46,12 @@ void reset_breakpoints(void)
 /* PC */
 void set_pc(ARCH arch, uint32_t address)
 {
-	arch->regs[PC] = address;
+	arch->registers[PC] = address;
 }
 
 uint32_t get_pc(ARCH arch)
 {
-	return arch->regs[PC];
+	return arch->registers[PC];
 }
 
 /* SECTIONS */
@@ -64,7 +64,7 @@ uint32_t get_section_end(ARCH arch, int section_id)
 void reset_registers(ARCH arch)
 {
 	for (int i = 1; i < 36; i++)
-		arch->regs[i] = 0;
+		arch->registers[i] = 0;
 }
 
 void print_instruction_bytes(INSTR instr)
@@ -72,6 +72,11 @@ void print_instruction_bytes(INSTR instr)
 	for (int i = 0; i < 4; i++) {
 		printf("%02x ", instr.bytes[3-i]);
 	}
+}
+
+void reset_sr(ARCH arch)
+{
+	arch->registers[SR] = 0;
 }
 
 /* INSTRUCTIONS */

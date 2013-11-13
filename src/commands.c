@@ -104,7 +104,7 @@ int execute_cmd_lr(ARCH arch, char** args)
 		return CMD_EXIT_INVALID_REG_VALUE;
 	}
 
-	(arch->regs)[reg] = (uint) val;
+	(arch->registers)[reg] = (uint) val;
 
 	return CMD_EXIT_SUCCESS;
 
@@ -165,7 +165,7 @@ int execute_cmd_lp(ARCH arch, char** args)
 
 	reset_breakpoints();
 	reset_registers(arch);
-	state = NOT_STARTED;
+	arch->state = NOT_STARTED;
 
 	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
 
@@ -300,7 +300,7 @@ int execute_cmd_run(ARCH arch, char** args)
 
 int execute_cmd_s(ARCH arch)
 {
-	if (state == FINISHED)
+	if (arch->state == FINISHED)
 		set_breakpoint(4);
 	else
 		set_breakpoint(get_pc(arch) + 4);
@@ -315,7 +315,7 @@ int execute_cmd_si(ARCH arch)
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* set_breakpoint(jump_adress) ;*/
-	set_breakpoint(arch->regs[PC] + 4);
+	set_breakpoint(arch->registers[PC] + 4);
 
 	/* launch run */
 
@@ -402,7 +402,6 @@ int execute_cmd_db(ARCH arch)
 		printf("%08x  ", val);
 		print_decoded_instruction(arch, val);
 	}
-
 
 	return CMD_EXIT_SUCCESS;
 }

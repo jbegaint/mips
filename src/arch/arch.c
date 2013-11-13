@@ -7,7 +7,7 @@
 ARCH init_simu(void)
 {
 	int i;
-	SECTION* section_ptr;
+	section_t* section_ptr;
 
 	ARCH arch = malloc(sizeof(*arch));
 	if (arch == NULL)

@@ -84,7 +84,7 @@ void print_error(char *str)
 	print_str(str, "Error", 31);
 }
 
-void print_section_info(SECTION section)
+void print_section_info(section_t section)
 {
 	if (0) {
 		printf("Section start_addr: %d\n", section.start_addr);

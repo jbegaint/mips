@@ -4,7 +4,7 @@
 int get_section(ARCH arch, uint addr)
 {
 	int i;
-	SECTION* section_ptr;
+	section_t* section_ptr;
 
 	for (i=0; i < 3; i++) {
 		section_ptr = &(arch->sections[i]);

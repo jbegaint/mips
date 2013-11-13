@@ -12,6 +12,7 @@ void reset_breakpoints(void);
 
 void set_pc(ARCH, uint32_t);
 uint32_t get_pc(ARCH);
+void reset_sr(ARCH);
 
 uint32_t get_section_end(ARCH, int);
 
