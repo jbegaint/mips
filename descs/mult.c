@@ -39,10 +39,8 @@ void execute_mult(ARCH arch, uint32_t word)
         isol_hi |= (1<<i) ;
     }
 	
-	
-		
-
-
+	set_LO(arch, isol_lo & word);
+	set_HI(arch, isol_hi & word);
 	
 	return ;
 }
