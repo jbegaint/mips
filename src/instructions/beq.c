@@ -3,13 +3,10 @@
 
 #include "arch/arch.h"
 
-#include "instructions/instructions.h"
 #include "instructions/parser_instructions.h"
-#include "instructions/get_instructions.h"
 
-#include "notify.h"
 
-void display_beq(ARCH arch, uint32_t word)
+void display (uint32_t word)
 {
     uint rs;
     uint rt;
@@ -17,9 +14,10 @@ void display_beq(ARCH arch, uint32_t word)
 
     parser_typeI(word,&rs,&rt,&immediate);
     fprintf(stdout,"BEQ $%u, $%u, %u\n",rs,rt,immediate);
-	return;}
+	return;
+}
 
-void execute_beq(ARCH arch, uint32_t word)
+void execute (uint32_t word)
 {
 	return ;
 }

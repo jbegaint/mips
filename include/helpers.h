@@ -14,10 +14,17 @@ void set_pc(ARCH, uint32_t);
 uint32_t get_pc(ARCH);
 void reset_sr(ARCH);
 
+void set_sr(ARCH, uint32_t);
+uint32_t get_sr(ARCH);
+
+void set_HI(ARCH, uint32_t);
+uint32_t get_HI(ARCH);
+
+void set_LO(ARCH, uint32_t);
+uint32_t get_LO(ARCH);
+
 uint32_t get_section_end(ARCH, int);
 
 void reset_registers(ARCH);
 
 void print_decoded_instruction(ARCH, uint32_t);
-
-#endif
