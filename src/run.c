@@ -22,10 +22,10 @@ void run(ARCH arch)
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
 
-		if (get_breakpoint_id(get_register(arch, PC)) != -1) {
+		if (get_breakpoint_id(arch, get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;
 			DEBUG_MSG("state: PAUSED");
-			del_breakpoint_by_addr(get_register(arch, PC));
+			del_breakpoint_by_addr(arch, get_register(arch, PC));
 			break;
 		}
 	}

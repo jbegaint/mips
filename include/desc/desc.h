@@ -18,6 +18,5 @@ typedef struct {
 
 void init_desc_array();
 void free_desc_array();
-void test_init_plugins();
 
 #endif

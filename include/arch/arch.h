@@ -2,6 +2,7 @@
 #define _ARCH_H_
 
 #include <stdint.h>
+#include <list.h>
 
 #define TEXT 0
 #define DATA 1
@@ -36,6 +37,7 @@ typedef struct
 	uint registers[36];
 	section_t sections[3];
 	state_t state;
+	list_t breakpoints;
 } *ARCH;
 
 typedef union

@@ -13,8 +13,6 @@
 /* global variables */
 extern struct command cmd_table[];
 
-extern list_t BP_LIST;
-
 extern DESC* DESC_ARRAY;
 extern int DESC_ARRAY_LENGTH;
 extern char* DESC_DIR; 

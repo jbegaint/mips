@@ -163,7 +163,7 @@ int execute_cmd_lp(ARCH arch, char** args)
 	fclose(f);
 	DEBUG_MSG("file closed");
 
-	reset_breakpoints();
+	reset_breakpoints(arch);
 	reset_registers(arch);
 	arch->state = NOT_STARTED;
 
@@ -301,9 +301,9 @@ int execute_cmd_run(ARCH arch, char** args)
 int execute_cmd_s(ARCH arch)
 {
 	if (arch->state == FINISHED)
-		set_breakpoint(4);
+		add_breakpoint(arch, 4);
 	else
-		set_breakpoint(get_register(arch, PC) + 4);
+		add_breakpoint(arch, get_register(arch, PC) + 4);
 
 	run(arch);
 
@@ -314,8 +314,8 @@ int execute_cmd_si(ARCH arch)
 {
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
-	/* set_breakpoint(jump_adress) ;*/
-	set_breakpoint(arch->registers[PC] + 4);
+	/* add_breakpoint(jump_adress) ;*/
+	add_breakpoint(arch, arch->registers[PC] + 4);
 
 	/* launch run */
 
@@ -343,12 +343,12 @@ int execute_cmd_bp(ARCH arch, char** args)
 	}
 
 	/* check if bp already in list */
-	if (get_breakpoint_id(addr) != -1) {
+	if (get_breakpoint_id(arch, addr) != -1) {
 		print_error("breakpoint already exists");
 		return CMD_EXIT_ERROR;
 	}
 
-	set_breakpoint(addr);
+	add_breakpoint(arch, addr);
 
 	fprintf(stdout, "bp at 0x%08x added\n", addr);
 
@@ -375,12 +375,12 @@ int execute_cmd_er(ARCH arch, char** args)
 		return CMD_EXIT_INVALID_ADDR;
 	}
 
-	if ((id = get_breakpoint_id(addr)) == -1) {
+	if ((id = get_breakpoint_id(arch, addr)) == -1) {
 		print_error("breakpoint does not exist");
 		return CMD_EXIT_ERROR;
 	}
 
-	del_breakpoint_by_id(id);
+	del_breakpoint_by_id(arch, id);
 
 	fprintf(stdout, "bp at 0x%08x deleted\n", addr);
 
@@ -394,10 +394,10 @@ int execute_cmd_db(ARCH arch)
 
 	fprintf(stdout, "breakpoints\n");
 	
-	if (is_list_empty(BP_LIST))
+	if (is_list_empty(arch->breakpoints))
 		return CMD_EXIT_SUCCESS;
 
-	for (list = BP_LIST; !is_list_empty(list); list = list->next) {
+	for (list = arch->breakpoints; !is_list_empty(list); list = list->next) {
 		val = *(uint32_t*) list->val;
 		printf("%08x  ", val);
 		print_decoded_instruction(arch, val);

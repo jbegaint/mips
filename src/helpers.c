@@ -11,39 +11,37 @@
 #include "arch/address.h"
 #include "instructions/instructions.h"
 
-list_t BP_LIST;
-
 /* BREAKPOINTS */
-void set_breakpoint(uint32_t address)
+void add_breakpoint(ARCH arch, uint address)
 {
-	if (get_breakpoint_id(address) == -1)
-		BP_LIST = (list_t) add_sort(&address, BP_LIST, sizeof(uint32_t));
+	if (get_breakpoint_id(arch, address) == -1)
+		arch->breakpoints = (list_t) add_sort(&address, arch->breakpoints, sizeof(uint));
 }
 
-void del_breakpoint_by_id(int id)
+void del_breakpoint_by_id(ARCH arch, int id)
 {
-	BP_LIST = (list_t) del_elt_n(BP_LIST, id);
+	arch->breakpoints = (list_t) del_elt_n(arch->breakpoints, id);
 }
 
-void del_breakpoint_by_addr(uint32_t address) 
+void del_breakpoint_by_addr(ARCH arch, uint address) 
 {
 	int id;
-	if ((id = get_breakpoint_id(address)) != -1)
-		del_breakpoint_by_id(id);
+	if ((id = get_breakpoint_id(arch, address)) != -1)
+		del_breakpoint_by_id(arch, id);
 }
 
-int get_breakpoint_id(uint32_t address)
+int get_breakpoint_id(ARCH arch, uint address)
 {
-	return find_elt_int(&address, BP_LIST);
+	return find_elt_int(&address, arch->breakpoints);
 }
 
-void reset_breakpoints(void)
+void reset_breakpoints(ARCH arch)
 {
-	BP_LIST = (list_t) NULL;
+	arch->breakpoints = (list_t) NULL;
 }
 
 /* SECTIONS */
-uint32_t get_section_end(ARCH arch, int section_id) 
+uint get_section_end(ARCH arch, int section_id) 
 {
 	return arch->sections[section_id].start_addr + arch->sections[section_id].size;
 }
@@ -67,33 +65,33 @@ void reset_sr(ARCH arch)
 }
 
 
-void set_register(ARCH arch, int index, uint32_t value)
+void set_register(ARCH arch, int index, uint value)
 {
 	arch->registers[index] = value;
 }
 
-uint32_t get_register(ARCH arch, int index)
+uint get_register(ARCH arch, int index)
 {
 	return arch->registers[index];
 }
 
-uint32_t get_pc(ARCH arch)
+uint get_pc(ARCH arch)
 {
 	return get_register(arch, PC);
 }
 
-uint32_t get_HI(ARCH arch)
+uint get_HI(ARCH arch)
 {
 	return get_register(arch, HI);
 }
 
-uint32_t get_LO(ARCH arch)
+uint get_LO(ARCH arch)
 {
 	return get_register(arch, LO);
 }
 
 /* INSTRUCTIONS */
-void print_decoded_instruction(ARCH arch, uint32_t address)
+void print_decoded_instruction(ARCH arch, uint address)
 {
 	INSTR instr;
 

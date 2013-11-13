@@ -19,7 +19,6 @@ int display_instruction(uint32_t word)
     if ((c = get_instr(word)) == NO_MATCH)
         return NO_MATCH;
 
-    fprintf(stderr, "%s\n", DESC_ARRAY[c].name);
     DESC_ARRAY[c].display(word);
 
     return MATCH;

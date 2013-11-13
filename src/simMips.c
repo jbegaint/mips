@@ -256,7 +256,6 @@ int main(int argc, char* argv[])
 	arch = init_simu();
 
 	init_desc_array();
-	test_init_plugins();
 
 	print_info("Init");
 

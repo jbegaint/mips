@@ -25,36 +25,6 @@ void free_desc_array(void)
 	free(DESC_ARRAY);
 }
 
-void test_init_plugins(void)
-{
-	void *plugin;
-    char filename[80] = "src/instructions/test.so";
-    typedef void (*hello_ptr)(void);
-    typedef int (*res_ptr)(void);
-    hello_ptr hello;
-    res_ptr res;
-    char* error;
-
-    plugin = dlopen(filename, RTLD_NOW);
-
-    if (!plugin) {
-        fprintf(stderr, "%s\n", dlerror());
-    }
-
-    *(void**) &hello = dlsym(plugin, "hello");
-    if ((error = dlerror()) != NULL)
-        fprintf(stderr, "%s\n", error);
-    hello();
-
-    *(void**) &res = dlsym(plugin, "res");
-    if ((error = dlerror()) != NULL)
-        fprintf(stderr, "%s\n", error);
-    fprintf(stderr,"RES: %d\n", res());
-    
-
-    dlclose(plugin);
-}
-
 void init_desc_array(void)
 {
 	DESC desc;

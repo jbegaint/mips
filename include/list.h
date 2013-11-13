@@ -1,6 +1,8 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
+#include <stdlib.h>
+
 typedef struct list_elt {
 	void* val;
 	struct list_elt *next;
