@@ -9,7 +9,6 @@
 #define PARSING_FILE_EXIT_EOF 3
 #define PARSING_FILE_NON_CMD_LINE 2
 
-
 /* global variables */
 extern struct command cmd_table[];
 
