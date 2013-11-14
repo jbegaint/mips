@@ -19,5 +19,5 @@ void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, rd, sa;
 	parser_typeR(word, &rs, &rt, &rd, &sa);
-	(arch->registers)[rd] = get_HI(arch);
+	(arch->registers)[rd] = get_register(arch, HI);
 }

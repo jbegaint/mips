@@ -6,19 +6,18 @@
 #include "instructions/parser_instructions.h"
 
 
-void display (uint32_t word)
+void display(uint32_t word)
 {
-    uint rs;
-    uint rt;
-    uint immediate;
+    uint rs, rt, immediate;
 
-    parser_typeI(word,&rs,&rt,&immediate);
-    fprintf(stdout,"LW $%u, %u($%u)\n",rt,immediate,rs);
-	return;
+    parser_typeI(word, &rs, &rt, &immediate);
+    fprintf(stdout,"LW $%u, %u($%u)\n", rt, immediate, rs);
 }
 
-void execute (ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
-	return ;
+    uint rs, rt, immediate;
+
+    parser_typeI(word, &rs, &rt, &immediate);
 }
 
