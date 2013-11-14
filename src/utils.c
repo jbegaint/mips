@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <time.h>
-#include <string.h>
 
 #include "arch/arch.h"
 
@@ -113,4 +113,11 @@ char bin_to_dec(char *n)
 	}
 
 	return res;
+}
+
+void swap_str(char** str1, char** str2)
+{
+	char* tmp = *str1;
+	*str1 = *str2;
+	*str2 = tmp;
 }

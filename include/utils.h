@@ -17,4 +17,5 @@ void print_section_info(section_t);
 uint get_hash(char*);
 char bin_to_dec(char*);
 
+void swap_str(char**, char**);
 #endif
