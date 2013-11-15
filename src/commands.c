@@ -184,12 +184,9 @@ int execute_cmd_da(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
 
-<<<<<<< HEAD
-=======
 	if (*(args+1) == NULL)
 		return CMD_EXIT_ERROR;
 
->>>>>>> 81a88b06e83d13ffb1debf2586daf9c99f20e8b0
 	if (strcmp(*(args+1), ":") != 0) {
 		DEBUG_MSG("usage error");
 		return CMD_EXIT_ERROR;
@@ -242,12 +239,9 @@ int execute_cmd_dm(ARCH arch, char** args)
 	fprintf(stderr, "%s %s %s\n", *(args), *(args+1), *(args+2));
 
 	/* case ~ or : */
-<<<<<<< HEAD
-	if (*(args+2) != NULL) {
-=======
+
 	if ((*(args+2) != NULL) && (*(args+1) != NULL)) {
 		
->>>>>>> 81a88b06e83d13ffb1debf2586daf9c99f20e8b0
 		if (strcmp(*(args+1), ":") == 0) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
 			return display_bytes_from_addr(arch, args);
