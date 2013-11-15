@@ -16,8 +16,6 @@ extern char* REG_NAMES[36];
 
 int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 {
-	uint i;
-
 	/* prevent new line bug */
 	if (sscanf(hex_str, "%s", hex_str) != 1)
 		return 0;
@@ -32,14 +30,13 @@ int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 		/* invalid address: 32bits, 4 bytes, 8 hex chars */	
 		return 0;
 
-	for (i = 0; i < strlen(hex_str); i++) {
+	for (uint i = 0; i < strlen(hex_str); i++) {
 		if (!isxdigit(*(hex_str+i)))
 			return 0;
 	}
 
-	if (sscanf(hex_str, "%x", hex_value) != 1) {
+	if (sscanf(hex_str, "%x", hex_value) != 1)
 		return 0;
-	}	
 
 	return 1;
 }
@@ -68,7 +65,6 @@ int parse_addr_value(char* addr_value_str, uint* addr_value)
 
 int parse_register(char* reg_str) 
 {
-	int i;
 	int reg_index = -1;
 		
 	/* prevent new line bug */
@@ -92,7 +88,7 @@ int parse_register(char* reg_str)
 			return -1;
 	}
 	else {
-		for (i=0; i < 36; i++) {
+		for (int i = 0; i < 36; i++) {
 			if (strcmp(*(REG_NAMES+i), reg_str) == 0)
 				return i;
 		}

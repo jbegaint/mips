@@ -5,9 +5,6 @@ SRC_DIR=src
 PLUGINS_DIR=descs
 
 CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic
-
-# gcc add.c -o add.so -shared -fPIC -I../include
-
 CFLAGS_RLS=$(CFLAGS) -O2
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE
 CFLAGS_DYNAMIC=$(CFLAGS) -shared -fPIC
@@ -41,10 +38,11 @@ plugins: $(OBJECTS_SO)
 	@gcc $< $(CFLAGS_DBG) -I$(dir $<) -c -o $@
 
 %.so : %.c
-	gcc $< $(CFLAGS_DYNAMIC) -I$(dir $<)  -o $@
+	@gcc $< $(CFLAGS_DYNAMIC) -I$(dir $<)  -o $@
 
 clean:
 	@rm -f $(OBJECTS) $(OBJECTS_DBG)
+	@rm -f descs/*.so
 
 doc:
 	@doxygen

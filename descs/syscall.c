@@ -9,13 +9,13 @@
 
 #include "notify.h"
 
-void display_syscall(ARCH arch, uint32_t word)
+void display(uint32_t word)
 {
     fprintf(stdout,"SYSCALL");
 	return ;
 }
 
-void execute_syscall(ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
 	return ;
 }

@@ -10,9 +10,15 @@
 #include "arch/register.h"
 #include "arch/section.h"
 
+#include "commands.h"
+
+#include "desc/desc.h"
+#include "desc/desc_utils.h"
+
 #include "elf/mipself.h"
 
-#include "commands.h"
+#include "instructions/instructions.h"
+
 #include "helpers.h"
 #include "list.h"
 #include "notify.h"
@@ -20,11 +26,6 @@
 #include "run.h"
 #include "simMips.h"
 #include "utils.h"
-
-#include "desc/desc.h"
-#include "desc/desc_utils.h"
-
-#include "instructions/instructions.h"
 
 
 int execute_cmd_ex()
@@ -236,10 +237,7 @@ int execute_cmd_da(ARCH arch, char** args)
 
 int execute_cmd_dm(ARCH arch, char** args)
 {
-	fprintf(stderr, "%s %s %s\n", *(args), *(args+1), *(args+2));
-
 	/* case ~ or : */
-
 	if ((*(args+2) != NULL) && (*(args+1) != NULL)) {
 		
 		if (strcmp(*(args+1), ":") == 0) {

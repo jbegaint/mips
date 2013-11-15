@@ -9,13 +9,13 @@
 
 #include "notify.h"
 
-void display_nop(ARCH arch, uint32_t word)
+void display(uint32_t word)
 {
-	fprintf(stdout,"NOP");
+	fprintf(stdout, "NOP");
 	return;
 }
 
-void execute_nop(ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
 	return ;
 }
