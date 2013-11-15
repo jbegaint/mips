@@ -101,10 +101,25 @@ int parse_register(char* reg_str)
 	return reg_index;
 }
 
+void parse_token(char* delim, char* token, char** args, int* i)
+{
+	char* str2;
+	char* subtoken;
+
+	for (str2 = token; ; str2 = NULL, (*i)++) {
+		if ((subtoken = strtok(str2, delim)) == NULL) {
+				break;
+		}
+		*(args+*i) = subtoken;
+		*(args+*i+1) = delim;
+	}
+	swap_str(args+*i-1, args+*i);
+}
+
 int parse_args(struct command* cmd, char* str_arg, char** args)
 {
-	char* str1, *str2;
-	char* token, *subtoken;
+	char* str1;
+	char* token;
 	char* found_colon, *found_tild;
 	char* delim = " ";
 	int i;
@@ -116,28 +131,12 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
 
 		*(args+i) = token;
 
-		if ((found_colon = strchr(token, ':')) && strlen(token) > 1) {
-			for (str2 = token; ; str2 = NULL, i++) {
-				if ((subtoken = strtok(str2, ":")) == NULL) {
- 					break;
-				}
-				*(args+i) = subtoken;
-				*(args+i+1) = ":";
-			}
-			swap_str(args+i-1, args+i);
-		}
+		if ((found_colon = strchr(token, ':')) && strlen(token) > 1)
+			parse_token(":", token, args, &i);
 
+		if ((found_tild = strchr(token, '~')) && strlen(token) > 1)
+			parse_token("~", token, args, &i);
 		
-		if ((found_tild = strchr(token, '~')) && strlen(token) > 1) {
-			for (str2 = token; ; str2 = NULL, i++) {
-				if ((subtoken = strtok(str2, "~")) == NULL) {
- 					break;
-				}
-				*(args+i) = subtoken;
-				*(args+i+1) = "~";
-			}
-			swap_str(args+i-1, args+i);
-		}
 	}
 
 	/* check usage */

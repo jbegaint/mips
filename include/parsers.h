@@ -38,4 +38,10 @@ int parse_register(char*);
 */
 int parse_args(struct command*, char*, char**);
 
+
+/* 
+	parse token for ~ or : delims
+*/
+void parse_token(char* delim, char* token, char** args, int* i);
+
 #endif
