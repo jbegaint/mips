@@ -14,23 +14,6 @@ TODO
 	* s (done)
 	* si
 	* run (done)
-
-* init des "plugins"
-
-* implémenter toutes les instructions assembleurs en C. (execute_addi, execute_jal, etc...) (Marion)
-pointeur de fonction :
-typedef void (*display) (uint32_t)
-typedef void (*execute) (ARCH, uint32_t)
-remplacer les fonctions de display_instru.c
-
-* nettoyage de code:
-	* (display_instruc)
-	* uint32_t
-	* nettoyage habituel
-	* (parsing des paramètres)
-
-* tests, tests everywhere
-
 ---
 
 * clean parse_args

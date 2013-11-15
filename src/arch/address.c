@@ -145,7 +145,7 @@ int display_addr_to_addr(ARCH arch, char** args)
 {
 	uint addr0, addr1;
 
-	if (!parse_addr(args[0], &addr0) || !parse_addr(args[1], &addr1))
+	if (!parse_addr(args[0], &addr0) || !parse_addr(args[2], &addr1))
 		return CMD_EXIT_INVALID_ADDR;
 
 	if (addr0 > addr1)
@@ -164,7 +164,7 @@ int display_bytes_from_addr(ARCH arch, char** args)
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	if (sscanf(args[1], "%d", &bytes_nb) != 1) {
+	if (sscanf(args[2], "%d", &bytes_nb) != 1) {
 		print_error("Invalid bytes range");
 		return CMD_EXIT_ERROR;
 	}

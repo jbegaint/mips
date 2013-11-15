@@ -177,16 +177,23 @@ int execute_cmd_lp(ARCH arch, char** args)
 
 int execute_cmd_da(ARCH arch, char** args)
 {
+
 	INSTR lgn_instr;
 	int instr, i, j;
 	uint addr;
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
 
+	if (strcmp(*(args+1), ":") != 0) {
+		DEBUG_MSG("usage error");
+		return CMD_EXIT_ERROR;
+	}
+
+
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 
-	if (sscanf(args[1], "%d", &instr) != 1) {
+	if (sscanf(args[2], "%d", &instr) != 1) {
 		print_error("Invalid instructions number");
 		return CMD_EXIT_FAILURE;
 	}
@@ -226,13 +233,15 @@ int execute_cmd_da(ARCH arch, char** args)
 
 int execute_cmd_dm(ARCH arch, char** args)
 {
+	fprintf(stderr, "%s %s %s\n", *(args), *(args+1), *(args+2));
+
 	/* case ~ or : */
 	if (*(args+2) != NULL) {
-		if (strcmp(*(args+2), ":") == 0) {
+		if (strcmp(*(args+1), ":") == 0) {
 			DEBUG_MSG("Execute dm <address>:<bytes_nb>");
 			return display_bytes_from_addr(arch, args);
 		}
-		else if (strcmp(*(args+2), "~") == 0) {
+		else if (strcmp(*(args+1), "~") == 0) {
 			DEBUG_MSG("Execute dm <address>~<address>");
 			return display_addr_to_addr(arch, args);
 		}
