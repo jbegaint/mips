@@ -17,16 +17,16 @@ void display(uint32_t word)
 void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, immediate;
-	uint val_rs;
-	uint target_offset, val_PC;
+	uint val_PC;
+	int32_t target_offset, val_rs;
 
     parser_typeI(word, &rs, &rt, &immediate);
+	
 	val_rs = (arch->registers)[rs];
-
 	if ( val_rs < 0 ) {
 		target_offset = immediate << 2;
 		val_PC = get_register(arch, PC);
-		set_register(arch, PC, val_PC+target_offset);
+		set_register(arch, PC, val_PC + target_offset);
 	}
 }
 
