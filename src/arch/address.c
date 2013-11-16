@@ -70,11 +70,7 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 		/* skip to next section, if what remains is empty */
 		if (section_index != -1 && section_index < 2) {
 			if (c  == (arch->sections[section_index]).size) {
-	
-				fprintf(stderr, "SECTION index %d %d\n", section_index, i);
-				getchar();
-
-				i = arch->sections[section_index+1].start_addr - 1;
+					i = arch->sections[section_index+1].start_addr - 1;
 				c = 0;
 				continue; 
 			}
