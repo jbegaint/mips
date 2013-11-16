@@ -5,20 +5,20 @@
 
 #include "instructions/parser_instructions.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, rd, sa;
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
-	fprintf(stdout,"RTOR $%u, $%u, $%u\n",rd,rt,sa);
+	fprintf(stream,"ROTR $%u, $%u, $%u\n",rd,rt,sa);
 }
 
 void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, rd, sa;
 
-	uint32_t isol_high=0;
-	uint32_t isol_low=0;
+	uint32_t isol_high = 0;
+	uint32_t isol_low = 0;
 	uint32_t val_rt;
     uint i;
 

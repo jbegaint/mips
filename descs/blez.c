@@ -6,12 +6,12 @@
 #include "instructions/parser_instructions.h"
 #include "helpers.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stdout,"BLEZ $%u, %u\n", rs, immediate);
+    fprintf(stream,"BLEZ $%u, %u\n", rs, immediate);
 }
 
 void execute(ARCH arch, uint32_t word)

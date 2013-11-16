@@ -8,15 +8,15 @@
 #include "notify.h"
 #include "helpers.h"
 
-void display (uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, rd, sa;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
-    fprintf(stdout,"AND $%u, $%u, $%u\n", rd, rs, rt);
+    fprintf(stream,"AND $%u, $%u, $%u\n", rd, rs, rt);
 }
 
-void execute (ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, rd, sa;
 	uint val_rs, val_rt;

@@ -225,7 +225,7 @@ int execute_cmd_da(ARCH arch, char** args)
 			display_byte(arch, addr + 4*i + j);
 		}
 	
-		if (!display_instruction(lgn_instr.word)) {
+		if (!display_instruction(lgn_instr.word, stdout)) {
 			printf("\n");
 			WARNING_MSG("no match");
 			return CMD_EXIT_ERROR;

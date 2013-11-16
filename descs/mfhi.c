@@ -7,12 +7,12 @@
 #include "helpers.h"
 
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
 	uint rs, rt, rd, sa;
 
 	parser_typeR(word, &rs, &rt, &rd, &sa);
-	fprintf(stdout, "MFHI $%u \n", rd);
+	fprintf(stream, "MFHI $%u \n", rd);
 }
 
 void execute(ARCH arch, uint32_t word)

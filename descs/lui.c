@@ -6,12 +6,12 @@
 #include "instructions/parser_instructions.h"
 
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stdout,"LUI $%u, 0x%x\n", rt, immediate);
+    fprintf(stream,"LUI $%u, 0x%x\n", rt, immediate);
 
 }
 

@@ -9,9 +9,9 @@
 
 #include "notify.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
-    fprintf(stdout,"SYSCALL");
+    fprintf(stream,"SYSCALL");
 	return ;
 }
 

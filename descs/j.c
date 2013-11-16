@@ -7,11 +7,11 @@
 #include "helpers.h"
 
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint target;
     parser_typeJ(word, &target);
-    fprintf(stdout,"J %u\n", target);
+    fprintf(stream,"J %u\n", target);
 }
 
 void execute(ARCH arch, uint32_t word)

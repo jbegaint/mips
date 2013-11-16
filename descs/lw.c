@@ -8,12 +8,12 @@
 #include "helpers.h"
 
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stdout,"LW $%u, %u($%u)\n", rt, immediate, rs);
+    fprintf(stream,"LW $%u, %u($%u)\n", rt, immediate, rs);
 }
 
 void execute(ARCH arch, uint32_t word)

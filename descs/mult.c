@@ -6,12 +6,12 @@
 
 #include "instructions/parser_instructions.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, rd, sa;
 
 	parser_typeR(word, &rs, &rt, &rd, &sa);
-	fprintf(stdout, "MULT $%u, $%u\n", rs, rt);
+	fprintf(stream, "MULT $%u, $%u\n", rs, rt);
 }
 
 void execute(ARCH arch, uint32_t word)

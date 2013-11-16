@@ -7,12 +7,12 @@
 #include "helpers.h"
 
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stdout,"BEQ $%u, $%u, %u\n", rs, rt, immediate);
+    fprintf(stream,"BEQ $%u, $%u, %u\n", rs, rt, immediate);
 }
 
 void execute(ARCH arch, uint32_t word)

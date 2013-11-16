@@ -91,7 +91,7 @@ void print_decoded_instruction(ARCH arch, uint address)
 		get_byte(arch, address + j, &(instr.bytes[3-j]));
 
 	print_instruction_bytes(instr);
-	display_instruction(instr.word);
+	display_instruction(instr.word, stdout);
 }
 
 void print_instruction_bytes(INSTR instr)

@@ -7,12 +7,12 @@
 #include "helpers.h"
 #include "notify.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, rd, sa;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
-	fprintf(stdout,"JR $%u \n", rs);
+	fprintf(stream,"JR $%u \n", rs);
 }
 
 void execute(ARCH arch, uint32_t word)

@@ -5,16 +5,16 @@
 
 #include "instructions/parser_instructions.h"
 
-void display(uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, rd, sa;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
     if (rs==0 && rt==0 && rd==0 && sa==0){
-        fprintf(stdout,"NOP\n");
+        fprintf(stream,"NOP\n");
     }
 
-	fprintf(stdout,"SLL $%u, $%u, $%u\n",rd,rt,sa);
+	fprintf(stream,"SLL $%u, $%u, $%u\n",rd,rt,sa);
 }
 
 void execute(ARCH arch, uint32_t word)

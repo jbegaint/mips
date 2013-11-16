@@ -23,7 +23,7 @@ void run(ARCH arch)
 		instr = get_instr_from_addr(arch, get_register(arch, PC));
 		execute_instruction(arch, instr.word);
 
-		DEBUG_MSG("execute: %08x", get_register(arch, PC));
+		display_instruction(instr.word, stderr);
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
 

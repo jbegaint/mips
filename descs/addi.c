@@ -9,15 +9,15 @@
 #include "helpers.h"
 
 
-void display (uint32_t word)
+void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stdout,"ADDI $%u, $%u, %u\n", rt, rs, immediate);
+    fprintf(stream,"ADDI $%u, $%u, %u\n", rt, rs, immediate);
 }
 
-void execute (ARCH arch, uint32_t word)
+void execute(ARCH arch, uint32_t word)
 {
 	uint rs, rt;
     uint immediate, val_rs;
