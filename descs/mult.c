@@ -22,6 +22,7 @@ void execute(ARCH arch, uint32_t word)
 	uint64_t isol_hi = 0;
 	uint val_rs, val_rt;
 	uint64_t res_lo, res_hi;
+	uint bit_sign;
 
 	uint i;
 
@@ -42,4 +43,12 @@ void execute(ARCH arch, uint32_t word)
 	res_hi = res_hi >> 32;
 	set_register(arch, LO, res_lo);
 	set_register(arch, HI, res_hi);
+	
+	bit_sign = parser_instr(res_hi, 31, 31);
+	if (bit_sign == 1)
+		set_register(arch, SR, 64);
+
+
+	if (res_lo == 0 && res_hi == 0) 
+			set_register(arch, SR, 32);
 }

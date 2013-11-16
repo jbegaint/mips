@@ -20,6 +20,7 @@ void execute(ARCH arch, uint32_t word)
     uint rs, rt, rd, sa;
 	uint val_rs, val_rt;
 	uint64_t result;
+	uint bit_sign;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
 	val_rs = (arch->registers)[rs];
@@ -28,7 +29,15 @@ void execute(ARCH arch, uint32_t word)
 	result = val_rs - val_rt;
 	if ( abs(result) > 0x7FFFFFFF)
 		set_register(arch, SR, 2049);
-	else
+	else {
 		(arch->registers)[rd] = result;
+
+		bit_sign = parser_instr(result, 31, 31);
+		if (bit_sign == 1)
+			set_register(arch, SR, 64);
+
+		if (result == 0) 
+			set_register(arch, SR, 32);
+	}
 }
 

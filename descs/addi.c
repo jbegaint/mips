@@ -22,6 +22,7 @@ void execute (ARCH arch, uint32_t word)
 	uint rs, rt;
     uint immediate, val_rs;
 	uint64_t add;
+	uint bit_sign;
 
     parser_typeI(word, &rs, &rt, &immediate);
 	val_rs = (arch->registers)[rs];
@@ -31,7 +32,15 @@ void execute (ARCH arch, uint32_t word)
 	if (add > 0x7FFFFFFF)
 		/* implement set bit sr */
 		set_register(arch, SR, 2049);
-	else
+	else {
 		(arch->registers)[rt] = add;
+
+		bit_sign = parser_instr(add, 31, 31);
+		if (bit_sign == 1)
+			set_register(arch, SR, 64);
+
+		if (add == 0) 
+			set_register(arch, SR, 32);
+	}
 }
 
