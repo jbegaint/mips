@@ -27,13 +27,9 @@ void execute(ARCH arch, uint32_t word)
 	result = val_rs + immediate;
 
 	test = parser_instr(result , 0, 1);
-	if ( test != 0 ) {
-		WARNING_MSG("error adrress");
-	}
-	
-	else {
-
+	if (test != 0)
+		WARNING_MSG("error adrress");	
+	else
 		(arch->registers)[rt] = get_bytes_from_addr(arch, result);
-	}
 }
 

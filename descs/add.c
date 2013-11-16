@@ -11,7 +11,7 @@ void display(uint32_t word)
 {
     uint rs, rt, rd, sa;
     parser_typeR(word, &rs, &rt, &rd, &sa);
-    fprintf(stdout,"ADD $%u, $%u, $%u\n",rd,rs,rt);
+    fprintf(stdout,"ADD $%u, $%u, $%u\n", rd, rs, rt);
 }
 
 void execute(ARCH arch, uint32_t word)

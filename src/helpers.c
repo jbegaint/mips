@@ -9,6 +9,7 @@
 #include "list.h"
 
 #include "arch/address.h"
+#include "arch/section.h"
 #include "instructions/instructions.h"
 #include "notify.h"
 
@@ -107,4 +108,29 @@ INSTR get_instr_from_addr(ARCH arch, uint address)
 		get_byte(arch, address + j, &(instr.bytes[3-j]));
 
 	return instr;
+}
+
+/* BYTES */
+
+uint get_bytes_from_addr(ARCH arch, uint address)
+{
+	INSTR instr;
+
+	instr = get_instr_from_addr(arch, address);
+
+	return instr.word;
+}
+
+void set_bytes_from_addr(ARCH arch, uint address, uint value)
+{
+	INSTR instr;
+	int section_index, offset;
+
+	instr.word = value;
+	section_index = get_section(arch, address);
+	offset = get_offset(arch, address, section_index);
+
+	for (int j = 0; j < 4; j++) {
+		*((arch->sections)[section_index].data + offset + j) = instr.bytes[3-j];
+	}
 }
