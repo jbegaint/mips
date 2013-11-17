@@ -96,7 +96,7 @@ int parse_desc_file(FILE* f, DESC* desc)
 	    				return PARSE_ERROR;
 		    	}	
 		    	else {
-		    		desc->function = 0;
+		    		desc->function = -1;
 		    	}	
 		    	break;	
     	}
