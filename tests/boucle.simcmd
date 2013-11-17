@@ -1,0 +1,6 @@
+testcmd 0xa
+lp res/boucle.o
+da 0:6
+dr PC $t1 $t2
+run
+dr PC $t1 $t2

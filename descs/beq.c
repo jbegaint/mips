@@ -26,7 +26,7 @@ void execute(ARCH arch, uint32_t word)
 	val_rt = (arch->registers)[rt];
 
 	if ( val_rs == val_rt ) {
-		target_offset = immediate << 2;
+		target_offset = (int16_t) immediate << 2;
 		val_PC = get_register(arch, PC);
 		set_register(arch, PC, val_PC+target_offset);
 	}
