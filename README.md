@@ -4,14 +4,8 @@ Simulateur MIPS
 TODO
 ====
 
-* implémenter les fonctions de l'interpréteur (Jean)
-	
-	* bp (done)
-	* db (done)
-	* er (done)
-	* s (done)
-	* si
-	* run (done)
+* fix deliberate(?) leak in load_desc_so
+* clean helpers, utils
 
 Compilation:
 ------------
