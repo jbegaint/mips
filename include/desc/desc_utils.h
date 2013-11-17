@@ -3,5 +3,6 @@
 
 void display_desc_array();
 void display_desc(DESC);
+int load_desc_so(char*, DESC*);
 
 #endif

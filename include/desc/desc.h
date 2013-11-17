@@ -3,7 +3,7 @@
 
 #include "arch/arch.h"
 
-typedef void (*display_f)(uint, FILE* stream);
+typedef void (*display_f)(uint, FILE*);
 typedef void (*execute_f)(ARCH, uint);
 
 typedef struct {

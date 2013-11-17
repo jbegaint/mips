@@ -31,22 +31,12 @@ void init_desc_array(void)
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
 	char desc_filename[256];
+	char plugin_filename[80];
+	char buffer[256];
 	char* filename = "descs/desc.all";
 	int c, l = 0;
 
-	/* plugins stuff */
-	char* error;
-	char plugin_filename[80];
-	void* plugin;
-	execute_f execute;
-	display_f display;
-
-	/* end plugins stuff */
-
 	DEBUG_MSG("Init desc files parsing");
-
-	/* count desc files in dir */
-	/*chdir(DESC_DIR);*/
 
 	f = fopen(filename, "r");
 	if (!f)
@@ -59,20 +49,22 @@ void init_desc_array(void)
 	DEBUG_MSG("%d files in list", l);
 
 	/* allocate memory */
-	DESC_ARRAY_LENGTH = l - 1;
+	DESC_ARRAY_LENGTH = l;
 	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH * sizeof(DESC));
 
 	fseek(f, 0, 0);
 
 	/* parse files */
 	c = 0;
-	while (fgets(desc_filename, sizeof(desc_filename), f) != 0) {
-		sscanf(desc_filename, "%s", desc_filename);
+	while (fgets(buffer, sizeof(buffer), f) != 0) {
+		sscanf(buffer, "%s", buffer);
+
+		strcpy(desc_filename, "descs/");
+		strcat(desc_filename, buffer);
 
 		if (is_desc_file(desc_filename)) {
-			chdir(DESC_DIR);
+
 			f_desc = open_file(desc_filename);
-			chdir("..");
 
 			if (f_desc) {
 				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
@@ -85,33 +77,14 @@ void init_desc_array(void)
 					for (int i = 0; plugin_filename[i]; i++)
 						plugin_filename[i] = tolower(plugin_filename[i]);
 				
-					/* open *.so */
-					plugin = dlopen(plugin_filename, RTLD_NOW);
-
-					if (!plugin) {
-						fprintf(stderr, "%s\n", dlerror());
-					}
-					else {
-						
-						*(void**) &display = dlsym(plugin, "display");
-
-						if ((error = dlerror()) != NULL)
-								fprintf(stderr, "%s\n", error);
-						else
-							desc.display = display;
-
-						*(void**) &execute = dlsym(plugin, "execute");
-
-						if ((error = dlerror()) != NULL)
-							fprintf(stderr, "%s\n", error);
-						else
-							desc.execute = execute;
-					}
+					/* open .so */
+					if (load_desc_so(plugin_filename, &desc))
+						DEBUG_MSG("%s loaded", plugin_filename);
 
 					DESC_ARRAY[c] = desc;
 
-
-				} else {
+				} 
+				else {
 					WARNING_MSG("parsing fails for %s", desc_filename);
 				}
 				close_file(f_desc);

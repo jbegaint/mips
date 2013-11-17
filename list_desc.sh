@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd descs/
-ls -1 > desc.all
+ls -1 *.desc > desc.all
