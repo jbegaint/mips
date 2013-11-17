@@ -27,8 +27,9 @@ void execute(ARCH arch, uint32_t word)
 
 	addi = val_rs + val_rt;
 	
-	if (abs(addi) > 0x7FFFFFFF)
+	if (addi > (uint32_t) addi) {
 		set_register(arch, SR, 2049);
+	}
 	else {
 		(arch->registers)[rd] = addi;
 

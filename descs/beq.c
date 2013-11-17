@@ -19,7 +19,7 @@ void execute(ARCH arch, uint32_t word)
 {
     uint rs, rt, immediate;
 	uint val_rs, val_rt;
-	uint target_offset, val_PC;
+	int32_t target_offset, val_PC;
 
     parser_typeI(word, &rs, &rt, &immediate);
 	val_rs = (arch->registers)[rs];

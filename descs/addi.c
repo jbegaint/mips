@@ -29,9 +29,10 @@ void execute(ARCH arch, uint32_t word)
 
 	add = val_rs + immediate;
 
-	if (add > 0x7FFFFFFF)
+	if (add > (uint32_t) add) {
 		/* implement set bit sr */
 		set_register(arch, SR, 2049);
+	}
 	else {
 		(arch->registers)[rt] = add;
 

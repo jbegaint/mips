@@ -32,7 +32,7 @@ void execute(ARCH arch, uint32_t word)
 	if (bit_sign == 1)
 		set_register(arch, SR, 64);
 
-	if ( (val_rs & val_rt) == 0) 
+	if ((val_rs & val_rt) == 0) 
 		set_register(arch, SR, 32);
 }
 

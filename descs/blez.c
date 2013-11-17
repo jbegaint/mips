@@ -23,7 +23,7 @@ void execute(ARCH arch, uint32_t word)
     parser_typeI(word, &rs, &rt, &immediate);
 	
 	val_rs = (arch->registers)[rs];
-	if ( val_rs < 0 ) {
+	if ( val_rs <= 0 ) {
 		target_offset = immediate << 2;
 		val_PC = get_register(arch, PC);
 		set_register(arch, PC, val_PC + target_offset);
