@@ -20,13 +20,15 @@ void run(ARCH arch)
 		
 		/* reset_sr then execution */
 		reset_register(arch, SR);
+		
 		instr = get_instr_from_addr(arch, get_register(arch, PC));
-		execute_instruction(arch, instr.word);
-
-		display_instruction(instr.word, stderr);
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
+		
+		execute_instruction(arch, instr.word);
+		display_instruction(instr.word, stderr);
 
+		
 		if (get_breakpoint_id(arch, get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;
 			DEBUG_MSG("state: PAUSED");

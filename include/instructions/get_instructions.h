@@ -6,9 +6,8 @@
 
 #include "arch/arch.h"
 
-int matchR(uint function);
-int matchJI(uint opcode);
-int get_instr(uint val);
-
+int matchR(uint);
+int matchJI(uint);
+int get_instr(uint);
 
 #endif

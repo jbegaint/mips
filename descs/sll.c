@@ -10,11 +10,13 @@ void display(uint32_t word, FILE* stream)
     uint rs, rt, rd, sa;
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
-    if (rs==0 && rt==0 && rd==0 && sa==0){
+
+    if (rs == 0 && rt == 0 && rd == 0 && sa == 0) {
         fprintf(stream,"NOP\n");
     }
-
-	fprintf(stream,"SLL $%u, $%u, $%u\n",rd,rt,sa);
+    else {
+	   fprintf(stream,"SLL $%u, $%u, $%u\n", rd, rt, sa); 
+    }
 }
 
 void execute(ARCH arch, uint32_t word)

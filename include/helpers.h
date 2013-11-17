@@ -26,4 +26,6 @@ void print_decoded_instruction(ARCH, uint);
 void print_instruction_bytes(INSTR);
 INSTR get_instr_from_addr(ARCH, uint);
 
+int get_desc_id(char*);
+
 #endif

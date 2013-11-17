@@ -22,7 +22,8 @@ void execute(ARCH arch, uint32_t word)
 
     parser_typeJ(word, &target);
 	val_PC = get_register(arch, PC);
-	(arch->registers)[31] = val_PC + 8;
+	(arch->registers)[31] = val_PC + 4; 
+	/* should be +8 but was already incremented before execution */
 	
 	result = target << 2;
 	

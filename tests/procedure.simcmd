@@ -1,0 +1,6 @@
+testcmd 0xa
+lp res/procedure.o
+da 0:13
+dr
+run
+dr

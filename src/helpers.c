@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "globals.h"
 
@@ -130,7 +131,23 @@ void set_bytes_from_addr(ARCH arch, uint address, uint value)
 	section_index = get_section(arch, address);
 	offset = get_offset(arch, address, section_index);
 
+	if (section_index == -1) {
+		WARNING_MSG("address %08x not allocated", address);
+		return;
+	}
+
 	for (int j = 0; j < 4; j++) {
 		*((arch->sections)[section_index].data + offset + j) = instr.bytes[3-j];
 	}
+}
+
+
+/* desc */
+int get_desc_id(char* desc_name)
+{
+	for (int i = 0; i < DESC_ARRAY_LENGTH; i++) {
+		if (strcmp(desc_name, DESC_ARRAY[i].name) == 0)
+			return i;
+	}
+	return -1;
 }
