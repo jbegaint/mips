@@ -4,8 +4,6 @@ Simulateur MIPS
 TODO
 ====
 
-* cas srl/ rotr
-
 * implémenter les fonctions de l'interpréteur (Jean)
 	
 	* bp (done)
@@ -14,10 +12,6 @@ TODO
 	* s (done)
 	* si
 	* run (done)
----
-
-* clean parse_args
-
 
 Compilation:
 ------------
@@ -34,6 +28,8 @@ Exécution:
 
 * ./simMips <filename> pour lancer un script (*.simcmd)
 
+* help pour plus d'informations
+
 
 Auteurs:
 --------
@@ -46,5 +42,4 @@ Links:
 ------
 
 * http://stackoverflow.com/questions/384121/creating-a-module-system-dynamic-loading-in-c
-* 
 

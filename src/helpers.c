@@ -54,11 +54,13 @@ void display_breakpoints(ARCH arch)
 	}
 }
 
+
 /* SECTIONS */
 uint get_section_end(ARCH arch, int section_id) 
 {
 	return arch->sections[section_id].start_addr + arch->sections[section_id].size;
 }
+
 
 /* REGISTERS */
 void reset_registers(ARCH arch)
@@ -82,6 +84,7 @@ uint get_register(ARCH arch, int index)
 {
 	return arch->registers[index];
 }
+
 
 /* INSTRUCTIONS */
 void print_decoded_instruction(ARCH arch, uint address)
@@ -111,8 +114,8 @@ INSTR get_instr_from_addr(ARCH arch, uint address)
 	return instr;
 }
 
-/* BYTES */
 
+/* BYTES */
 uint get_bytes_from_addr(ARCH arch, uint address)
 {
 	INSTR instr;
@@ -142,7 +145,7 @@ void set_bytes_from_addr(ARCH arch, uint address, uint value)
 }
 
 
-/* desc */
+/* DESC */
 int get_desc_id(char* desc_name)
 {
 	for (int i = 0; i < DESC_ARRAY_LENGTH; i++) {

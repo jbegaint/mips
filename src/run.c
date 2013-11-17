@@ -8,7 +8,7 @@
 #include "notify.h"
 #include "run.h"
 
-void run(ARCH arch)
+void run(ARCH arch, int flag)
 {
 	DEBUG_MSG("run start");
 	INSTR instr;
@@ -26,15 +26,18 @@ void run(ARCH arch)
 		set_register(arch, PC, get_register(arch, PC) + 4);
 		
 		execute_instruction(arch, instr.word);
-		display_instruction(instr.word, stderr);
+		display_instruction(instr.word, stdout);
 
-		
+
 		if (get_breakpoint_id(arch, get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;
 			DEBUG_MSG("state: PAUSED");
 			del_breakpoint_by_addr(arch, get_register(arch, PC));
 			break;
 		}
+
+		if (flag)
+			break;
 	}
 
 	if (get_register(arch, PC) == get_section_end(arch, TEXT)) {

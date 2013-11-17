@@ -286,7 +286,7 @@ int execute_cmd_run(ARCH arch, char** args)
 	DEBUG_MSG("Execute run [address]");
 
 	if (*args == NULL) {
-		run(arch);
+		run(arch, 0);
 		return CMD_EXIT_SUCCESS;
 	}
 
@@ -305,7 +305,7 @@ int execute_cmd_run(ARCH arch, char** args)
 	}
 
 	set_register(arch, PC, addr);
-	run(arch);
+	run(arch, 0);
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -317,7 +317,7 @@ int execute_cmd_s(ARCH arch)
 	else
 		add_breakpoint(arch, get_register(arch, PC) + 4);
 
-	run(arch);
+	run(arch, 0);
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -327,9 +327,11 @@ int execute_cmd_si(ARCH arch)
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* add_breakpoint(jump_adress) ;*/
-	add_breakpoint(arch, arch->registers[PC] + 4);
+	
+	if (arch->state == FINISHED)
+		add_breakpoint(arch, 4);
 
-	/* launch run */
+	run(arch, 1);
 
 	return CMD_EXIT_SUCCESS;
 }

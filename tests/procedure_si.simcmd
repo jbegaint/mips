@@ -1,0 +1,11 @@
+testcmd 0xa
+lp res/procedure.o
+si
+si
+si
+si
+si
+si
+si
+si
+si

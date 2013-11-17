@@ -3,6 +3,6 @@
 
 #include "arch/arch.h"
 
-void run(ARCH);
+void run(ARCH, int);
 
 #endif
