@@ -17,6 +17,7 @@ void set_register(ARCH, int, uint);
 void reset_register(ARCH, int);
 void reset_registers(ARCH);
 void set_register_bit(ARCH, int, int);
+int get_register_bit(ARCH, int, int);
 
 uint get_section_end(ARCH, int);
 
