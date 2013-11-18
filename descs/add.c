@@ -28,17 +28,19 @@ void execute(ARCH arch, uint32_t word)
 	addi = val_rs + val_rt;
 	
 	if (addi > (uint32_t) addi) {
-		set_register(arch, SR, 2049);
+		set_register_bit(arch, SR, 11);
+		set_register_bit(arch, SR, 0);
 	}
 	else {
 		(arch->registers)[rd] = addi;
 
 		bit_sign = parser_instr(addi, 31, 31);
 		if (bit_sign == 1)
-			set_register(arch, SR, 64);
+			set_register_bit(arch, SR, 7);
 		
 		if (addi == 0) 
-			set_register(arch, SR, 32);
+			set_register_bit(arch, SR, 6);
 	}
+
 }
 

@@ -22,6 +22,5 @@ void execute(ARCH arch, uint32_t word)
 	val_rt = (arch->registers)[rt];
 	
 	(arch->registers)[rd] = val_rt >> sa;
-
 }
 

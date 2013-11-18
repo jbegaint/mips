@@ -15,8 +15,6 @@
 #include "notify.h"
 #include "utils.h"
 
-
-char* DESC_DIR = "./descs/";
 int DESC_ARRAY_LENGTH;
 DESC* DESC_ARRAY;
 
@@ -57,8 +55,8 @@ void init_desc_array(void)
 	/* parse files */
 	c = 0;
 	while (fgets(buffer, sizeof(buffer), f) != 0) {
+	
 		sscanf(buffer, "%s", buffer);
-
 		strcpy(desc_filename, "descs/");
 		strcat(desc_filename, buffer);
 
@@ -76,7 +74,7 @@ void init_desc_array(void)
 					/* lower str */
 					for (int i = 0; plugin_filename[i]; i++)
 						plugin_filename[i] = tolower(plugin_filename[i]);
-				
+
 					/* open .so */
 					if (load_desc_so(plugin_filename, &desc))
 						DEBUG_MSG("%s loaded", plugin_filename);

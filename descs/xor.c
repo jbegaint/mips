@@ -29,9 +29,9 @@ void execute(ARCH arch, uint32_t word)
 	
 	bit_sign = parser_instr(val_rs ^ val_rt, 31, 31);
 	if (bit_sign == 1)
-		set_register(arch, SR, 64);
+		set_register_bit(arch, SR, 7);
 
-	if ( (val_rs ^ val_rt) == 0) 
-		set_register(arch, SR, 32);
+	if ((val_rs ^ val_rt) == 0) 
+		set_register_bit(arch, SR, 6);
 }
 

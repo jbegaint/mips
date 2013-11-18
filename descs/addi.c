@@ -31,17 +31,18 @@ void execute(ARCH arch, uint32_t word)
 
 	if (add > (uint32_t) add) {
 		/* implement set bit sr */
-		set_register(arch, SR, 2049);
+		set_register_bit(arch, SR, 11);
+		set_register_bit(arch, SR, 0);
 	}
 	else {
 		(arch->registers)[rt] = add;
 
 		bit_sign = parser_instr(add, 31, 31);
 		if (bit_sign == 1)
-			set_register(arch, SR, 64);
+			set_register_bit(arch, SR, 7);
 
 		if (add == 0) 
-			set_register(arch, SR, 32);
+			set_register_bit(arch, SR, 6);	
 	}
 }
 

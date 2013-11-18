@@ -34,10 +34,10 @@ void execute(ARCH arch, uint32_t word)
 
 		bit_sign = parser_instr(result, 31, 31);
 		if (bit_sign == 1)
-			set_register(arch, SR, 64);
+			set_register_bit(arch, SR, 7);
 
 		if (result == 0) 
-			set_register(arch, SR, 32);
+			set_register_bit(arch, SR, 6);
 	}
 }
 

@@ -11,10 +11,8 @@
 
 /* global variables */
 extern struct command cmd_table[];
-
 extern DESC* DESC_ARRAY;
 extern int DESC_ARRAY_LENGTH;
-extern char* DESC_DIR; 
 extern char* REG_NAMES[36];
 
 #endif

@@ -85,6 +85,15 @@ uint get_register(ARCH arch, int index)
 	return arch->registers[index];
 }
 
+void set_register_bit(ARCH arch, int reg_index, int bit_index)
+{
+	uint val;
+
+	val = get_register(arch, reg_index);
+	val |= (1 << bit_index);
+	set_register(arch, reg_index, val);
+}
+
 
 /* INSTRUCTIONS */
 void print_decoded_instruction(ARCH arch, uint address)

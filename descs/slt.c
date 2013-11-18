@@ -22,11 +22,12 @@ void execute(ARCH arch, uint32_t word)
     parser_typeR(word, &rs, &rt, &rd, &sa);
 	val_rs = (arch->registers)[rs];
 	val_rt = (arch->registers)[rt];
+	
 	if (val_rs < val_rt) {
-	(arch->registers)[rd] = 1;
+		(arch->registers)[rd] = 1;
 	}
 	else {
-	(arch->registers)[rd] = 0;
+		(arch->registers)[rd] = 0;
 	}
 }
 

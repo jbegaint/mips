@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #include <time.h>
 
@@ -120,4 +121,17 @@ void swap_str(char** str1, char** str2)
 	char* tmp = *str1;
 	*str1 = *str2;
 	*str2 = tmp;
+}
+
+/* useless but still... */
+void print_logo(void)
+{
+	char logo[256] = "  \
+   _           __  __ ___ ____  ____  \n\
+ ___(_)_ __ ___ |  \\/  |_ _|  _ \\/ ___| \n\
+/ __| | '_ ` _ \\| |\\/| || || |_) \\___ \\ \n\
+\\__ \\ | | | | | | |  | || ||  __/ ___) | \n\
+|___/_|_| |_| |_|_|  |_|___|_|   |____/ \n \
+" ;
+	fprintf(stderr, "%s\n", logo);
 }

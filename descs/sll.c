@@ -26,12 +26,9 @@ void execute(ARCH arch, uint32_t word)
 
     parser_typeR(word, &rs, &rt, &rd, &sa);
 
-    if (!(rs==0 && rt==0 && rd==0 && sa==0)){
+    if (!(rs == 0 && rt == 0 && rd == 0 && sa == 0)) {
         val_rt = (arch->registers)[rt];
-	
-	(arch->registers)[rd] = val_rt << sa;
+		(arch->registers)[rd] = val_rt << sa;
     }
-
-
 }
 
