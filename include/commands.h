@@ -17,8 +17,6 @@
 
 #define CMD_NOT_FOUND -4
 
-#define UNUSED(x) (void)(x)
-
 int execute_cmd_bp(ARCH, char**);
 int execute_cmd_da(ARCH, char**);
 int execute_cmd_db(ARCH);

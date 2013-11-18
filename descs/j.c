@@ -28,6 +28,5 @@ void execute(ARCH arch, uint32_t word)
 	val_PC_fort = val_PC_fort << 28;
 	
 	set_register(arch, PC, result + val_PC_fort);
-
 }
 

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "arch/arch.h"
 
+#define UNUSED(x) (void)(x)
+
 int die(ARCH);
 int quit(ARCH);
 void usage(char*);

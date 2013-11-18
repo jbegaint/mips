@@ -7,16 +7,18 @@
 #include "instructions/parser_instructions.h"
 #include "instructions/get_instructions.h"
 
+#include "helpers.h"
 #include "notify.h"
+#include "utils.h"
 
 void display(uint32_t word, FILE* stream)
 {
-    fprintf(stream,"SYSCALL");
-	return ;
+	UNUSED(word);
+    fprintf(stream, "SYSCALL\n");
 }
 
-void execute(ARCH arch, uint32_t word)
+void execute(ARCH arch)
 {
-	return ;
+	/* unused bit in sr, let's use it */
+	set_register_bit(arch, SR, 1);
 }
-

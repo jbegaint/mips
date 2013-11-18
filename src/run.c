@@ -8,10 +8,12 @@
 #include "notify.h"
 #include "run.h"
 
+
 void run(ARCH arch, int flag)
 {
 	DEBUG_MSG("run start");
 	INSTR instr;
+	int syscall_bit = 0;
 
 	if (arch->state == FINISHED)
 		reset_registers(arch);
@@ -28,7 +30,6 @@ void run(ARCH arch, int flag)
 		execute_instruction(arch, instr.word);
 		display_instruction(instr.word, stdout);
 
-
 		if (get_breakpoint_id(arch, get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;
 			DEBUG_MSG("state: PAUSED");
@@ -36,7 +37,12 @@ void run(ARCH arch, int flag)
 			break;
 		}
 
+		/* if run with si */
 		if (flag)
+			break;
+
+		/* check if syscall was called */
+		if ((syscall_bit = get_register_bit(arch, SR, 1))) 
 			break;
 	}
 

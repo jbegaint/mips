@@ -29,7 +29,5 @@ void execute(ARCH arch, uint32_t word)
 	}
 	
 	set_register(arch, PC, val_rs);
-
-
 }
 

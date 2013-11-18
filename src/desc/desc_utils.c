@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <dlfcn.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "globals.h"
 #include "notify.h"

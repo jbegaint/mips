@@ -94,6 +94,14 @@ void set_register_bit(ARCH arch, int reg_index, int bit_index)
 	set_register(arch, reg_index, val);
 }
 
+int get_register_bit(ARCH arch, int reg_index, int bit_index)
+{
+	int bit;
+
+	bit = get_register(arch, reg_index) & (1 << bit_index);
+	return bit;
+}
+
 
 /* INSTRUCTIONS */
 void print_decoded_instruction(ARCH arch, uint address)

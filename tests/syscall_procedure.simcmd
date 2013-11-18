@@ -1,0 +1,4 @@
+testcmd 0xa
+lp res/procedure_w_syscall.o
+da 0:15
+run
