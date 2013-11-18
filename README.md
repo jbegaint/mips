@@ -24,9 +24,7 @@ Exécution:
 
 * help pour plus d'informations
 
----
-Waring: by default `mipsel-linux-gnu-as` compiles in little endian, use -EB to force big endian.
----
+(Warning: by default `mipsel-linux-gnu-as` compiles in little endian, use -EB to force big endian.)
 
 
 Auteurs:
