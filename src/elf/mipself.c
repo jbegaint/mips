@@ -446,6 +446,8 @@ static void loadZone(MemZone *Zone, WORD from) {
         for (i=0; i<Zone->size; i++)
             Zone->exportSection->data[i] = 0;
     }
+
+
 }
 
 
@@ -716,6 +718,13 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
     relocZone(Text, EnsZones) ;
     relocZone(Data, EnsZones) ;
     // on ignore les relocations en Bss
+
+
+    /* FREE THE MALLOCS */
+    free(Text->rel_name);
+    free(Data->rel_name);
+    free(Bss->rel_name);
+    elf_end(elf);
 
     printELFSection(textSection);
     printELFSection(dataSection);

@@ -36,8 +36,10 @@ ARCH init_simu(void)
 void free_arch(ARCH arch)
 {
 	/* free text, data, bss sections */
-	for (int i = 0; i < 3 ; i++)
+	for (int i = 0; i < 3 ; i++) {
+		free((arch->sections[i]).name);
 		free((arch->sections[i]).data);
+	}
 
 	free(arch);
 }
