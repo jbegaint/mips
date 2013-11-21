@@ -76,8 +76,9 @@ void init_desc_array(void)
 						plugin_filename[i] = tolower(plugin_filename[i]);
 
 					/* open .so */
-					if (load_desc_so(plugin_filename, &desc))
+					if (load_desc_so(plugin_filename, &desc)) {
 						DEBUG_MSG("%s loaded", plugin_filename);
+					}
 
 					DESC_ARRAY[c] = desc;
 

@@ -37,6 +37,7 @@
 #include "elf/mipself.h"
  
 #include "notify.h"
+#include "utils.h"
 
 
 
@@ -446,8 +447,6 @@ static void loadZone(MemZone *Zone, WORD from) {
         for (i=0; i<Zone->size; i++)
             Zone->exportSection->data[i] = 0;
     }
-
-
 }
 
 
@@ -476,22 +475,56 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
     data = elf_getdata(Zone->rel_scn, NULL) ;
     shdr = elf32_getshdr(Zone->rel_scn) ;
-    if (SymbolTable==NULL)
+
+    if (SymbolTable == NULL)
         ERROR_MSG("Pas de table des symboles trouvees") ;
-    if (Zone->scn==NULL) {
+
+    if (Zone->scn == NULL) {
         ERROR_MSG("zone %s a reloger et manquante\n",Zone->name) ;
     }
+
+    long elt_num_to_relloc = data->d_size/shdr->sh_entsize;
 
     //verification d'hypotheses faites sur le ELF
     if ((shdr->sh_info != Zone->index) || (shdr->sh_link != SymbInd)) {
         ERROR_MSG("info: %d vs %d. link: %d vs %d.\n",shdr->sh_info,Zone->index,shdr->sh_link,SymbInd) ;
     }
-    INFO_MSG("Nombre de symboles a reloger: %ld\n", data->d_size/shdr->sh_entsize) ;
+    INFO_MSG("Nombre de symboles a reloger: %ld\n", elt_num_to_relloc) ;
 
+    Elf32_Rel *reloc_table;
+    int type, sym;
 
-    // CODE CI-DESSOUS A CHANGER!!
     if (data->d_size > 0) {
-        WARNING_MSG("RelocZone NON IMPLEMENTEE (relocations a faire)") ;
+        WARNING_MSG("RelocZone en cours d'implémentation") ;
+
+        reloc_table = (Elf32_Rel*) data->d_buf;
+
+        for (int i = 0; i < elt_num_to_relloc; i++) {
+            type = ELF32_R_TYPE((reloc_table+i)->r_info);
+            sym = ELF32_R_SYM((reloc_table+i)->r_info);
+
+            switch (type) {
+                case R_MIPS_32:
+                    DEBUG_MSG("R_MIPS_32");
+                    break;
+
+                case R_MIPS_26:
+                    DEBUG_MSG("R_MIPS_26");
+                    break;
+
+                case R_MIPS_HI16:
+                    DEBUG_MSG("R_MIPS_HI16");
+                    break;
+
+                case R_MIPS_LO16:
+                    DEBUG_MSG("R_MIPS_LO16");
+                    break;
+            default:
+                    WARNING_MSG("something terrible happend");
+                break;
+            }
+
+        }
     }
 }
 

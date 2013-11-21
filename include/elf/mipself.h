@@ -92,5 +92,4 @@ char *getAddressName (unsigned long adr);
 
 int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSection, SectionELF *bssSection);
 
-
 #endif

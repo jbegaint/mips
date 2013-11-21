@@ -135,3 +135,11 @@ void print_logo(void)
 " ;
 	fprintf(stderr, "%s\n", logo);
 }
+
+void print_bits(unsigned char val)
+{
+	for (int i = 7; i >= 0; i--) {
+		fprintf(stderr, "%d", (val >> i) & 1);
+	}
+	fprintf(stderr, "\n");
+}
