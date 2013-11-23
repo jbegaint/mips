@@ -21,8 +21,8 @@ int get_register_bit(ARCH, int, int);
 
 uint get_section_end(ARCH, int);
 
-uint get_bytes_from_addr(ARCH, uint);
-void set_bytes_from_addr(ARCH, uint, uint);
+uint get_word_from_addr(ARCH, uint);
+void set_word_from_addr(ARCH, uint, uint);
 
 void print_decoded_instruction(ARCH, uint);
 void print_instruction_bytes(INSTR);

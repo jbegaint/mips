@@ -32,6 +32,6 @@ void execute(ARCH arch, uint32_t word)
 	if (test != 0)
 		WARNING_MSG("error adrress");
 	else
-		set_bytes_from_addr(arch, result, val_rt);
+		set_word_from_addr(arch, result, val_rt);
 }
 

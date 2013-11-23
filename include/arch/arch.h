@@ -46,6 +46,7 @@ typedef union
 	uchar bytes[4];
 } INSTR;
 
+typedef INSTR word_t;
 
 ARCH init_simu(void);
 void free_arch(ARCH);

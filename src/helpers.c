@@ -133,7 +133,7 @@ INSTR get_instr_from_addr(ARCH arch, uint address)
 
 
 /* BYTES */
-uint get_bytes_from_addr(ARCH arch, uint address)
+uint get_word_from_addr(ARCH arch, uint address)
 {
 	INSTR instr;
 

@@ -30,6 +30,6 @@ void execute(ARCH arch, uint32_t word)
 	if (test != 0)
 		WARNING_MSG("error address");	
 	else
-		(arch->registers)[rt] = get_bytes_from_addr(arch, result);
+		(arch->registers)[rt] = get_word_from_addr(arch, result);
 }
 

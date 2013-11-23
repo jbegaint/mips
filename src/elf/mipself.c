@@ -32,12 +32,14 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #include "elf/elfimport.h"
 #include "elf/mipself.h"
  
 #include "notify.h"
 #include "utils.h"
+#include "arch/arch.h"
 
 
 
@@ -493,6 +495,10 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
     Elf32_Rel *reloc_table;
     int type, sym;
+    uint32_t offset, S, A, V, P;
+    uint32_t AHL, AHI, ALO;
+    word_t w, w1;
+
 
     if (data->d_size > 0) {
         WARNING_MSG("RelocZone en cours d'implémentation") ;
@@ -502,28 +508,70 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
         for (int i = 0; i < elt_num_to_relloc; i++) {
             type = ELF32_R_TYPE((reloc_table+i)->r_info);
             sym = ELF32_R_SYM((reloc_table+i)->r_info);
+            offset = (uint32_t) (reloc_table+i)->r_offset;
+
+            S = (uint32_t) SymbolTable[sym].st_value;   
+
+            /* get A */
+            for (int j = 0; j < 4; j++) {
+                w.bytes[3-j] = *(Zone->exportSection->data + offset + j);
+                w1.bytes[3-j] = *(Zone->exportSection->data + 4 + offset + j);
+            }
+            A = w.word;
+            P = offset;
 
             switch (type) {
                 case R_MIPS_32:
                     DEBUG_MSG("R_MIPS_32");
+                    
+                    V = S + A;
+
                     break;
 
                 case R_MIPS_26:
                     DEBUG_MSG("R_MIPS_26");
+
+                    V = ((A << 2) | ((P & 0xf0000000) + S)) >> 2;
+           
                     break;
 
                 case R_MIPS_HI16:
                     DEBUG_MSG("R_MIPS_HI16");
+
+                    /* get 4 least significant bytes */
+                    AHI = (A & 0xffff);
+                    ALO = (w1.word & 0xffff);
+                    AHL = (AHI << 16) + (short) ALO;
+
+                    fprintf(stderr, "AHI %08x\n", AHI);
+                    fprintf(stderr, "ALO %08x\n", ALO);
+                    fprintf(stderr, "AHL %08x\n", AHL);
+
+                    V = (AHL + S - (short) AHL + S) >> 16;
+
                     break;
 
                 case R_MIPS_LO16:
                     DEBUG_MSG("R_MIPS_LO16");
+
+                    /* as a LO16 is always preceded by a HI16, AHL has been calculated last loop increment*/
+                    V = AHL + S;
+
                     break;
             default:
                     WARNING_MSG("something terrible happend");
                 break;
             }
 
+            fprintf(stderr, "S %08x\n", S);
+            fprintf(stderr, "A %08x\n", A);
+            fprintf(stderr, "P %08x\n", P);
+            fprintf(stderr, "V %08x\n", V);
+
+            w.word = V;
+            for (int j = 0; j < 4; j++) {
+                /**(Zone->exportSection->data + offset + j) = w.bytes[3-j];*/
+            }
         }
     }
 }
