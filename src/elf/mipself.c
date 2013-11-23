@@ -467,7 +467,7 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
     Elf32_Shdr  *shdr;   // entete de section elf
     Elf_Data    *data ;  // donnee elf qq
 
-    (void) (EnsZones);
+    /*(void) (EnsZones);*/
 
     if (Zone->rel_scn == NULL)
         return ; // zone abstente, on ne fait rien
@@ -510,7 +510,14 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
             sym = ELF32_R_SYM((reloc_table+i)->r_info);
             offset = (uint32_t) (reloc_table+i)->r_offset;
 
-            S = (uint32_t) SymbolTable[sym].st_value;   
+            switch (sym) {
+                case 1:
+                    S = (EnsZones[TEXT].exportSection)->start_addr;
+                    break;
+                case 2:
+                    S = (EnsZones[DATA].exportSection)->start_addr;
+                    break;
+            }
 
             /* get A */
             for (int j = 0; j < 4; j++) {
@@ -532,7 +539,6 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
                     DEBUG_MSG("R_MIPS_26");
 
                     V = ((A << 2) | ((P & 0xf0000000) + S)) >> 2;
-           
                     break;
 
                 case R_MIPS_HI16:
@@ -548,6 +554,7 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
                     fprintf(stderr, "AHL %08x\n", AHL);
 
                     V = (AHL + S - (short) AHL + S) >> 16;
+                    V = A + (V >> 16);
 
                     break;
 
@@ -556,21 +563,24 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
                     /* as a LO16 is always preceded by a HI16, AHL has been calculated last loop increment*/
                     V = AHL + S;
+                    V = A + (V >> 16);
 
                     break;
-            default:
-                    WARNING_MSG("something terrible happend");
-                break;
+
+                default:
+                    DEBUG_MSG("non-implemented reloc type");
+                    return;
             }
 
             fprintf(stderr, "S %08x\n", S);
             fprintf(stderr, "A %08x\n", A);
             fprintf(stderr, "P %08x\n", P);
             fprintf(stderr, "V %08x\n", V);
+            fprintf(stderr, "SYM %d\n", sym);
 
             w.word = V;
             for (int j = 0; j < 4; j++) {
-                /**(Zone->exportSection->data + offset + j) = w.bytes[3-j];*/
+                *((Zone->exportSection)->data + P + j) = w.bytes[3-j];
             }
         }
     }
