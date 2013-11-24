@@ -496,30 +496,26 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
     Elf32_Rel *reloc_table;
     int type, sym;
-    uint32_t offset, S, A, A1, V, P;
+    uint32_t S, A, A1, V, P;
     uint32_t AHL, AHI, ALO;
 
 
     if (data->d_size > 0) {
-        WARNING_MSG("RelocZone en cours d'implémentation") ;
 
         reloc_table = (Elf32_Rel*) data->d_buf;
 
         for (int i = 0; i < elt_num_to_relloc; i++) {
             type = ELF32_R_TYPE((reloc_table+i)->r_info);
             sym = ELF32_R_SYM((reloc_table+i)->r_info);
-            offset = (uint32_t) (reloc_table+i)->r_offset;
+            P = (uint32_t) (reloc_table+i)->r_offset;
 
             S = (EnsZones[sym-1].exportSection)->start_addr;
-            P = offset;
-            A = get_word(Zone->exportSection->data + offset);
+            A = get_word(Zone->exportSection->data + P);
 
             switch (type) {
                 case R_MIPS_32:
                     DEBUG_MSG("R_MIPS_32");
-                    
                     V = S + A;
-
                     break;
 
                 case R_MIPS_26:
@@ -530,16 +526,12 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
                 case R_MIPS_HI16:
                     DEBUG_MSG("R_MIPS_HI16");
 
-                    A1 = get_word(Zone->exportSection->data + 4 + offset);
+                    A1 = get_word(Zone->exportSection->data + 4 + P);
 
                     /* get 4 least significant bytes */
                     AHI = (A & 0xffff);
                     ALO = (A1 & 0xffff);
                     AHL = (AHI << 16) + (short) ALO;
-
-                    fprintf(stderr, "AHI %08x\n", AHI);
-                    fprintf(stderr, "ALO %08x\n", ALO);
-                    fprintf(stderr, "AHL %08x\n", AHL);
 
                     V = (AHL + S - (short) (AHL + S)) >> 16;
                     V = ((A >> 16) << 16) + V ;
@@ -551,22 +543,13 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
                     /* as a LO16 is always preceded by a HI16, AHL has been calculated last loop increment*/
                     V = AHL + S;
-                    fprintf(stderr, "%08x\n", V);
                     V = ((A >> 16) << 16) + V ;
-
                     break;
 
                 default:
                     DEBUG_MSG("non-implemented reloc type");
                     return;
             }
-
-            fprintf(stderr, "SYM %d\n", sym);
-            fprintf(stderr, "S %08x\n", S);
-            fprintf(stderr, "A %08x\n", A);
-            fprintf(stderr, "P %08x\n", P);
-            fprintf(stderr, "V %08x\n", V);
-
             set_word((Zone->exportSection)->data + P, V);
         }
     }
