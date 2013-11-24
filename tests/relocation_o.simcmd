@@ -1,0 +1,5 @@
+lp res/relocation.o
+da 0:20
+dm 1000~100C
+run
+dm 1000~100c
