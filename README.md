@@ -2,10 +2,10 @@ MIPS Simulator
 ==============
 
 TODO
-====
-
+----
 * symbols in da
 * global cleaning
+
 
 Compilation:
 ------------
