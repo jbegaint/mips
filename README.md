@@ -1,38 +1,39 @@
-Simulateur MIPS
-===============
+MIPS Simulator
+==============
 
 TODO
 ====
 
-* fix deliberate(?) leak in load_desc_so
-* clean helpers, utils, des
+* symbols in da
+* global cleaning
 
 Compilation:
 ------------
 
-* make simMips ou make simMips-debug (par défaut)
+* `make simMips` or `make simMips-debug` (by default)
 
-* make check pour lancer les tests
+* `make check` to run test
 
 
-Exécution:
+Execution:
 ----------
 
-* ./simMips pour utiliser le programme en mode intéractif
+* `./simMips` to lauch the simulator
 
-* ./simMips <filename> pour lancer un script (*.simcmd)
+* `./simMips <filename>` to run a script (*.simcmd)
 
-* help pour plus d'informations
+* `help` for more information
 
 (Warning: by default `mipsel-linux-gnu-as` compiles in little endian, use option `-EB` to force big endian.)
 
 
-Auteurs:
+Authors:
 --------
 
 * Bégaint J.
 
 * Revolle M.
+
 
 Links:
 ------
