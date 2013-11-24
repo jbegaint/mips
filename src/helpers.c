@@ -144,10 +144,8 @@ uint get_word_from_addr(ARCH arch, uint address)
 
 void set_word_from_addr(ARCH arch, uint address, uint value)
 {
-	INSTR instr;
 	int section_index, offset;
 
-	instr.word = value;
 	section_index = get_section(arch, address);
 	offset = get_offset(arch, address, section_index);
 
@@ -156,9 +154,7 @@ void set_word_from_addr(ARCH arch, uint address, uint value)
 		return;
 	}
 
-	for (int j = 0; j < 4; j++) {
-		*((arch->sections)[section_index].data + offset + j) = instr.bytes[3-j];
-	}
+	set_word((arch->sections)[section_index].data + offset, value);
 }
 
 uint get_word(unsigned char* data) 
