@@ -108,8 +108,8 @@ int execute_cmd_lr(ARCH arch, char** args)
 	(arch->registers)[reg] = (uint) val;
 
 	return CMD_EXIT_SUCCESS;
-
 }
+
 int execute_cmd_dr(ARCH arch, char** args) {
 
 	int reg_index;
@@ -117,12 +117,12 @@ int execute_cmd_dr(ARCH arch, char** args) {
 
 	DEBUG_MSG("Execute dr <register>");
 
-	if (*args == NULL) {
+	if (!*args) {
 		display_reg_all(arch);
 		return CMD_EXIT_SUCCESS;
 	}
 
-	while (*(args+i) != NULL) {
+	while (*(args+i)) {
 
 		DEBUG_MSG("parsing register: %s", *(args+i));
 
@@ -159,7 +159,7 @@ int execute_cmd_lp(ARCH arch, char** args)
 		return CMD_EXIT_FAILURE;
 
 	f = open_file(args[0]);
-	if (f == NULL)
+	if (!f)
 		return CMD_EXIT_FILE_NOT_FOUND;
 	fclose(f);
 	DEBUG_MSG("file closed");
@@ -185,7 +185,7 @@ int execute_cmd_da(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute da <addr>:<instr>");
 
-	if (*(args+1) == NULL)
+	if (!*(args+1))
 		return CMD_EXIT_ERROR;
 
 	if (strcmp(*(args+1), ":") != 0) {
@@ -251,7 +251,7 @@ int execute_cmd_dm(ARCH arch, char** args)
 			return CMD_EXIT_ERROR;
 		}
 	}
-	else if (*(args+1) == NULL) {
+	else if (!(*(args+1))) {
 		DEBUG_MSG("execute dm <address>");
 		return display_one_addr(arch, args);
 	}
@@ -284,7 +284,7 @@ int execute_cmd_run(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute run [address]");
 
-	if (*args == NULL) {
+	if (!(*args)) {
 		run(arch, 0);
 		return CMD_EXIT_SUCCESS;
 	}
@@ -418,13 +418,13 @@ int execute_cmd_help(ARCH arch, char** args)
 	UNUSED(arch);
 	struct command* command;
 
-	if (*args == NULL) {
+	if (!(*args)) {
 		print_help_all();
 		return CMD_EXIT_SUCCESS;
 	}
 
 	command = find_cmd(args[0]);
-	if (command == NULL)
+	if (!command)
 		return CMD_NOT_FOUND;
 
 	print_help(command);

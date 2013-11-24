@@ -103,9 +103,9 @@ void parse_token(char* delim, char* token, char** args, int* i)
 	char* subtoken;
 
 	for (str2 = token; ; str2 = NULL, (*i)++) {
-		if ((subtoken = strtok(str2, delim)) == NULL) {
+		if (!(subtoken = strtok(str2, delim)))
 				break;
-		}
+		
 		*(args+*i) = subtoken;
 		*(args+*i+1) = delim;
 	}
@@ -122,13 +122,13 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
 
 	for (i = 0, str1 = str_arg; ; str1 = NULL, i++) {
 
-		if ((token = strtok(str1, delim)) == NULL)
+		if (!(token = strtok(str1, delim)))
 			break;
 
 		*(args+i) = token;
 
 		/* case end of args when parsing file*/
-		if (*(args+i) != NULL) {
+		if (*(args+i)) {
 			if (strcmp("\n", *(args+i)) == 0) {
 				*(args+i) = NULL;
 				break;

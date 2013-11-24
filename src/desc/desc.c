@@ -48,7 +48,7 @@ void init_desc_array(void)
 
 	/* allocate memory */
 	DESC_ARRAY_LENGTH = l;
-	DESC_ARRAY = malloc(DESC_ARRAY_LENGTH * sizeof(DESC));
+	DESC_ARRAY = malloc(sizeof(DESC) * DESC_ARRAY_LENGTH);
 
 	fseek(f, 0, 0);
 

@@ -83,10 +83,7 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 	int res;
 	struct command* command;
 
-	/*char** args = malloc(MAX_ARGS*sizeof(*args));*/
-	/* pb with free to solve */
-
-	char* args[50];
+	char** args = (char**) calloc(sizeof(*args), MAX_ARGS);
 
 	if ((command = find_cmd(cmd)) == NULL)
 		return CMD_NOT_FOUND;
@@ -98,6 +95,8 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 
 	res = command->ptr(arch, args);
 
+	free(args);
+	
 	return res;
 }
 
