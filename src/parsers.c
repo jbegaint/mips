@@ -127,6 +127,15 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
 
 		*(args+i) = token;
 
+		/* case end of args when parsing file*/
+		if (*(args+i) != NULL) {
+			if (strcmp("\n", *(args+i)) == 0) {
+				*(args+i) = NULL;
+				break;
+			}
+		}
+
+		/* search for additional args pattern */
 		if ((found_colon = strchr(token, ':')) && strlen(token) > 1)
 			parse_token(":", token, args, &i);
 

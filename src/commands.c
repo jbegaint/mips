@@ -289,6 +289,7 @@ int execute_cmd_run(ARCH arch, char** args)
 		return CMD_EXIT_SUCCESS;
 	}
 
+
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 

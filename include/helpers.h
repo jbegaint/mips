@@ -23,11 +23,14 @@ uint get_section_end(ARCH, int);
 
 uint get_word_from_addr(ARCH, uint);
 void set_word_from_addr(ARCH, uint, uint);
+uint get_word(unsigned char*);
+void set_word(unsigned char*, uint);
 
 void print_decoded_instruction(ARCH, uint);
 void print_instruction_bytes(INSTR);
 INSTR get_instr_from_addr(ARCH, uint);
 
 int get_desc_id(char*);
+
 
 #endif

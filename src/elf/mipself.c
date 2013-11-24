@@ -40,6 +40,7 @@
 #include "notify.h"
 #include "utils.h"
 #include "arch/arch.h"
+#include "helpers.h"
 
 
 
@@ -495,9 +496,8 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
     Elf32_Rel *reloc_table;
     int type, sym;
-    uint32_t offset, S, A, V, P;
+    uint32_t offset, S, A, A1, V, P;
     uint32_t AHL, AHI, ALO;
-    word_t w, w1;
 
 
     if (data->d_size > 0) {
@@ -510,22 +510,9 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
             sym = ELF32_R_SYM((reloc_table+i)->r_info);
             offset = (uint32_t) (reloc_table+i)->r_offset;
 
-            switch (sym) {
-                case 1:
-                    S = (EnsZones[TEXT].exportSection)->start_addr;
-                    break;
-                case 2:
-                    S = (EnsZones[DATA].exportSection)->start_addr;
-                    break;
-            }
-
-            /* get A */
-            for (int j = 0; j < 4; j++) {
-                w.bytes[3-j] = *(Zone->exportSection->data + offset + j);
-                w1.bytes[3-j] = *(Zone->exportSection->data + 4 + offset + j);
-            }
-            A = w.word;
+            S = (EnsZones[sym-1].exportSection)->start_addr;
             P = offset;
+            A = get_word(Zone->exportSection->data + offset);
 
             switch (type) {
                 case R_MIPS_32:
@@ -537,24 +524,25 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
                 case R_MIPS_26:
                     DEBUG_MSG("R_MIPS_26");
-
                     V = ((A << 2) | ((P & 0xf0000000) + S)) >> 2;
                     break;
 
                 case R_MIPS_HI16:
                     DEBUG_MSG("R_MIPS_HI16");
 
+                    A1 = get_word(Zone->exportSection->data + 4 + offset);
+
                     /* get 4 least significant bytes */
                     AHI = (A & 0xffff);
-                    ALO = (w1.word & 0xffff);
+                    ALO = (A1 & 0xffff);
                     AHL = (AHI << 16) + (short) ALO;
 
                     fprintf(stderr, "AHI %08x\n", AHI);
                     fprintf(stderr, "ALO %08x\n", ALO);
                     fprintf(stderr, "AHL %08x\n", AHL);
 
-                    V = (AHL + S - (short) AHL + S) >> 16;
-                    V = A + (V >> 16);
+                    V = (AHL + S - (short) (AHL + S)) >> 16;
+                    V = ((A >> 16) << 16) + V ;
 
                     break;
 
@@ -563,7 +551,8 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
                     /* as a LO16 is always preceded by a HI16, AHL has been calculated last loop increment*/
                     V = AHL + S;
-                    V = A + (V >> 16);
+                    fprintf(stderr, "%08x\n", V);
+                    V = ((A >> 16) << 16) + V ;
 
                     break;
 
@@ -572,16 +561,13 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
                     return;
             }
 
+            fprintf(stderr, "SYM %d\n", sym);
             fprintf(stderr, "S %08x\n", S);
             fprintf(stderr, "A %08x\n", A);
             fprintf(stderr, "P %08x\n", P);
             fprintf(stderr, "V %08x\n", V);
-            fprintf(stderr, "SYM %d\n", sym);
 
-            w.word = V;
-            for (int j = 0; j < 4; j++) {
-                *((Zone->exportSection)->data + P + j) = w.bytes[3-j];
-            }
+            set_word((Zone->exportSection)->data + P, V);
         }
     }
 }
@@ -806,8 +792,8 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
     }
 
     // RELOCATIONS
-    relocZone(Text, EnsZones) ;
-    relocZone(Data, EnsZones) ;
+    relocZone(Text, EnsZones);
+    relocZone(Data, EnsZones);
     // on ignore les relocations en Bss
 
 
