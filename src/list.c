@@ -19,10 +19,9 @@ list_t add_head(void* elt, list_t head, size_t size_elt)
 		return NULL;
 
 	new->val = (void*) malloc(size_elt);
-
 	memcpy(new->val, elt, size_elt);
-
 	new->next = head;
+
 	return new;
 }
 
@@ -116,6 +115,7 @@ int cmp_val_int(void* elt_1, void* elt_2)
 		return 1;
 	else if (*(uint32_t*) elt_1 == *(uint32_t*) elt_2)
 		return 2;
+	
 	return 0;
 }
 

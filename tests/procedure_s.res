@@ -2,7 +2,7 @@ CMD TEST RESULT 0xb
 ADDI $9, $0, 8
 ADD $10, $0, $9
 SLL $9, $9, $2
-JAL 9
+JAL 24
 SRL $9, $9, $2
 JR $31 
 BEQ $9, $10, 5

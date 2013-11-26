@@ -13,7 +13,7 @@ void display(uint32_t word, FILE* stream)
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stream,"SW $%u, %u($%u)\n", rt, immediate, rs);
+    fprintf(stream,"SW $%u, %x($%u)\n", rt, immediate, rs);
 }
 
 void execute(ARCH arch, uint32_t word)

@@ -11,7 +11,7 @@ void display(uint32_t word, FILE* stream)
 {
     uint target;
     parser_typeJ(word, &target);
-    fprintf(stream,"J %u\n", target);
+    fprintf(stream,"J %x\n", target << 2);
 }
 
 void execute(ARCH arch, uint32_t word)

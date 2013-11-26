@@ -28,7 +28,7 @@ ARCH init_simu(void)
 			return NULL;
 	}
 
-	for ( int i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		print_section_info(arch->sections[i]);
 
 	return arch;

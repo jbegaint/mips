@@ -26,7 +26,7 @@ void del_breakpoint_by_id(ARCH arch, int id)
 	arch->breakpoints = (list_t) del_elt_n(arch->breakpoints, id);
 }
 
-void del_breakpoint_by_addr(ARCH arch, uint address) 
+void del_breakpoint_by_addr(ARCH arch, uint address)
 {
 	int id;
 	if ((id = get_breakpoint_id(arch, address)) != -1)
@@ -48,19 +48,17 @@ void display_breakpoints(ARCH arch)
 	uint val;
 
 	for (list_t list = arch->breakpoints; !is_list_empty(list); list = list->next) {
-		val = *(uint*) list->val;
+		val = *(uint *) list->val;
 		printf("%08x  ", val);
 		print_decoded_instruction(arch, val);
 	}
 }
 
-
 /* SECTIONS */
-uint get_section_end(ARCH arch, int section_id) 
+uint get_section_end(ARCH arch, int section_id)
 {
 	return arch->sections[section_id].start_addr + arch->sections[section_id].size;
 }
-
 
 /* REGISTERS */
 void reset_registers(ARCH arch)
@@ -102,14 +100,13 @@ int get_register_bit(ARCH arch, int reg_index, int bit_index)
 	return bit;
 }
 
-
 /* INSTRUCTIONS */
 void print_decoded_instruction(ARCH arch, uint address)
 {
 	INSTR instr;
 
 	for (int j = 0; j < 4; j++)
-		get_byte(arch, address + j, &(instr.bytes[3-j]));
+		get_byte(arch, address + j, &(instr.bytes[3 - j]));
 
 	print_instruction_bytes(instr);
 	display_instruction(instr.word, stdout);
@@ -118,7 +115,7 @@ void print_decoded_instruction(ARCH arch, uint address)
 void print_instruction_bytes(INSTR instr)
 {
 	for (int i = 0; i < 4; i++)
-		printf("%02x ", instr.bytes[3-i]);
+		printf("%02x ", instr.bytes[3 - i]);
 }
 
 INSTR get_instr_from_addr(ARCH arch, uint address)
@@ -126,11 +123,10 @@ INSTR get_instr_from_addr(ARCH arch, uint address)
 	INSTR instr;
 
 	for (int j = 0; j < 4; j++)
-		get_byte(arch, address + j, &(instr.bytes[3-j]));
+		get_byte(arch, address + j, &(instr.bytes[3 - j]));
 
 	return instr;
 }
-
 
 /* BYTES */
 uint get_word_from_addr(ARCH arch, uint address)
@@ -157,28 +153,27 @@ void set_word_from_addr(ARCH arch, uint address, uint value)
 	set_word((arch->sections)[section_index].data + offset, value);
 }
 
-uint get_word(unsigned char* data) 
+uint get_word(unsigned char *data)
 {
 	word_t w;
 	for (int j = 0; j < 4; j++) {
-		w.bytes[3-j] = *(data + j);
+		w.bytes[3 - j] = *(data + j);
 	}
 
 	return w.word;
 }
 
-void set_word(unsigned char* data, uint value)
+void set_word(unsigned char *data, uint value)
 {
 	word_t w;
 	w.word = value;
 	for (int j = 0; j < 4; j++) {
-		*(data + j) = w.bytes[3-j];
+		*(data + j) = w.bytes[3 - j];
 	}
 }
 
-
 /* DESC */
-int get_desc_id(char* desc_name)
+int get_desc_id(char *desc_name)
 {
 	for (int i = 0; i < DESC_ARRAY_LENGTH; i++) {
 		if (strcmp(desc_name, DESC_ARRAY[i].name) == 0)

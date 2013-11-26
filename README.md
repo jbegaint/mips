@@ -41,3 +41,6 @@ Links:
 * http://stackoverflow.com/questions/384121/creating-a-module-system-dynamic-loading-in-c
 
 * http://stackoverflow.com/questions/47981/how-do-you-set-clear-and-toggle-a-single-bit-in-c
+
+
+`indent -kr -i8 -l80 -ss`

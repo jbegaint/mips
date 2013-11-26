@@ -70,7 +70,7 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 		/* skip to next section, if what remains is empty */
 		if (section_index != -1 && section_index < 2) {
 			if (c  == (arch->sections[section_index]).size) {
-					i = arch->sections[section_index+1].start_addr - 1;
+				i = arch->sections[section_index+1].start_addr - 1;
 				c = 0;
 				continue; 
 			}
@@ -81,18 +81,19 @@ int display_range_addr(ARCH arch, uint addr_start, int bytes_nb)
 	    
 	    if (section_index != section_index_old && section_index >= 0) {
 	    	switch (section_index) {
-				case TEXT:
-					printf("=== section .text");
-					break;
+			case TEXT:
+				printf("=== section .text");
+				break;
 
-				case BSS:
-					printf("\n=== section .bss");
-					break;
-				
-				case DATA:
-					printf("\n=== section .data");
-					break;	
-	    	 }
+			case BSS:
+				printf("\n=== section .bss");
+				break;
+			
+			case DATA:
+				printf("\n=== section .data");
+				break;	
+	    	}
+	    	
 		    if (arch->sections[section_index].size < (uint) bytes_nb - i)
 		    	printf(" (%d", arch->sections[section_index].size);
 		    else
