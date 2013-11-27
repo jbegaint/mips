@@ -7,12 +7,16 @@
 #include "helpers.h"
 
 
-void display(uint32_t word, FILE* stream)
+void display(uint32_t word, FILE* stream, ARCH arch)
 {
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stream,"BEQ $%u, $%u, %u\n", rs, rt, immediate);
+
+    /*fprintf(stderr, "%08x\n", get_register(arch, PC));*/
+
+    fprintf(stream,"BEQ $%u, $%u, %x", rs, rt, (int16_t)(immediate << 2) + get_register(arch, PC));
+    display_jump_reloc_symbol(arch, (immediate << 2) + get_register(arch, PC));
 }
 
 void execute(ARCH arch, uint32_t word)

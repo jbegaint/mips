@@ -27,8 +27,9 @@ void run(ARCH arch, int flag)
 
 		set_register(arch, PC, get_register(arch, PC) + 4);
 		
+		/*fprintf(stderr, "PC: %08x\n",  get_register(arch, PC));*/
+		display_instruction(arch, instr.word, stdout);
 		execute_instruction(arch, instr.word);
-		display_instruction(instr.word, stdout);
 
 		if (get_breakpoint_id(arch, get_register(arch, PC)) != -1) {
 			arch->state = PAUSED;

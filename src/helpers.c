@@ -109,7 +109,7 @@ void print_decoded_instruction(ARCH arch, uint address)
 		get_byte(arch, address + j, &(instr.bytes[3 - j]));
 
 	print_instruction_bytes(instr);
-	display_instruction(instr.word, stdout);
+	display_instruction(arch, instr.word, stdout);
 }
 
 void print_instruction_bytes(INSTR instr)
@@ -188,6 +188,15 @@ void display_reloc_symbol(ARCH arch, uint addr)
 	for (uint l = 6; l < arch->SymbolNum; l++) {
 		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
 				fprintf(stdout, "\n<%s>:\n", getName((arch->SymbolTable + l)->st_name));
+			}
+		}
+}
+
+void display_jump_reloc_symbol(ARCH arch, uint addr)
+{
+	for (uint l = 6; l < arch->SymbolNum; l++) {
+		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
+				fprintf(stdout, " <%s>\n", getName((arch->SymbolTable + l)->st_name));
 			}
 		}
 }
