@@ -9,7 +9,7 @@ ARCH init_simu(void)
 	section_t* section_ptr;
 	ARCH arch;
 
-	arch = calloc(sizeof(*arch), 1);
+	arch = calloc(1, sizeof(*arch));
 	if (arch == NULL)
 		return NULL;
 
@@ -41,6 +41,8 @@ void free_arch(ARCH arch)
 		free((arch->sections[i]).name);
 		free((arch->sections[i]).data);
 	}
+
+	free(arch->SymbolTable);
 
 	free(arch);
 }

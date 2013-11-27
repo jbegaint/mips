@@ -37,7 +37,6 @@
 
 typedef section_t SectionELF;
 
-
 /*--------------------------------------------------------------------------*/
 /**
  * @brief Type de données zone
@@ -90,6 +89,5 @@ void addSymbol (unsigned long adr, char *ident);
 char *getAddressName (unsigned long adr);
 
 
-int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSection, SectionELF *bssSection);
-
+int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSection, SectionELF *bssSection, ARCH);
 #endif

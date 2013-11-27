@@ -83,7 +83,7 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 	int res;
 	struct command* command;
 
-	char** args = (char**) calloc(sizeof(*args), MAX_ARGS);
+	char** args = (char**) calloc(MAX_ARGS, sizeof(*args));
 
 	if ((command = find_cmd(cmd)) == NULL)
 		return CMD_NOT_FOUND;

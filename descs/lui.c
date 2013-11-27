@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "arch/arch.h"
+#include "notify.h"
 
 #include "instructions/parser_instructions.h"
 

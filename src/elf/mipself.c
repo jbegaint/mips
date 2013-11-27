@@ -56,8 +56,8 @@ static Elf32_Word StringTableSize ;
 
 /*--------------------------------------------------------------------------*/
 /* Table des symboles                                                       */
-static Elf32_Sym *SymbolTable = NULL ;
-static Elf32_Word SymbNum ; /* nombre de symboles */
+static Elf32_Sym *SymbolTable = NULL;
+static Elf32_Word SymbNum = 0; /* nombre de symboles */
 static Elf32_Word SymbInd ; /* index de la section table des symboles dans le elf */
 
 
@@ -594,7 +594,7 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 *
 */
 
-int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSection, SectionELF *bssSection)
+int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSection, SectionELF *bssSection, ARCH arch)
 {
 
     // Sections qui nous interessent
@@ -778,6 +778,11 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
     relocZone(Data, EnsZones);
     // on ignore les relocations en Bss
 
+
+    /* copy symbol table */
+    arch->SymbolTable = calloc(SymbNum, sizeof(*SymbolTable));
+    arch->SymbolNum = SymbNum;
+    memcpy(arch->SymbolTable, SymbolTable, SymbNum * sizeof(*SymbolTable)); 
 
     /* FREE THE MALLOCS */
     free(Text->rel_name);

@@ -181,3 +181,13 @@ int get_desc_id(char *desc_name)
 	}
 	return -1;
 }
+
+
+void display_reloc_symbol(ARCH arch, uint addr)
+{
+	for (uint l = 6; l < arch->SymbolNum; l++) {
+		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
+				fprintf(stdout, "\n<%s>:\n", getName((arch->SymbolTable + l)->st_name));
+			}
+		}
+}

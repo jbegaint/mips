@@ -27,7 +27,6 @@
 #include "simMips.h"
 #include "utils.h"
 
-
 int execute_cmd_ex()
 {
 	DEBUG_MSG("Bye Dave");
@@ -168,7 +167,7 @@ int execute_cmd_lp(ARCH arch, char** args)
 	reset_registers(arch);
 	arch->state = NOT_STARTED;
 
-	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]));
+	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]), arch);
 
 	if (res != 0)
 		return CMD_EXIT_FAILURE;
@@ -214,6 +213,9 @@ int execute_cmd_da(ARCH arch, char** args)
 	}
 
 	for (i = 0; i < instr; i++) {
+
+		display_reloc_symbol(arch, addr + 4*i);
+
 		for (j = 0; j < 4; j++) {
 
 			if (get_byte(arch, addr + 4*i + j, &(lgn_instr.bytes[3-j])) == BYTE_NOT_ALLOCATED)
@@ -224,11 +226,12 @@ int execute_cmd_da(ARCH arch, char** args)
 
 			display_byte(arch, addr + 4*i + j);
 		}
-	
+
 		if (display_instruction(lgn_instr.word, stdout) == -1) {
 			printf("\n");
 			WARNING_MSG("no match, unknown instruction");
 		}
+
 	}
 
 	return CMD_EXIT_SUCCESS;

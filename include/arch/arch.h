@@ -2,7 +2,8 @@
 #define _ARCH_H_
 
 #include <stdint.h>
-#include <list.h>
+#include "list.h"
+#include "elf/elfimport.h"
 
 #define TEXT 0
 #define DATA 1
@@ -38,6 +39,8 @@ typedef struct
 	section_t sections[3];
 	state_t state;
 	list_t breakpoints;
+	Elf32_Sym* SymbolTable;
+	Elf32_Word SymbolNum;
 } *ARCH;
 
 typedef union
