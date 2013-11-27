@@ -11,7 +11,7 @@ void display(uint32_t word, FILE* stream, ARCH arch)
 {
     uint target;
     parser_typeJ(word, &target);
-    fprintf(stream,"J %x\n", target << 2);
+    fprintf(stream,"J %x", target << 2);
     display_jump_reloc_symbol(arch, target << 2);
 }
 

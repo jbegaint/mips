@@ -182,21 +182,33 @@ int get_desc_id(char *desc_name)
 	return -1;
 }
 
-
-void display_reloc_symbol(ARCH arch, uint addr)
+char* get_symbol_name(ARCH arch, uint addr)
 {
 	for (uint l = 6; l < arch->SymbolNum; l++) {
 		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
-				fprintf(stdout, "\n<%s>:\n", getName((arch->SymbolTable + l)->st_name));
-			}
+			return getName((arch->SymbolTable + l)->st_name);
 		}
+	}
+
+	return NULL;
+}
+
+void display_reloc_symbol(ARCH arch, uint addr)
+{
+	char* symbol_name;
+
+	symbol_name = get_symbol_name(arch, addr);
+
+	if (symbol_name)
+		fprintf(stdout, "\n<%s>:\n", symbol_name);
 }
 
 void display_jump_reloc_symbol(ARCH arch, uint addr)
 {
-	for (uint l = 6; l < arch->SymbolNum; l++) {
-		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
-			fprintf(stdout, " <%s>\n", getName((arch->SymbolTable + l)->st_name));
-		}
-	}
+	char* symbol_name;
+
+	symbol_name = get_symbol_name(arch, addr);
+
+	if (symbol_name)
+		fprintf(stdout, " <%s>\n", symbol_name);
 }
