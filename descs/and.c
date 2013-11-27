@@ -26,6 +26,11 @@ void execute(ARCH arch, uint32_t word)
 	val_rs = (arch->registers)[rs];
 	val_rt = (arch->registers)[rt];
 	
+	if (rd == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 	(arch->registers)[rd] = val_rs & val_rt;
 	
 	bit_sign = parser_instr(val_rs & val_rt, 31, 31);

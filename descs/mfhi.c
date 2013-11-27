@@ -5,6 +5,7 @@
 
 #include "instructions/parser_instructions.h"
 #include "helpers.h"
+#include "notify.h"
 
 
 void display(uint32_t word, FILE* stream)
@@ -20,5 +21,11 @@ void execute(ARCH arch, uint32_t word)
     uint rs, rt, rd, sa;
     
 	parser_typeR(word, &rs, &rt, &rd, &sa);
+
+	if ( rd == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 	(arch->registers)[rd] = get_register(arch, HI);
 }

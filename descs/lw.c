@@ -26,6 +26,11 @@ void execute(ARCH arch, uint32_t word)
 	val_rs = (arch->registers)[rs];
 	result = val_rs + immediate;
 
+	if ( rt == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 	test = parser_instr(result , 0, 1);
 	if (test != 0)
 		WARNING_MSG("error address");	

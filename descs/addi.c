@@ -5,7 +5,7 @@
 #include "arch/arch.h"
 
 #include "instructions/parser_instructions.h"
-
+#include "notify.h"
 #include "helpers.h"
 
 
@@ -27,12 +27,19 @@ void execute(ARCH arch, uint32_t word)
     parser_typeI(word, &rs, &rt, &immediate);
 	val_rs = (arch->registers)[rs];
 
+	if ( rt == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 	add = val_rs + immediate;
 
 	if (add > (uint32_t) add) {
 		/* implement set bit sr */
 		set_register_bit(arch, SR, 11);
 		set_register_bit(arch, SR, 0);
+
+		(arch->registers)[rt] = 0xFFFFFFFF & add;
 	}
 	else {
 		(arch->registers)[rt] = add;
