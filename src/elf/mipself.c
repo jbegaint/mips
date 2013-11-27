@@ -516,9 +516,6 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
                 case R_MIPS_32:
                     DEBUG_MSG("R_MIPS_32");
                     V = S + A;
-                    fprintf(stderr, "%08x\n", A);
-                    fprintf(stderr, "%08x\n", S);
-                    fprintf(stderr, "%08x\n", V);
                     break;
 
                 case R_MIPS_26:
@@ -786,11 +783,6 @@ int mipsloader(const char *filename, SectionELF *textSection, SectionELF *dataSe
     arch->SymbolTable = calloc(SymbNum, sizeof(*SymbolTable));
     arch->SymbolNum = SymbNum;
     memcpy(arch->SymbolTable, SymbolTable, SymbNum * sizeof(*SymbolTable)); 
-
-    /* print reloc table */
-    for (uint j = 1; j < SymbNum; j++) {
-        fprintf(stdout, "%x %s\n", (arch->SymbolTable + j)->st_value, getName((arch->SymbolTable + j)->st_name));
-    }
 
     /* FREE THE MALLOCS */
     free(Text->rel_name);

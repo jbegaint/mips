@@ -16,7 +16,8 @@ void display(uint32_t word, FILE* stream, ARCH arch)
     /*fprintf(stderr, "%08x\n", get_register(arch, PC));*/
 
     fprintf(stream,"BEQ $%u, $%u, %x", rs, rt, (int16_t)(immediate << 2) + get_register(arch, PC));
-    display_jump_reloc_symbol(arch, (immediate << 2) + get_register(arch, PC));
+    fprintf(stream, "\n");
+    /*display_jump_reloc_symbol(arch, (immediate << 2) + get_register(arch, PC));*/
 }
 
 void execute(ARCH arch, uint32_t word)
