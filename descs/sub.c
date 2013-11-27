@@ -5,6 +5,7 @@
 #include "helpers.h"
 
 #include "instructions/parser_instructions.h"
+#include "notify.h"
 
 
 void display(uint32_t word, FILE* stream)
@@ -26,9 +27,20 @@ void execute(ARCH arch, uint32_t word)
 	val_rs = (arch->registers)[rs];
 	val_rt = (arch->registers)[rt];
 
+	if ( rd == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
+
 	result = val_rs - val_rt;
-	if ( abs(result) > 0x7FFFFFFF)
-		set_register(arch, SR, 2049);
+	if ( result > (uint32_t)result){
+		/* implement set bit sr */
+		set_register_bit(arch, SR, 11);
+		set_register_bit(arch, SR, 0);
+
+		(arch->registers)[rd] = 0xFFFFFFFF & result;
+	}
 	else {
 		(arch->registers)[rd] = result;
 

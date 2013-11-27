@@ -20,7 +20,12 @@ void execute(ARCH arch, uint32_t word)
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-	
+
+	if ( rt == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 	(arch->registers)[rt] = immediate << 16;
 }
 

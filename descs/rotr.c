@@ -4,6 +4,7 @@
 #include "arch/arch.h"
 
 #include "instructions/parser_instructions.h"
+#include "notify.h"
 
 void display(uint32_t word, FILE* stream)
 {
@@ -24,6 +25,12 @@ void execute(ARCH arch, uint32_t word)
 
     parser_typeR(word,&rs,&rt,&rd,&sa);
 	val_rt = (arch->registers)[rt];
+
+	if ( rd == 0) {
+		WARNING_MSG("modifcation register $0");
+		return;
+	}
+
 
     for (i = 0; i < sa; i++){
         isol_low |= (1<<i) ;
