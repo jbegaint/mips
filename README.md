@@ -3,8 +3,8 @@ MIPS Simulator
 
 TODO
 ----
-* symbols in da
 * global cleaning
+* assembly instructions test
 
 
 Compilation:
@@ -12,7 +12,7 @@ Compilation:
 
 * `make simMips` or `make simMips-debug` (by default)
 
-* `make check` to run test
+* `make check` to run test files
 
 
 Execution:
