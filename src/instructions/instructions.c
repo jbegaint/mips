@@ -12,14 +12,14 @@
 
 #include "notify.h"
 
-int display_instruction(uint word, FILE* stream)
+int display_instruction(ARCH arch, uint word, FILE* stream)
 {
     int c;
 
     if ((c = get_instr(word)) == NO_MATCH)
         return NO_MATCH;
 
-    DESC_ARRAY[c].display(word, stream);
+    DESC_ARRAY[c].display(word, stream, arch);
 
     return MATCH;
 }

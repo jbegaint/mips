@@ -33,6 +33,7 @@ INSTR get_instr_from_addr(ARCH, uint);
 int get_desc_id(char*);
 
 void display_reloc_symbol(ARCH, uint);
+void display_jump_reloc_symbol(ARCH, uint);
 
 
 #endif

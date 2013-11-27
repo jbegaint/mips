@@ -213,7 +213,6 @@ int execute_cmd_da(ARCH arch, char** args)
 	}
 
 	for (i = 0; i < instr; i++) {
-
 		display_reloc_symbol(arch, addr + 4*i);
 
 		for (j = 0; j < 4; j++) {
@@ -227,7 +226,7 @@ int execute_cmd_da(ARCH arch, char** args)
 			display_byte(arch, addr + 4*i + j);
 		}
 
-		if (display_instruction(lgn_instr.word, stdout) == -1) {
+		if (display_instruction(arch, lgn_instr.word, stdout) == -1) {
 			printf("\n");
 			WARNING_MSG("no match, unknown instruction");
 		}

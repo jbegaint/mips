@@ -7,11 +7,12 @@
 #include "helpers.h"
 
 
-void display(uint32_t word, FILE* stream)
+void display(uint32_t word, FILE* stream, ARCH arch)
 {
     uint target;
     parser_typeJ(word, &target);
     fprintf(stream,"JAL %x", target << 2);
+    display_jump_reloc_symbol(arch, target << 2);
 }
 
 void execute(ARCH arch, uint32_t word)

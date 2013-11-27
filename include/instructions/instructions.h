@@ -5,7 +5,7 @@
 
 #include "arch/arch.h"
 
-int display_instruction(uint32_t, FILE*);
+int display_instruction(ARCH, uint32_t, FILE*);
 int execute_instruction(ARCH, uint32_t);
 
 #endif
