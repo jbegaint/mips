@@ -192,7 +192,6 @@ int execute_cmd_da(ARCH arch, char** args)
 		return CMD_EXIT_ERROR;
 	}
 
-
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
 

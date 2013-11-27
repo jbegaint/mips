@@ -196,7 +196,7 @@ void display_jump_reloc_symbol(ARCH arch, uint addr)
 {
 	for (uint l = 6; l < arch->SymbolNum; l++) {
 		if (addr == (arch->SymbolTable + l)->st_value && (arch->SymbolTable + l)->st_shndx == 1) {
-				fprintf(stdout, " <%s>\n", getName((arch->SymbolTable + l)->st_name));
-			}
+			fprintf(stdout, " <%s>\n", getName((arch->SymbolTable + l)->st_name));
 		}
+	}
 }
