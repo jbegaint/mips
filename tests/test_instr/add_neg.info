@@ -1,0 +1,3 @@
+5 + (-8) = -3 en hexa 5 + FFFFFFF8 = FFFFFFFD
+
+Résultat négatif donc SR passe à 128

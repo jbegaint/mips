@@ -1,0 +1,9 @@
+lp res/test_inst/add_test.o
+
+lr $7 80000000
+lr $8 80000000
+
+run
+
+dr $9
+dr SR
