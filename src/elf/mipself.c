@@ -499,7 +499,6 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
     uint32_t S, A, A1, V, P;
     uint32_t AHL, AHI, ALO;
 
-
     if (data->d_size > 0) {
 
         reloc_table = (Elf32_Rel*) data->d_buf;
@@ -535,6 +534,7 @@ static void relocZone(MemZone *Zone,  MemZone *EnsZones) {
 
                     V = (AHL + S - (short) (AHL + S)) >> 16;
                     V = ((A >> 16) << 16) + V ;
+
                     break;
 
                 case R_MIPS_LO16:
