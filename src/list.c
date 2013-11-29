@@ -62,13 +62,8 @@ list_t del_head(list_t head)
 	if (is_list_empty(head))
 		return NULL;
 
-	new = (list_t) malloc(sizeof(*new));
-
-	if (new == NULL)
-		return NULL;
-
 	new = head->next;
-	free(head);
+	free_list(head);
 
 	return new;
 }
@@ -151,7 +146,13 @@ list_t del_elt_n(list_t list, int n)
 
 	tmp = l->next;
 	l->next = tmp->next;
-	free(tmp);
+	free_list(tmp);
 	
 	return list;
+}
+
+void free_list(list_t list)
+{
+	free(list->val);
+	free(list);
 }
