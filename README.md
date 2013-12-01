@@ -6,8 +6,6 @@ TODO
 * global cleaning
 * assembly instructions test
 
-* db output
-
 Compilation:
 ------------
 

@@ -14,7 +14,7 @@ ARCH init_simu(void)
 	if (arch == NULL)
 		return NULL;
 
-	/* temporary, should be remove next step */
+	/* temporary alloc, mostly useful for tests */
 
 	arch->sections[TEXT].start_addr = 0x400;
 	arch->sections[BSS].start_addr = 0xc00;
@@ -43,12 +43,15 @@ void free_arch(ARCH arch)
 		free((arch->sections[i]).data);
 	}
 
+	/* free symboltable */
 	free(arch->SymbolTable);
 
+	/* free breakpoints list */
 	if (!is_list_empty(arch->breakpoints)) {
 		fprintf(stderr, "free breakpoints\n");
 		free_list(arch->breakpoints);
 	}
 
+	/* last but not least */
 	free(arch);
 }
