@@ -28,6 +28,7 @@ void init_desc_array(void)
 	DESC desc;
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
+	
 	char desc_filename[256];
 	char plugin_filename[80];
 	char buffer[256];
@@ -94,7 +95,5 @@ void init_desc_array(void)
 
 	fclose(f);
 	
-	/*chdir("..");*/
-
 	DEBUG_MSG("End desc files parsing");
 }

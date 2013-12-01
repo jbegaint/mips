@@ -227,18 +227,13 @@ void parse_file(ARCH arch, char* filename)
 	if (f == NULL)
 		die(arch);
 
-	while (res == CMD_EXIT_SUCCESS || res == CMD_QUIT) {
+	while (res == CMD_EXIT_SUCCESS )
 	    switch_return_code(arch, f, &res);
-	    if (res == CMD_QUIT)
-	    	break;
-	}
 
 	close_file(f);
 	 
-	if (res <= 0) {
-		/* error code */
+	if (res <= 0) /* error code*/
 	   	die(arch);
-	}
 }
 
 void parse_interpreter(ARCH arch)
