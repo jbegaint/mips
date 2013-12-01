@@ -161,7 +161,6 @@ void free_list(list_t list)
 {
 	list_t l;
 
-	for (l = list; !is_list_empty(l);) {
+	for (l = list; !is_list_empty(l);)
 		l = del_head(l);
-	}
 }

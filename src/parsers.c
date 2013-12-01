@@ -120,14 +120,14 @@ int parse_args(struct command* cmd, char* str_arg, char** args)
 	char* delim = " ";
 	int i;
 
-	for (i = 0, str1 = str_arg; ; str1 = NULL, i++) {
+	for (i = 0, str1 = str_arg; i < MAX_ARGS - 1; str1 = NULL, i++) {
 
 		if (!(token = strtok(str1, delim)))
 			break;
 
 		*(args+i) = token;
 
-		/* case end of args when parsing file*/
+		/* case end of args when parsing file */
 		if (*(args+i)) {
 			if (strcmp("\n", *(args+i)) == 0) {
 				*(args+i) = NULL;

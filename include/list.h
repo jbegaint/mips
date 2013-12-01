@@ -13,6 +13,7 @@ list_t add_sort(void*, list_t, size_t);
 list_t add_tail(void*, list_t, size_t);
 list_t del_head(list_t);
 list_t del_elt_n(list_t, int);
+
 void free_elt(list_t);
 void free_list(list_t);
 

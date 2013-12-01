@@ -1,0 +1,7 @@
+lp res/relocation.o
+da 0:10
+da 0 : 10
+dm 0:10
+dm 0 : 10
+dm 0~10
+dm 0 ~ 10

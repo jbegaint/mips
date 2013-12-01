@@ -19,7 +19,7 @@
 #include "instructions/instructions.h"
 
 struct command cmd_table[] = {
-	/* name, ptr, usage, help, min, max */
+	/* name, cmd_ptr, usage, help, arg(s) min, args(s) max */
 	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},
 	{"da", execute_cmd_da, "da <address>:<instructions number>", "display assembler", 2, 3},
 	{"db", execute_cmd_db, "", "display break point", 0, 0},
