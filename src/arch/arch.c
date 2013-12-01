@@ -3,6 +3,7 @@
 #include "arch/arch.h"
 
 #include "utils.h"
+#include "list.h"
 
 ARCH init_simu(void)
 {
@@ -43,6 +44,11 @@ void free_arch(ARCH arch)
 	}
 
 	free(arch->SymbolTable);
+
+	if (!is_list_empty(arch->breakpoints)) {
+		fprintf(stderr, "free breakpoints\n");
+		free_list(arch->breakpoints);
+	}
 
 	free(arch);
 }

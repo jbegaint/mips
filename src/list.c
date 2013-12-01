@@ -63,7 +63,7 @@ list_t del_head(list_t head)
 		return NULL;
 
 	new = head->next;
-	free_list(head);
+	free_elt(head);
 
 	return new;
 }
@@ -146,13 +146,22 @@ list_t del_elt_n(list_t list, int n)
 
 	tmp = l->next;
 	l->next = tmp->next;
-	free_list(tmp);
+	free_elt(tmp);
 	
 	return list;
 }
 
-void free_list(list_t list)
+void free_elt(list_t list)
 {
 	free(list->val);
 	free(list);
+}
+
+void free_list(list_t list)
+{
+	list_t l;
+
+	for (l = list; !is_list_empty(l);) {
+		l = del_head(l);
+	}
 }

@@ -52,6 +52,8 @@ void display_breakpoints(ARCH arch)
 		printf("%08x  ", val);
 		print_decoded_instruction(arch, val);
 	}
+
+	printf("\n");
 }
 
 /* SECTIONS */
