@@ -9,9 +9,17 @@
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-int load_desc_so(char* plugin_filename, DESC* desc)
+void load_function(void* plugin, void** f, char* f_name)
 {
 	char* error;
+	*f = dlsym(plugin, f_name);
+
+	if ((error = dlerror()) != NULL)
+		fprintf(stderr, "%s\n", error);
+}
+
+int load_desc_so(char* plugin_filename, DESC* desc)
+{
 	void* plugin;
 	execute_f execute;
 	display_f display;
@@ -23,20 +31,11 @@ int load_desc_so(char* plugin_filename, DESC* desc)
 		return 0;
 	}
 	else {
-		
-		*(void**) &display = dlsym(plugin, "display"); 
+		load_function(plugin, (void **)&display, "display");
+		desc->display = display;
 
-		if ((error = dlerror()) != NULL)
-			fprintf(stderr, "%s\n", error);
-		else
-			desc->display = display;
-
-		*(void**) &execute = dlsym(plugin, "execute");
-
-		if ((error = dlerror()) != NULL)
-			fprintf(stderr, "%s\n", error);
-		else
-			desc->execute = execute;
+		load_function(plugin, (void **)&execute, "execute");
+		desc->execute = execute;
 	}
 
 	return 1;
@@ -47,18 +46,18 @@ void display_desc_array(void)
 	int i;
 
 	for (i = 0; i < DESC_ARRAY_LENGTH; i++) {
-		/* -6 : right padding */
-		/*fprintf(stderr, "%-6s", DESC_ARRAY[i].name);*/
 		display_desc(DESC_ARRAY[i]);
+
 		if ((i+1)%4 == 0)
 			printf("\n");
 	}
 	if ((i+1)%4 != 0)
-			printf("\n");
+		printf("\n");
 }
 
 void display_desc(DESC desc)
 {
+	/* -6: right padding */
 	fprintf(stderr, "%-6s", desc.name);
 	fprintf(stderr, "%c\n", desc.type);
 	fprintf(stderr, "%06d\n", desc.opcode);
