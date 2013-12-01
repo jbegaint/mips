@@ -9,14 +9,12 @@ CFLAGS_RLS=$(CFLAGS) -O2
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE -O0
 CFLAGS_DYNAMIC=$(CFLAGS) -shared -fPIC
 
-
 LDFLAGS=-lreadline -lcurses -lelf -lm -ldl
 LDFLAGS_DYNAMIC=$(LDFLAGS) -rdynamic
 
 SOURCES := $(shell find $(SRC_DIR) -name '*.c' ! -name "mipself_test.c")
 PLUGINS_SRC := $(shell find $(PLUGINS_DIR) -name '*.c')
 
-# list of object files, with paths
 OBJECTS := $(SOURCES:%.c=%.o)
 OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 OBJECTS_SO := $(PLUGINS_SRC:%.c=%.so)
@@ -39,6 +37,8 @@ plugins: $(OBJECTS_SO)
 
 %.so : %.c
 	@gcc $< $(CFLAGS_DYNAMIC) -I$(dir $<)  -o $@
+
+.PHONY: clean doc check
 
 clean:
 	@rm -f $(OBJECTS) $(OBJECTS_DBG)

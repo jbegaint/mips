@@ -2,8 +2,10 @@
 
 #include "arch/arch.h"
 
-#include "utils.h"
+#include "desc/desc.h"
+
 #include "list.h"
+#include "utils.h"
 
 ARCH init_simu(void)
 {
@@ -51,6 +53,9 @@ void free_arch(ARCH arch)
 		fprintf(stderr, "free breakpoints\n");
 		free_list(arch->breakpoints);
 	}
+
+	/* free instructions array*/
+	free_desc_array();
 
 	/* last but not least */
 	free(arch);

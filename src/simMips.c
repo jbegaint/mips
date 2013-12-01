@@ -247,13 +247,12 @@ void parse_interpreter(ARCH arch)
 int main(int argc, char* argv[])
 {
 	ARCH arch = NULL;
-	arch = init_simu();
 
 	print_logo();
-	
-	init_desc_array();
 
 	print_info("Init");
+	arch = init_simu();
+	init_desc_array();
 
 	if (arch == NULL) {
 		print_error("allocation error");
@@ -279,6 +278,5 @@ int main(int argc, char* argv[])
 
 	print_info("Exit");
 	free_arch(arch);
-	free_desc_array();
 	exit(EXIT_SUCCESS);
 }

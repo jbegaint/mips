@@ -21,7 +21,7 @@ void usage(char *arg)
 	@return FILE* or NULL if file does not exist
 */
 
-FILE *open_file(char *filepath)
+FILE* open_file(char *filepath)
 {
 	char buffer[256];
 	FILE *f = NULL;
@@ -123,7 +123,7 @@ void swap_str(char** str1, char** str2)
 	*str2 = tmp;
 }
 
-/* useless but still... */
+/* useless but still ... */
 void print_logo(void)
 {
 	char logo[256] = "  \
@@ -138,8 +138,8 @@ void print_logo(void)
 
 void print_bits(unsigned char val)
 {
-	for (int i = 7; i >= 0; i--) {
+	for (int i = 7; i >= 0; i--)
 		fprintf(stderr, "%d", (val >> i) & 1);
-	}
+
 	fprintf(stderr, "\n");
 }
