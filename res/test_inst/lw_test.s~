@@ -1,0 +1,4 @@
+.set noreorder
+.text 
+
+LW $7, 10(6)
