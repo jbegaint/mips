@@ -8,6 +8,7 @@ typedef struct list_elt {
 	struct list_elt *next;
 } *list_t;
 
+list_t init_list(void);
 list_t add_head(void*, list_t, size_t);
 list_t add_sort(void*, list_t, size_t);
 list_t add_tail(void*, list_t, size_t);

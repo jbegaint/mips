@@ -8,8 +8,10 @@
 #define TEXT 0
 #define DATA 1
 #define BSS 2
+#define STACK 3
 
 /* common purpose registers index */
+#define SP 29
 #define HI 32
 #define LO 33 
 #define SR 34
@@ -36,7 +38,7 @@ typedef enum {
 typedef struct
 {
 	uint registers[36];
-	section_t sections[3];
+	section_t sections[4];
 	state_t state;
 	list_t breakpoints;
 	Elf32_Sym* SymbolTable;
@@ -52,6 +54,7 @@ typedef union
 typedef INSTR word_t;
 
 ARCH init_simu(void);
+void init_stack(ARCH);
 void free_arch(ARCH);
 
 #endif

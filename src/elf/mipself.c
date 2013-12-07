@@ -752,7 +752,6 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	}
 #endif
 
-
 	// CHARGEMENT EN MEMOIRE DES ZONES
 	for (zone = EnsZones, cnt = 0; zone < EnsZones + NUMZONE; zone++) {
 		if (zone->scn != NULL) {	// si la zone est bien présente dans le fichier.
@@ -782,9 +781,8 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	relocZone(Data, EnsZones);
 	// on ignore les relocations en Bss
 
-
 	/* copy symbol table */
-	arch->SymbolTable = calloc(SymbNum, sizeof(*SymbolTable));
+	arch->SymbolTable = (Elf32_Sym*) calloc(SymbNum, sizeof(*SymbolTable));
 	arch->SymbolNum = SymbNum;
 	memcpy(arch->SymbolTable, SymbolTable, SymbNum * sizeof(*SymbolTable));
 

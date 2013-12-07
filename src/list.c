@@ -10,6 +10,11 @@ int is_list_empty(list_t l)
 	return !l;
 }
 
+list_t init_list(void)
+{
+	return NULL;
+}
+
 list_t add_head(void* elt, list_t head, size_t size_elt) 
 {
 	list_t new;

@@ -26,6 +26,7 @@ int execute_cmd_dr(ARCH, char**);
 int execute_cmd_ds(ARCH);
 int execute_cmd_er(ARCH, char**);
 int execute_cmd_ex();
+int execute_cmd_help(ARCH, char**);
 int execute_cmd_lm(ARCH, char**);
 int execute_cmd_lp(ARCH, char**);
 int execute_cmd_lr(ARCH, char**);
@@ -33,8 +34,5 @@ int execute_cmd_run(ARCH, char**);
 int execute_cmd_s(ARCH);
 int execute_cmd_si(ARCH);
 int execute_cmd_testcmd(ARCH, char**);
-
-
-int execute_cmd_help(ARCH, char**);
 
 #endif

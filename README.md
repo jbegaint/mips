@@ -3,6 +3,9 @@ MIPS Simulator
 
 TODO
 ----
+* stack section
+* pipeline implementation
+
 * global cleaning
 * assembly instructions test
 

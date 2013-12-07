@@ -252,6 +252,10 @@ int main(int argc, char* argv[])
 
 	print_info("Init");
 	arch = init_simu();
+
+	/* let's init the stack section */
+	init_stack(arch);
+
 	init_desc_array();
 
 	if (arch == NULL) {
