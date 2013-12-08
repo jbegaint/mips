@@ -22,5 +22,5 @@ char bin_to_dec(char*);
 void swap_str(char**, char**);
 
 void print_logo(void);
-void print_bits(unsigned char);
+void print_bits(uint);
 #endif

@@ -524,6 +524,7 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
 			case R_MIPS_26:
 				DEBUG_MSG("R_MIPS_26");
 				V = ((A << 2) | ((P & 0xf0000000) + S)) >> 2;
+				V = (A & 0xfc000000) + (V & 0x02ffffff);
 				break;
 
 			case R_MIPS_HI16:
@@ -537,7 +538,7 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
 				AHL = (AHI << 16) + (short) ALO;
 
 				V = (AHL + S - (short) (AHL + S)) >> 16;
-				V = ((A >> 16) << 16) + V;
+				V = (A & 0xffff0000) + (V & 0x0000ffff);
 
 				break;
 

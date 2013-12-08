@@ -41,6 +41,7 @@ typedef struct
 	section_t sections[4];
 	state_t state;
 	list_t breakpoints;
+
 	Elf32_Sym* SymbolTable;
 	Elf32_Word SymbolNum;
 } *ARCH;

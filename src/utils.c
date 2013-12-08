@@ -136,9 +136,9 @@ void print_logo(void)
 	fprintf(stderr, "%s\n", logo);
 }
 
-void print_bits(unsigned char val)
+void print_bits(uint val)
 {
-	for (int i = 7; i >= 0; i--)
+	for (int i = 31; i >= 0; i--)
 		fprintf(stderr, "%d", (val >> i) & 1);
 
 	fprintf(stderr, "\n");
