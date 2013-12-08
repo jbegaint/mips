@@ -1,5 +1,0 @@
-.set noreorder
-.text 
-
-ADDI $9, $8, 7
-syscall

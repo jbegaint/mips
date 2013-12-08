@@ -63,14 +63,15 @@ void free_arch(ARCH arch)
 		free((arch->sections[i]).data);
 	}
 
-	/* free symboltable */
-	free(arch->SymbolTable);
+	/* free symbol table */
+	free(arch->symbols);
 
 	/* free breakpoints list */
 	if (!is_list_empty(arch->breakpoints)) {
 		fprintf(stderr, "free breakpoints\n");
 		free_list(arch->breakpoints);
 	}
+
 
 	/* free instructions array*/
 	free_desc_array();

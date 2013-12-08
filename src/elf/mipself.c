@@ -524,7 +524,7 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
 			case R_MIPS_26:
 				DEBUG_MSG("R_MIPS_26");
 				V = ((A << 2) | ((P & 0xf0000000) + S)) >> 2;
-				V = (A & 0xfc000000) + (V & 0x02ffffff);
+				V = (A & 0xfc000000) + (V & 0x2ffffff);
 				break;
 
 			case R_MIPS_HI16:
@@ -538,7 +538,7 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
 				AHL = (AHI << 16) + (short) ALO;
 
 				V = (AHL + S - (short) (AHL + S)) >> 16;
-				V = (A & 0xffff0000) + (V & 0x0000ffff);
+				V = (A & 0xffff0000) + (V & 0xffff);
 
 				break;
 
@@ -783,9 +783,9 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	// on ignore les relocations en Bss
 
 	/* copy symbol table */
-	arch->SymbolTable = (Elf32_Sym*) calloc(SymbNum, sizeof(*SymbolTable));
-	arch->SymbolNum = SymbNum;
-	memcpy(arch->SymbolTable, SymbolTable, SymbNum * sizeof(*SymbolTable));
+	arch->symbols = (Elf32_Sym*) calloc(SymbNum, sizeof(*SymbolTable));
+	arch->symbols_num = SymbNum;
+	memcpy(arch->symbols, SymbolTable, SymbNum * sizeof(*SymbolTable));
 
 	/* FREE THE MALLOCS */
 	free(Text->rel_name);

@@ -185,13 +185,14 @@ int get_desc_id(char *desc_name)
 
 char* get_symbol_name(ARCH arch, uint addr)
 {
+
 	/* 6 offset, as the first symbol concern sections */
-	for (uint l = 6; l < arch->SymbolNum; l++) {
+	for (uint l = 6; l < arch->symbols_num; l++) {
 
 		/* check if correct addr and is in section text */
-		if (addr == (arch->SymbolTable + l)->st_value 
-				&& (arch->SymbolTable + l)->st_shndx == 1) {
-			return getName((arch->SymbolTable + l)->st_name);
+		if (addr == (arch->symbols + l)->st_value 
+				&& (arch->symbols + l)->st_shndx == 1) {
+			return getName((arch->symbols + l)->st_name);
 		}
 	}
 

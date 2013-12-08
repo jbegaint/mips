@@ -42,8 +42,8 @@ typedef struct
 	state_t state;
 	list_t breakpoints;
 
-	Elf32_Sym* SymbolTable;
-	Elf32_Word SymbolNum;
+	Elf32_Sym* symbols;
+	Elf32_Word symbols_num;
 } *ARCH;
 
 typedef union
