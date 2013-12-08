@@ -6,6 +6,7 @@
 #include "instructions/parser_instructions.h"
 #include "helpers.h"
 #include "notify.h"
+#include "utils.h"
 
 
 void display(uint32_t word, FILE* stream)
@@ -31,9 +32,12 @@ void execute(ARCH arch, uint32_t word)
 		return;
 	}
 
-	addi = val_rs + val_rt;
+	addi = (uint64_t) val_rs + (uint64_t) val_rt;
 	
 	if (addi > (uint32_t) addi) {
+		print_info("Overflow");
+		getchar();
+
 		set_register_bit(arch, SR, 11);
 		set_register_bit(arch, SR, 0);
 
