@@ -539,7 +539,6 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
 
 				V = (AHL + S - (short) (AHL + S)) >> 16;
 				V = (A & 0xffff0000) + (V & 0xffff);
-
 				break;
 
 			case R_MIPS_LO16:
@@ -551,7 +550,8 @@ static void relocZone(MemZone * Zone, MemZone * EnsZones)
                  */
 
 				V = AHL + S;
-				V = ((A >> 16) << 16) + V;
+				V = (A & 0xffff0000)  + (V & 0xffff);
+
 				break;
 
 			default:
