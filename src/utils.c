@@ -79,11 +79,11 @@ void print_error(char *str)
 	print_str(str, "Error", 31);
 }
 
-void print_section_info(section_t section)
+void print_section_info(ARCH arch)
 {
-	if (1) {
-		fprintf(stderr, "%s: %08x %d \n", section.name, section.start_addr, section.size);
-	}
+	for (int i = 0; i < 4; i++)
+		fprintf(stderr, "%-7s: %08x %d \n", (arch->sections)[i].name, 
+			(arch->sections)[i].start_addr, (arch->sections)[i].size);
 }
 
 uint get_hash(char *cmd)

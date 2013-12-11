@@ -44,6 +44,7 @@ typedef struct
 
 	Elf32_Sym* symbols;
 	Elf32_Word symbols_num;
+	char* symbols_names; 
 } *ARCH;
 
 typedef union

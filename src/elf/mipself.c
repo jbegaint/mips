@@ -213,12 +213,15 @@ char *getSectionHeaderName(Elf32_Word index)
  */
 char *getName(Elf32_Word index)
 {
+	char* name;
 	if (StringTable == NULL)
 		ERROR_MSG("Table des chaines inexistante");
 	if (index >= StringTableSize) {
 		ERROR_MSG("Num de chaine inexistant %d", (int) index);
 	}
-	return &StringTable[index];
+
+	name = &StringTable[index];
+	return name;
 }
 
 
@@ -787,6 +790,11 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	arch->symbols_num = SymbNum;
 	memcpy(arch->symbols, SymbolTable, SymbNum * sizeof(*SymbolTable));
 
+
+	arch->symbols_names = (char*) calloc(StringTableSize, sizeof(char));
+	memcpy(arch->symbols_names, StringTable, StringTableSize);
+
+	
 	/* FREE THE MALLOCS */
 	free(Text->rel_name);
 	free(Data->rel_name);
@@ -796,6 +804,7 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	printELFSection(textSection);
 	printELFSection(dataSection);
 	printELFSection(bssSection);
+
 
 	close(fd);
 	return 0;

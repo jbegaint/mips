@@ -189,10 +189,11 @@ char* get_symbol_name(ARCH arch, uint addr)
 	/* 6 offset, as the first symbol concern sections */
 	for (uint l = 6; l < arch->symbols_num; l++) {
 
-		/* check if correct addr and is in section text */
-		if (addr == (arch->symbols + l)->st_value 
+		/* check if correct addr and if is in .text section */
+			if (addr == (arch->symbols + l)->st_value 
 				&& (arch->symbols + l)->st_shndx == 1) {
-			return getName((arch->symbols + l)->st_name);
+
+			return (char*) &(arch->symbols_names)[(arch->symbols + l)->st_name];
 		}
 	}
 
@@ -207,6 +208,7 @@ void display_reloc_symbol(ARCH arch, uint addr)
 
 	if (symbol_name)
 		fprintf(stdout, "\n<%s>:\n", symbol_name);
+		/*fprintf(stdout, "%s \n", symbol_name);*/
 }
 
 void display_jump_reloc_symbol(ARCH arch, uint addr)
@@ -219,4 +221,5 @@ void display_jump_reloc_symbol(ARCH arch, uint addr)
 		fprintf(stdout, " <%s>\n", symbol_name);
 	else
 		fprintf(stdout, "\n");
+
 }

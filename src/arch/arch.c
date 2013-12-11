@@ -49,9 +49,6 @@ ARCH init_simu(void)
 
 	/* let's init the stack section */
 	init_stack(arch);
-	
-	for (int i = 0; i < 4; i++)
-		print_section_info(arch->sections[i]);
 
 	arch->breakpoints = init_list();
 
@@ -75,6 +72,7 @@ void free_arch(ARCH arch)
 		free_list(arch->breakpoints);
 	}
 
+	free(arch->symbols_names);
 
 	/* free instructions array*/
 	free_desc_array();
