@@ -5,7 +5,7 @@ SRC_DIR=src
 PLUGINS_DIR=descs
 
 CFLAGS=-I$(INC_DIR) -Wall -Wextra -Wshadow -std=c99 -pedantic
-CFLAGS_RLS=$(CFLAGS) -O2
+CFLAGS_RLS=$(CFLAGS)
 CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -DVERBOSE -O0
 CFLAGS_DYNAMIC=$(CFLAGS) -shared -fPIC
 
