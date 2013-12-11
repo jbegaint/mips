@@ -47,6 +47,9 @@ ARCH init_simu(void)
 			return NULL;
 	}
 
+	/* let's init the stack section */
+	init_stack(arch);
+	
 	for (int i = 0; i < 4; i++)
 		print_section_info(arch->sections[i]);
 

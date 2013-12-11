@@ -15,12 +15,6 @@ void usage(char *arg)
 	printf("Usage: %s [file]\n", arg);
 }
 
-/**
-	Open file from path
-	@param filepath
-	@return FILE* or NULL if file does not exist
-*/
-
 FILE* open_file(char *filepath)
 {
 	char buffer[256];
@@ -87,9 +81,8 @@ void print_error(char *str)
 
 void print_section_info(section_t section)
 {
-	if (0) {
-		printf("Section start_addr: %d\n", section.start_addr);
-		printf("Section size: %d\n", section.size);
+	if (1) {
+		fprintf(stderr, "%s: %08x %d \n", section.name, section.start_addr, section.size);
 	}
 }
 
@@ -133,6 +126,13 @@ void print_logo(void)
 \\__ \\ | | | | | | |  | || ||  __/ ___) | \n\
 |___/_|_| |_| |_|_|  |_|___|_|   |____/ \n \
 " ;
+
+	/* clear shell output */
+	fprintf(stderr, "\033[2J");
+	fprintf(stderr, "\033[%d;%df", 0, 0);
+	fprintf(stderr, "\n");
+
+	/* print logo */
 	fprintf(stderr, "%s\n", logo);
 }
 

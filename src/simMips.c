@@ -250,11 +250,8 @@ int main(int argc, char* argv[])
 
 	print_logo();
 
-	print_info("Init");
+	print_info("Ŝystem init");
 	arch = init_simu();
-
-	/* let's init the stack section */
-	init_stack(arch);
 
 	init_desc_array();
 
@@ -280,7 +277,7 @@ int main(int argc, char* argv[])
 			break;
 	}
 
-	print_info("Exit");
+	print_info("System exit");
 	free_arch(arch);
 	exit(EXIT_SUCCESS);
 }
