@@ -1,9 +1,0 @@
-lp res/test_inst/add_test.o
-
-lr $7 FFFFFFF8
-lr $8 00000008
-
-s
-
-dr $9
-dr SR
