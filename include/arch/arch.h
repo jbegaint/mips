@@ -29,8 +29,7 @@ typedef struct
 } section_t;
 
 typedef enum {
-	NOT_STARTED,
-	STEP,
+	NOT_LOADED,
 	PAUSED,
 	FINISHED
 } state_t;

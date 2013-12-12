@@ -48,8 +48,8 @@ doc:
 	@doxygen
 
 check:
-	./simpleUnitTest.sh -e simMips -b tests/*.simcmd
-
+	./simpleUnitTest.sh -e simMips -b tests/{*.simcmd,*/*.simcmd}
+	
 # for testing purpose 
 mipself_test: src/elf/mipself_test.o src/elf/mipself.o
 	gcc $^ $(CFLAGS) $(LDFLAGS) -o $@

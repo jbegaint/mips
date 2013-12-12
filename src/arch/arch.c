@@ -50,6 +50,7 @@ ARCH init_simu(void)
 	/* let's init the stack section */
 	init_stack(arch);
 
+	arch->state = NOT_LOADED;
 	arch->breakpoints = init_list();
 
 	return arch;

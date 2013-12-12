@@ -15,6 +15,7 @@
 #define CMD_EXIT_INVALID_REG -3
 #define CMD_EXIT_INVALID_REG_VALUE -31
 
+#define CMD_EXIT_NO_OBJECT_FILE -41
 #define CMD_NOT_FOUND -4
 
 int execute_cmd_bp(ARCH, char**);

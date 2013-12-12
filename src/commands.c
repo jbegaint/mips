@@ -165,7 +165,8 @@ int execute_cmd_lp(ARCH arch, char** args)
 
 	reset_breakpoints(arch);
 	reset_registers(arch);
-	arch->state = NOT_STARTED;
+
+	arch->state = PAUSED;
 
 	res = mipsloader(args[0],  &(arch->sections[TEXT]), &(arch->sections[DATA]), &(arch->sections[BSS]), arch);
 
@@ -285,11 +286,13 @@ int execute_cmd_run(ARCH arch, char** args)
 
 	DEBUG_MSG("Execute run [address]");
 
+	if (arch->state == NOT_LOADED)
+		return CMD_EXIT_NO_OBJECT_FILE;
+
 	if (!(*args)) {
 		run(arch, 0);
 		return CMD_EXIT_SUCCESS;
 	}
-
 
 	if (!parse_addr(args[0], &addr))
 		return CMD_EXIT_INVALID_ADDR;
@@ -313,12 +316,17 @@ int execute_cmd_run(ARCH arch, char** args)
 
 int execute_cmd_s(ARCH arch)
 {
+	if (arch->state == NOT_LOADED)
+		return CMD_EXIT_NO_OBJECT_FILE;
+
 	if (arch->state == FINISHED)
 		add_breakpoint(arch, 4);
 	else
 		add_breakpoint(arch, get_register(arch, PC) + 4);
 
 	run(arch, 0);
+
+	arch->state = PAUSED;
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -328,11 +336,16 @@ int execute_cmd_si(ARCH arch)
 	/* stop at next instruction */
 	/* if jump, stop at next instruction after jump */
 	/* add_breakpoint(jump_adress) ;*/
+
+	if (arch->state == NOT_LOADED)
+		return CMD_EXIT_NO_OBJECT_FILE;
 	
 	if (arch->state == FINISHED)
 		add_breakpoint(arch, 4);
 
 	run(arch, 1);
+
+	arch->state = PAUSED;
 
 	return CMD_EXIT_SUCCESS;
 }
@@ -424,10 +437,10 @@ int execute_cmd_help(ARCH arch, char** args)
 		return CMD_EXIT_SUCCESS;
 	}
 
-	command = find_cmd(args[0]);
-	if (!command)
+	if (!(command = find_cmd(args[0])))
 		return CMD_NOT_FOUND;
 
 	print_help(command);
+
 	return CMD_EXIT_SUCCESS;
 }

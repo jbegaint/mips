@@ -9,12 +9,12 @@
 #include "desc/desc.h"
 #include "desc/desc_utils.h"
 
-#include "globals.h"
 #include "commands.h"
+#include "globals.h"
 #include "notify.h"
-#include "utils.h"
-#include "simMips.h"
 #include "parsers.h"
+#include "simMips.h"
+#include "utils.h"
 
 #include "instructions/instructions.h"
 
@@ -69,6 +69,7 @@ void print_help_all(void)
 {
 	int i;
 	int n = 5;
+	
 	for (i = 0; cmd_table[i].command != NULL; i++) {
 		fprintf(stderr, "%-8s", (cmd_table+i)->command);
 		if ((i+1)%n == 0)
@@ -89,6 +90,7 @@ int execute_cmd(ARCH arch, char* cmd, char* str_arg)
 		return CMD_NOT_FOUND;
 
 	if (!parse_args(command, str_arg, args)) {
+		print_error("usage error");
 		print_usage(command);
 		return CMD_EXIT_ERROR;
 	}
@@ -172,6 +174,11 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 		case CMD_EXIT_INVALID_REG:
 			*res = CMD_EXIT_ERROR;
 			print_error("invalid register");
+			break;
+
+		case CMD_EXIT_NO_OBJECT_FILE:
+			*res = CMD_EXIT_ERROR;
+			print_error("no object file loaded");
 			break;
 
 		case CMD_EXIT_INVALID_REG_VALUE:

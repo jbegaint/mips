@@ -185,7 +185,6 @@ int get_desc_id(char *desc_name)
 
 char* get_symbol_name(ARCH arch, uint addr)
 {
-
 	/* 6 offset, as the first symbol concern sections */
 	for (uint l = 6; l < arch->symbols_num; l++) {
 

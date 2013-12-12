@@ -25,8 +25,6 @@
  * importante pour vous.
  */
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -790,11 +788,9 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	arch->symbols_num = SymbNum;
 	memcpy(arch->symbols, SymbolTable, SymbNum * sizeof(*SymbolTable));
 
-
 	arch->symbols_names = (char*) calloc(StringTableSize, sizeof(char));
 	memcpy(arch->symbols_names, StringTable, StringTableSize);
 
-	
 	/* FREE THE MALLOCS */
 	free(Text->rel_name);
 	free(Data->rel_name);
