@@ -1,0 +1,3 @@
+JR $7
+SYSCALL
+	PC = 56

@@ -1,0 +1,5 @@
+
+lp res/test_inst/j_test.o
+
+run
+dr PC

@@ -1,0 +1,7 @@
+
+lp res/test_inst/addi_test.o
+
+lr $8 5
+run
+dr $9
+dr SR

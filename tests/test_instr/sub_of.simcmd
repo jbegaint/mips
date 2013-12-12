@@ -1,0 +1,7 @@
+lp res/test_inst/sub_test.o
+
+lr $7 0x7fffffff
+lr $8 0x80000000
+run
+dr SR
+
