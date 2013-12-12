@@ -1,0 +1,4 @@
+MFLO $7
+SYSCALL
+	LO = 45
+

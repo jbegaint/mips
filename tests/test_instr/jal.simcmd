@@ -1,0 +1,6 @@
+
+lp res/test_inst/jal_test.o
+
+run
+dr PC
+dr $31

@@ -1,0 +1,9 @@
+lp res/test_inst/or_test.o
+
+lr $7 2
+lr $8 1
+run
+dr $9
+dr SR
+
+

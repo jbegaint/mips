@@ -1,0 +1,6 @@
+
+lp res/test_inst/bgtz_test.o
+
+lr $7 15
+run
+dr PC

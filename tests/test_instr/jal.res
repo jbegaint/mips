@@ -1,0 +1,5 @@
+JAL 256
+SYSCALL
+	PC = 260
+	ra = 12
+

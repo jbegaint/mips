@@ -1,0 +1,4 @@
+MFHI $7
+SYSCALL
+	HI = 45
+

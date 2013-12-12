@@ -1,0 +1,6 @@
+lp res/test_inst/lw_test.o
+
+lm 16 45
+lr $8 3
+run
+dr $7

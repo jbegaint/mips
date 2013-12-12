@@ -1,0 +1,8 @@
+lp res/test_inst/sll_test.o
+
+lr $7 2
+lr $8 46
+run
+dr $9
+
+

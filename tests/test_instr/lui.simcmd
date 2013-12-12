@@ -1,0 +1,5 @@
+lp res/test_inst/lui_test.o
+
+lr $7 55
+run
+dr $7

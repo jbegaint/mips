@@ -1,0 +1,4 @@
+ADD $9, $8, $7
+SYSCALL
+  t1 : FFFFFFFD  
+  SR : 00000080 

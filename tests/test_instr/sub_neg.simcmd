@@ -1,0 +1,8 @@
+lp res/test_inst/sub_test.o
+
+lr $7 45
+lr $8 41
+run
+dr $9
+dr SR
+
