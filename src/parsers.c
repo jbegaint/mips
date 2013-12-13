@@ -14,8 +14,9 @@
 
 extern char* REG_NAMES[36];
 
-int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
+int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng, int neg_flag)
 {
+	uint i;
 	/* prevent new line bug */
 	if (sscanf(hex_str, "%s", hex_str) != 1)
 		return 0;
@@ -26,11 +27,20 @@ int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 			hex_str += 2;
 	}
 
+	if (*(hex_str) == '-') {
+		if (!neg_flag)
+			return 0;
+		else
+			i = 1;
+	} else {
+		i = 0;
+	}
+
 	if (strlen(hex_str) > hex_leng)
-		/* invalid address: 32bits, 4 bytes, 8 hex chars */	
+		/* invalid address: 32 bits, 4 bytes, 8 hex chars */	
 		return 0;
 
-	for (uint i = 0; i < strlen(hex_str); i++) {
+	for (; i < strlen(hex_str); i++) {
 		if (!isxdigit(*(hex_str+i)))
 			return 0;
 	}
@@ -44,13 +54,13 @@ int parse_hex_value(char* hex_str, uint* hex_value, uint hex_leng)
 int parse_addr(char* addr_str, uint* addr) 
 {
 	/* 32 bits */
-	return parse_hex_value(addr_str, addr, 8);
+	return parse_hex_value(addr_str, addr, 8, 0);
 }
 
 int parse_reg_value(char* reg_val_str, uint* reg_value) 
 {
 	/* 32 bits */
-	return parse_addr(reg_val_str, reg_value);
+	return parse_hex_value(reg_val_str, reg_value, 8, 1);
 }
 
 int parse_addr_value(char* addr_value_str, uint* addr_value)

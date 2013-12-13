@@ -10,5 +10,5 @@
 #	a string describing the test
 ###############
 
-TEST_RETURN_CODE=FAIL
-TEST_COMMENT="Test adddition with an overflow"
+TEST_RETURN_CODE=PASS
+TEST_COMMENT="Test addition with an overflow"

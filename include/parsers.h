@@ -6,7 +6,7 @@
 /*
 	returns 1 if no error, value in ptr
 */
-int parse_hex_value(char*, uint*, uint);
+int parse_hex_value(char*, uint*, uint, int);
 
 /* 
 	returns address value in addr, and boolean status

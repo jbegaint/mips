@@ -1,4 +1,3 @@
 ADD $9, $8, $7
-SYSCALL
-  t1 : FFFFFFFD  
-  SR : 00000080 
+  t1 : fffffffd   
+  SR : 00000080   
