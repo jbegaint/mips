@@ -1,7 +1,7 @@
 
 lp res/test_inst/addi_test.o
 
-lr $8 0x7fffffff
-run
+lr $8 0xfffffffe
+s
 dr $9
 dr SR

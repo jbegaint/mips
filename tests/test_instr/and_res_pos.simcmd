@@ -2,7 +2,7 @@
 lp res/test_inst/and_test.o
 
 lr $7 15
-lr $8 8
-run
+lr $8 1
+s
 dr $9
 dr SR

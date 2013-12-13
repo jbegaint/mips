@@ -11,4 +11,4 @@
 ###############
 
 TEST_RETURN_CODE=PASS
-TEST_COMMENT="Test adddition with a result egual to zero"
+TEST_COMMENT="Test adddition with a result eq to zero"

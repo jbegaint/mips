@@ -28,20 +28,22 @@ void execute(ARCH arch, uint32_t word)
     parser_typeI(word, &rs, &rt, &immediate);
 	val_rs = (arch->registers)[rs];
 
-	if ( rt == 0) {
-		WARNING_MSG("modifcation register $0");
+	if (rt == 0) {
+		WARNING_MSG("modification $zero register");
 		return;
 	}
 
 	add = (uint64_t) val_rs + (uint64_t) immediate;
 
-	if (add > (uint32_t) add) {
+	if ((uint32_t) add == 0) {
+		set_register_bit(arch, SR, 6);
+	}
+	else if ((uint64_t) add > (uint32_t) add) {
 		print_info("Overflow");
 
 		set_register_bit(arch, SR, 11);
 		set_register_bit(arch, SR, 0);
 
-		(arch->registers)[rt] = 0xFFFFFFFF & add;
 	}
 	else {
 		(arch->registers)[rt] = add;
@@ -49,9 +51,6 @@ void execute(ARCH arch, uint32_t word)
 		bit_sign = parser_instr(add, 31, 31);
 		if (bit_sign == 1)
 			set_register_bit(arch, SR, 7);
-
-		if (add == 0) 
-			set_register_bit(arch, SR, 6);	
 	}
 }
 

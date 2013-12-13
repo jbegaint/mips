@@ -27,32 +27,30 @@ void execute(ARCH arch, uint32_t word)
 	val_rs = (arch->registers)[rs];
 	val_rt = (arch->registers)[rt];
 	
-	if ( rd == 0) {
-		WARNING_MSG("modifcation register $0");
+	if (rd == 0) {
+		WARNING_MSG("modifcation $zero register");
 		return;
 	}
 
 	addi = (uint64_t) val_rs + (uint64_t) val_rt;
-	
-	if (addi > (uint32_t) addi) {
+		
+	if ((uint32_t) addi == 0) {
+		set_register_bit(arch, SR, 6);
+	}
+	else if (addi > (uint32_t) addi) {
 		print_info("Overflow");
-		getchar();
 
 		set_register_bit(arch, SR, 11);
 		set_register_bit(arch, SR, 0);
 
-		(arch->registers)[rd] = 0xFFFFFFFF & addi;
 	}
 	else {
 		(arch->registers)[rd] = addi;
 
 		bit_sign = parser_instr(addi, 31, 31);
+
 		if (bit_sign == 1)
 			set_register_bit(arch, SR, 7);
-		
-		if (addi == 0) 
-			set_register_bit(arch, SR, 6);
 	}
-
 }
 

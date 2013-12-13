@@ -3,6 +3,6 @@ lp res/test_inst/add_test.o
 
 lr $7 8
 lr $8 -8
-run
+s
 dr $9
 dr SR

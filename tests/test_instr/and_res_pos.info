@@ -11,4 +11,4 @@
 ###############
 
 TEST_RETURN_CODE=PASS
-TEST_COMMENT="Test and with a positiv result"
+TEST_COMMENT="Test and with a positive result"
