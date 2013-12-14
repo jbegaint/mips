@@ -1,3 +1,2 @@
-JR $7
-SYSCALL
-	PC = 56
+JR $7 
+  PC : 00000056   

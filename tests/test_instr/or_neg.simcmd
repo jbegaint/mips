@@ -2,7 +2,7 @@ lp res/test_inst/or_test.o
 
 lr $7 0xfff12457
 lr $8 0xf4561234
-run
+s
 dr $9
 dr SR
 

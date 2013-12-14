@@ -2,7 +2,7 @@ lp res/test_inst/xor_test.o
 
 lr $7 15
 lr $8 8
-run
+s
 dr $9
 dr SR
 

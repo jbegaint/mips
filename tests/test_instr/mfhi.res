@@ -1,4 +1,2 @@
-MFHI $7
-SYSCALL
-	HI = 45
-
+MFHI $7 
+  a3 : 00000045   

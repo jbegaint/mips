@@ -1,5 +1,5 @@
 lp res/test_inst/mfhi_test.o
 
 lr HI 45
-run
+s
 dr $7

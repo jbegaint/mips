@@ -1,5 +1,5 @@
 lp res/test_inst/mflo_test.o
 
 lr LO 45
-run
+s
 dr $7

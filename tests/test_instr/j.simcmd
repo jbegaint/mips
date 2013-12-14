@@ -1,5 +1,5 @@
 
 lp res/test_inst/j_test.o
 
-run
+s
 dr PC

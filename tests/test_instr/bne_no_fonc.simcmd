@@ -3,5 +3,5 @@ lp res/test_inst/bne_test.o
 
 lr $7 -15
 lr $8 -15
-run
+s
 dr PC

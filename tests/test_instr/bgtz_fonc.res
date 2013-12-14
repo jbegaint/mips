@@ -1,4 +1,2 @@
-BGTZ $7, 256
-SYSCALL
-	PC : 260
-
+BGTZ $7, 64
+  PC : 00000104   

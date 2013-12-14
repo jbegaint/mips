@@ -1,5 +1,3 @@
-SUB $9, $8, $7
-SYSCALL
-	$9 = fffffffc
-	SR = 00000080
-
+ADD $9, $8, $7
+  t1 : fffffffc   
+  SR : 00000080   

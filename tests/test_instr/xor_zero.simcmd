@@ -2,6 +2,6 @@ lp res/test_inst/xor_test.o
 
 lr $7 8
 lr $8 8
-run
-dr SR
+s
+dr  9 SR
 

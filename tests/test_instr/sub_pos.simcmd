@@ -2,7 +2,7 @@ lp res/test_inst/sub_test.o
 
 lr $7 50
 lr $8 59
-run
+s
 dr $9
 dr SR
 

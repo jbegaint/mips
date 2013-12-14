@@ -1,4 +1,2 @@
-MFLO $7
-SYSCALL
-	LO = 45
-
+MFLO $7 
+  a3 : 00000045   

@@ -3,5 +3,5 @@ lp res/test_inst/beq_test.o
 
 lr $7 15
 lr $8 1
-run
+s
 dr PC

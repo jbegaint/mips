@@ -2,12 +2,5 @@ lp res/test_inst/mult_test.o
 
 lr $7 55
 lr $8 -65
-run
-dr HI
-dr LO
-dr SR
-
-
-
-
-
+s
+dr HI LO SR

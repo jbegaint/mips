@@ -1,6 +1,2 @@
 MULT $7, $8
-SYSCALL
-	HI = 0
-	LO = 3575
-	SR = 128
-
+  HI : 00000000     LO : ffffde77     SR : 00000000   

@@ -69,8 +69,10 @@ int execute_cmd_lm(ARCH arch, char** args)
 
 	section_index = get_section(arch, addr);
 
-	if (section_index == -1)
+	if (section_index == -1) {
+		print_error("address not in sections");
 		return CMD_EXIT_FAILURE;
+	}
 
 	offset = get_offset(arch, addr, section_index);
 
@@ -90,13 +92,11 @@ int execute_cmd_lr(ARCH arch, char** args)
 
 	reg = parse_register(args[0]);
 
-	if (reg == -1 )
-		return CMD_EXIT_INVALID_REG;
-	else if (reg == 0) {
-		print_error("$zero can't be modified");
+	if (reg == -1 ) {
 		return CMD_EXIT_INVALID_REG;
 	}
-	else if (reg >= 32) {
+	else if (reg == 0) {
+		print_error("$zero can't be modified");
 		return CMD_EXIT_INVALID_REG;
 	}
 

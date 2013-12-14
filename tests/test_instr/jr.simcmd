@@ -2,6 +2,6 @@
 lp res/test_inst/jr_test.o
 
 lr $7 56
-run
+s
 dr PC
 
