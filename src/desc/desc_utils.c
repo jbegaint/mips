@@ -12,7 +12,7 @@
 void load_function(void* plugin, void** f, char* f_name)
 {
 	char* error;
-	*f = dlsym(plugin, f_name);
+	*f = (void*) dlsym(plugin, f_name);
 
 	if ((error = dlerror()) != NULL)
 		fprintf(stderr, "%s\n", error);
@@ -31,10 +31,10 @@ int load_desc_so(char* plugin_filename, DESC* desc)
 		return 0;
 	}
 	else {
-		load_function(plugin, (void **)&display, "display");
+		load_function(plugin, (void **) &display, "display");
 		desc->display = display;
 
-		load_function(plugin, (void **)&execute, "execute");
+		load_function(plugin, (void **) &execute, "execute");
 		desc->execute = execute;
 	}
 
@@ -59,7 +59,4 @@ void display_desc(DESC desc)
 {
 	/* -6: right padding */
 	fprintf(stderr, "%-8s", desc.name);
-	/*fprintf(stderr, "%c\n", desc.type);
-	fprintf(stderr, "%06d\n", desc.opcode);
-	fprintf(stderr, "%06d\n", desc.function);*/
 }

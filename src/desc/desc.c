@@ -25,15 +25,16 @@ void free_desc_array(void)
 
 void init_desc_array(void)
 {
+	int c, l;
 	DESC desc;
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
 	
 	char desc_filename[256];
-	char plugin_filename[80];
 	char buffer[256];
 	char* filename = "descs/desc.all";
-	int c, l = 0;
+	
+	char* plugin_filename = (char* ) calloc(80, sizeof(*plugin_filename));
 
 	DEBUG_MSG("Init desc files parsing");
 
@@ -41,15 +42,13 @@ void init_desc_array(void)
 	if (!f)
 		exit(EXIT_FAILURE);
 
-	while ((c = getc(f)) != EOF)
-		if (c == '\n')
-		    l++;
-		
+	l = get_file_lines_count(f);
+
 	DEBUG_MSG("%d files in list", l);
 
 	/* allocate memory */
 	DESC_ARRAY_LENGTH = l;
-	DESC_ARRAY = malloc(sizeof(DESC) * DESC_ARRAY_LENGTH);
+	DESC_ARRAY = calloc(DESC_ARRAY_LENGTH, sizeof(DESC));
 
 	fseek(f, 0, 0);
 
@@ -72,11 +71,9 @@ void init_desc_array(void)
 
 					sprintf(plugin_filename, "descs/%s.so", desc.name);
 			
-					/* lower str */
-					for (int i = 0; plugin_filename[i]; i++)
-						plugin_filename[i] = tolower(plugin_filename[i]);
+					lower_string(plugin_filename);
 
-					/* open .so */
+					/* load .so */
 					if (load_desc_so(plugin_filename, &desc)) {
 						DEBUG_MSG("%s loaded", plugin_filename);
 					}

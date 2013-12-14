@@ -49,7 +49,6 @@ doc:
 
 check:
 	./simpleUnitTest.sh -e simMips -b tests/{*.simcmd,*/*.simcmd}
-	# ./simpleUnitTest.sh -e simMips -b tests/*.simcmd
 	
 # for testing purpose 
 mipself_test: src/elf/mipself_test.o src/elf/mipself.o

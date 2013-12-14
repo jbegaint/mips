@@ -143,3 +143,24 @@ void print_bits(uint val)
 
 	fprintf(stderr, "\n");
 }
+
+int get_file_lines_count(FILE* f)
+{
+	int c, l = 0;
+
+	if (!f)
+		return -1;
+
+	while ((c = getc(f)) != EOF)
+		if (c == '\n')
+		    l++;
+
+	return l;
+}
+
+void lower_string(char* str)
+{
+	for (uint i = 0; i < strlen(str); i++) {
+		*(str+i) = tolower(*(str+i));
+	}
+}
