@@ -1,3 +1,11 @@
 lp res/test_inst/div_test.o
 da 0:10
-
+dr 7 8 9 HI LO SR
+lr 7 10
+lr 8 10
+si
+si
+si
+dr 1 7 8 9
+run
+dr 1 7 8 9 HI LO SR

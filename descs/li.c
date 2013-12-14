@@ -38,7 +38,7 @@ void execute(ARCH arch, uint32_t word)
 	}
 
 	(arch->registers)[rt] = immediate << 16;
-	(arch->registers)[rt] = (arch->registers)[rs] || immediate;
+	(arch->registers)[rt] = ((arch->registers)[rt] | immediate);
 
 }
 

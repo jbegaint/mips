@@ -28,6 +28,6 @@ void execute(ARCH arch, uint32_t word)
 		return;
 	}
 
-	(arch->registers)[rt] = (arch->registers)[rs] || immediate;
+	(arch->registers)[rt] = (arch->registers)[rs] | immediate;
 }
 

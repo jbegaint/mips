@@ -9,9 +9,13 @@
 void display(uint32_t word, FILE* stream)
 {
     uint rs, rt, immediate;
-
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stream,"BNE $%u, $%u, %u\n", rs, rt, immediate);
+
+    if (rt == 0)
+	    fprintf(stream,"BNEZ $%u, %u\n", rs, immediate);
+	else
+	    fprintf(stream,"BNE $%u, $%u, %u\n", rs, rt, immediate);
+
 }
 
 void execute(ARCH arch, uint32_t word)
