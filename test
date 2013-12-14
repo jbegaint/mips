@@ -1,8 +1,3 @@
-lp res/relocation.o
-da 0:20
-bp 4
-run
-bp 8
-er 8
-db
+lp res/test_inst/div_test.o
+da 0:10
 

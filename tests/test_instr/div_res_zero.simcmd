@@ -4,6 +4,4 @@ lp res/test_inst/div_test.o
 lr $7 0
 lr $8 39
 s
-dr HO
-dr LI
-dr SR
+dr HI LO SR

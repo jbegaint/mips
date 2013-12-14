@@ -68,11 +68,9 @@ void free_arch(ARCH arch)
 	free(arch->symbols);
 
 	/* free breakpoints list */
-	if (!is_list_empty(arch->breakpoints)) {
-		fprintf(stderr, "free breakpoints\n");
+	if (!is_list_empty(arch->breakpoints))
 		free_list(arch->breakpoints);
-	}
-
+	
 	free(arch->symbols_names);
 
 	/* free instructions array*/

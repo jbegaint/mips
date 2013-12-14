@@ -13,7 +13,7 @@ void display(uint32_t word, FILE* stream)
     uint rs, rt, immediate;
 
     parser_typeI(word, &rs, &rt, &immediate);
-    fprintf(stream,"LUI $%u, 0x%x\n", rt, immediate);
+    fprintf(stream,"ORI $%u, $%u, 0x%x\n", rt, rs, immediate);
 
 }
 
@@ -28,6 +28,6 @@ void execute(ARCH arch, uint32_t word)
 		return;
 	}
 
-	(arch->registers)[rt] = immediate << 16;
+	(arch->registers)[rt] = (arch->registers)[rs] || immediate;
 }
 

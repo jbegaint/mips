@@ -58,8 +58,8 @@ void display_desc_array(void)
 void display_desc(DESC desc)
 {
 	/* -6: right padding */
-	fprintf(stderr, "%-6s", desc.name);
-	fprintf(stderr, "%c\n", desc.type);
+	fprintf(stderr, "%-8s", desc.name);
+	/*fprintf(stderr, "%c\n", desc.type);
 	fprintf(stderr, "%06d\n", desc.opcode);
-	fprintf(stderr, "%06d\n", desc.function);
+	fprintf(stderr, "%06d\n", desc.function);*/
 }
