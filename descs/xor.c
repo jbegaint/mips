@@ -28,7 +28,7 @@ void execute(ARCH arch, uint32_t word)
 
 
 	if (rd == 0) {
-		WARNING_MSG("modifcation register $0");
+		print_error("can't modify $zero register");
 		return;
 	}
 

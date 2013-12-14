@@ -27,7 +27,7 @@ void execute(ARCH arch, uint32_t word)
 	
 	if (val_rt == 0) {
 		set_register(arch, SR, 4096);
-		WARNING_MSG("Division by zero");
+		print_error("can't divide by zero");
 	}
 	else {
 		q = val_rs / val_rt;

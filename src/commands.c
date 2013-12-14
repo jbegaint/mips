@@ -157,9 +157,9 @@ int execute_cmd_lp(ARCH arch, char** args)
 	if (sscanf(args[0], "%s", args[0]) != 1)
 		return CMD_EXIT_FAILURE;
 
-	f = open_file(args[0]);
-	if (!f)
+	if (!(f = open_file(args[0])))
 		return CMD_EXIT_FILE_NOT_FOUND;
+
 	fclose(f);
 	DEBUG_MSG("file closed");
 
@@ -172,6 +172,8 @@ int execute_cmd_lp(ARCH arch, char** args)
 
 	if (res != 0)
 		return CMD_EXIT_FAILURE;
+
+	print_info("file successfully loaded");
 
 	return CMD_EXIT_SUCCESS;
 }

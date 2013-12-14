@@ -797,10 +797,11 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	free(Bss->rel_name);
 	elf_end(elf);
 
+#ifdef VERBOSE
 	printELFSection(textSection);
 	printELFSection(dataSection);
 	printELFSection(bssSection);
-
+#endif
 
 	close(fd);
 	return 0;

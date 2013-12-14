@@ -25,7 +25,7 @@ void execute(ARCH arch, uint32_t word)
 	low = parser_instr(val_rs, 0, 1);
 
 	if (low != 0) {
-		WARNING_MSG("2 lower bits differ from zero");
+		print_error("2 lower bits differ from zero");
 	}
 	
 	set_register(arch, PC, val_rs);

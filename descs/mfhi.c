@@ -22,8 +22,8 @@ void execute(ARCH arch, uint32_t word)
     
 	parser_typeR(word, &rs, &rt, &rd, &sa);
 
-	if ( rd == 0) {
-		WARNING_MSG("modifcation register $0");
+	if (rd == 0) {
+		print_error("can't modify $zero register");
 		return;
 	}
 

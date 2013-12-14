@@ -29,7 +29,7 @@ void execute(ARCH arch, uint32_t word)
 	val_rs = (arch->registers)[rs];
 
 	if (rt == 0) {
-		WARNING_MSG("modification $zero register");
+		print_error("can't modify $zero register");
 		return;
 	}
 
