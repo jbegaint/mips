@@ -4,6 +4,7 @@
 #include "arch/arch.h"
 
 #include "instructions/parser_instructions.h"
+#include "utils.h"
 #include "notify.h"
 
 void display(uint32_t word, FILE* stream)

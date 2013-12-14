@@ -3,6 +3,7 @@ da 0:10
 dr 7 8 9 HI LO SR
 lr 7 10
 lr 8 10
+lr 9 10
 si
 si
 si

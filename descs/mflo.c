@@ -4,6 +4,7 @@
 #include "arch/arch.h"
 
 #include "instructions/parser_instructions.h"
+#include "utils.h"
 #include "helpers.h"
 #include "notify.h"
 

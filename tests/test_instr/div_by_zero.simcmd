@@ -1,7 +1,0 @@
-
-lp res/test_inst/div_test.o
-
-lr $7 10080
-lr $8 0
-run
-dr SR

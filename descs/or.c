@@ -6,6 +6,7 @@
 #include "instructions/parser_instructions.h"
 #include "helpers.h"
 #include "notify.h"
+#include "utils.h"
 
 void display(uint32_t word, FILE* stream)
 {

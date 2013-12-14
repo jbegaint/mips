@@ -19,7 +19,7 @@ OBJECTS := $(SOURCES:%.c=%.o)
 OBJECTS_DBG := $(SOURCES:%.c=%.dbg.o)
 OBJECTS_SO := $(PLUGINS_SRC:%.c=%.so)
 
-all: simMips-debug plugins
+all: simMips plugins
 
 simMips: $(OBJECTS)
 	@gcc $^ $(LDFLAGS_DYNAMIC) -o $(TARGET)

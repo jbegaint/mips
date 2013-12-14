@@ -7,6 +7,7 @@
 
 #include "notify.h"
 #include "helpers.h"
+#include "utils.h"
 
 void display(uint32_t word, FILE* stream)
 {
