@@ -1,0 +1,24 @@
+testcmd 0xa
+lp res/simple_multdivswlw.o
+da 0:14
+s
+dr $t1
+s
+dr $t2
+#mult
+s
+dr HI LO
+#nop
+s 
+#div
+s
+dr HI LO
+#go to next instructions
+bp 28
+run
+s
+dr $t3
+s
+dr $t4
+s
+dr $t5
