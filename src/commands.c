@@ -228,7 +228,7 @@ int execute_cmd_da(ARCH arch, char** args)
 
 		if (display_instruction(arch, lgn_instr.word, stdout) == -1) {
 			printf("\n");
-			WARNING_MSG("no match, unknown instruction");
+			print_error("no match, unknown instruction");
 		}
 
 	}

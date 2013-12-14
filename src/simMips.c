@@ -257,7 +257,7 @@ int main(int argc, char* argv[])
 
 	print_logo();
 
-	print_info("Ŝystem init");
+	print_info("System init");
 	arch = init_simu();
 
 	init_desc_array();

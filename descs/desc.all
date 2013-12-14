@@ -17,6 +17,7 @@ mult.desc
 or.desc
 rotr.desc
 sll.desc
+sllv.desc
 slt.desc
 srl.desc
 sub.desc
