@@ -18,6 +18,9 @@
 
 #include "instructions/instructions.h"
 
+/*
+	à la mpc implementation
+*/
 struct command cmd_table[] = {
 	/* name, cmd_ptr, usage, help, arg(s) min, args(s) max */
 	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},
@@ -46,6 +49,7 @@ struct command* find_cmd(char* cmd)
 		if (strcmp(cmd, cmd_table[i].command) == 0)
 			return cmd_table+i;
 	}
+
 	return NULL;
 }
 
@@ -152,6 +156,7 @@ int parse_line(ARCH arch, FILE* f)
 
 void switch_return_code(ARCH arch, FILE* f, int* res)
 {
+	/* let's switch all the error codes */
 	switch (parse_line(arch, f)) {
 		case CMD_EXIT_SUCCESS:
 			break;
@@ -209,7 +214,7 @@ void switch_return_code(ARCH arch, FILE* f, int* res)
 			break;
 
 		case PARSING_FILE_NON_CMD_LINE:
-			DEBUG_MSG("empty or commented line");
+			DEBUG_MSG("empty or comment line");
 			break;
 
 		case PARSING_FILE_EXIT_EOF:

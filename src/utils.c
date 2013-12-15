@@ -43,6 +43,7 @@ int quit(ARCH arch)
 {
 	print_info("Exiting...");
 	free_arch(arch);
+	
 	exit(EXIT_SUCCESS);
 }
 
@@ -50,6 +51,7 @@ int die(ARCH arch)
 {
 	if (arch != NULL)
 		free_arch(arch);
+
 	print_error("Exiting...");
 	exit(EXIT_FAILURE);
 }
@@ -102,9 +104,8 @@ char bin_to_dec(char *n)
 {
 	char res = 0;
 
-	for (uint i = 0; i < strlen(n); i++) {
+	for (uint i = 0; i < strlen(n); i++)
 		res = res * 2 + (n[i] - (int) '0');
-	}
 
 	return res;
 }
@@ -151,16 +152,16 @@ int get_file_lines_count(FILE* f)
 	if (!f)
 		return -1;
 
-	while ((c = getc(f)) != EOF)
+	while ((c = getc(f)) != EOF) {
 		if (c == '\n')
 		    l++;
+	}
 
 	return l;
 }
 
 void lower_string(char* str)
 {
-	for (uint i = 0; i < strlen(str); i++) {
+	for (uint i = 0; i < strlen(str); i++)
 		*(str+i) = tolower(*(str+i));
-	}
 }

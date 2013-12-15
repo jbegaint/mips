@@ -1,0 +1,4 @@
+testcmd 0xa
+lp res/test_reloc.o
+da 0:20
+run
