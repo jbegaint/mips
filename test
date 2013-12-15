@@ -1,4 +1,4 @@
-lp res/reloc.o
+lp res/test_reloc.o
 bp 4
 db
 run

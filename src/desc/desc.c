@@ -30,7 +30,8 @@ void init_desc_array(void)
 {
 	int c, l;
 
-	DESC desc;
+	/*DESC desc;*/
+	DESC* desc = (DESC*) calloc(1, sizeof(*desc));
 
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
@@ -70,20 +71,20 @@ void init_desc_array(void)
 			f_desc = open_file(desc_filename);
 
 			if (f_desc) {
-				if (parse_desc_file(f_desc, &desc) == PARSE_SUCCESS) {
+				if (parse_desc_file(f_desc, desc) == PARSE_SUCCESS) {
 
 					DEBUG_MSG("%s parsing succeeds", desc_filename);
 
-					sprintf(plugin_filename, "descs/%s.so", desc.name);
+					sprintf(plugin_filename, "descs/%s.so", desc->name);
 			
 					lower_string(plugin_filename);
 
 					/* load .so */
-					if (load_desc_so(plugin_filename, &desc)) {
+					if (load_desc_so(plugin_filename, desc)) {
 						DEBUG_MSG("%s loaded", plugin_filename);
 					}
 
-					DESC_ARRAY[c] = desc;
+					DESC_ARRAY[c] = *desc;
 
 				} 
 				else {
@@ -96,7 +97,10 @@ void init_desc_array(void)
 	}
 
 	fclose(f);
+
+	/* free the mallocs */
 	free(plugin_filename);
-	
+	free(desc);
+
 	DEBUG_MSG("End desc files parsing");
 }

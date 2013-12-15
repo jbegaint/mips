@@ -272,7 +272,6 @@ static listSymboles SymbHashTable[HASHSIZE] = { 0 };
  */
 void freeHashTable()
 {
-
 	int i;
 	listSymboles l, aux;
 	for (i = 0; i < HASHSIZE; i++) {
