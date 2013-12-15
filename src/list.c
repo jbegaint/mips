@@ -157,14 +157,14 @@ list_t del_elt_n(list_t list, int n)
 
 void free_elt(list_t list)
 {
-	free(list->val);
-	free(list);
+	if (list) {
+		free(list->val);
+		free(list);
+	}
 }
 
 void free_list(list_t list)
 {
-	list_t l;
-
-	for (l = list; !is_list_empty(l);)
+	for (list_t l = list; !is_list_empty(l);)
 		l = del_head(l);
 }

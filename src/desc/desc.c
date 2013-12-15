@@ -20,13 +20,18 @@ DESC* DESC_ARRAY;
 
 void free_desc_array(void)
 {
+	for (int i = 0; i < DESC_ARRAY_LENGTH; i++)
+		dlclose(DESC_ARRAY[i].plugin);
+
 	free(DESC_ARRAY);
 }
 
 void init_desc_array(void)
 {
 	int c, l;
+
 	DESC desc;
+
 	FILE* f = NULL;
 	FILE* f_desc = NULL;
 	
@@ -91,6 +96,7 @@ void init_desc_array(void)
 	}
 
 	fclose(f);
+	free(plugin_filename);
 	
 	DEBUG_MSG("End desc files parsing");
 }

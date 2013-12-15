@@ -25,6 +25,7 @@ int load_desc_so(char* plugin_filename, DESC* desc)
 	display_f display;
 
 	plugin = dlopen(plugin_filename, RTLD_LAZY);
+	desc->plugin = plugin;
 
 	if (!plugin) {
 		fprintf(stderr, "%s\n", dlerror());
