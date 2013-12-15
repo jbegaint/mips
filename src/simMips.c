@@ -18,9 +18,7 @@
 
 #include "instructions/instructions.h"
 
-/*
-	à la mpc implementation
-*/
+/* à la mpc implementation */
 struct command cmd_table[] = {
 	/* name, cmd_ptr, usage, help, arg(s) min, args(s) max */
 	{"bp", execute_cmd_bp, "bp <address>", "set breakpoint", 1, 1},

@@ -203,7 +203,7 @@ int execute_cmd_da(ARCH arch, char** args)
 		return CMD_EXIT_FAILURE;
 	}
 
-	if ( addr < arch->sections[TEXT].start_addr ||
+	if (addr < arch->sections[TEXT].start_addr ||
 		addr >= arch->sections[TEXT].size + arch->sections[TEXT].start_addr) {
 		print_error("address not in .text");
 		return CMD_EXIT_ERROR;
@@ -232,7 +232,6 @@ int execute_cmd_da(ARCH arch, char** args)
 			printf("\n");
 			print_error("no match, unknown instruction");
 		}
-
 	}
 
 	return CMD_EXIT_SUCCESS;
@@ -263,7 +262,6 @@ int execute_cmd_dm(ARCH arch, char** args)
 		return CMD_EXIT_ERROR;
 	}
 }
-
 
 int execute_cmd_di()
 {
@@ -342,9 +340,6 @@ int execute_cmd_si(ARCH arch)
 	if (arch->state == NOT_LOADED)
 		return CMD_EXIT_NO_OBJECT_FILE;
 	
-	if (arch->state == FINISHED)
-		add_breakpoint(arch, 4);
-
 	run(arch, 1);
 
 	arch->state = PAUSED;
