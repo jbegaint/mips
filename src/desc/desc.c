@@ -30,7 +30,6 @@ void init_desc_array(void)
 {
 	int c, l;
 
-	/*DESC desc;*/
 	DESC* desc = (DESC*) calloc(1, sizeof(*desc));
 
 	FILE* f = NULL;

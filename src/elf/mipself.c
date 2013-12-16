@@ -263,6 +263,7 @@ typedef struct nodeSymbol *listSymboles;
 /** SymbHashTable est la table de hachage initialisée à zéro au démarrage du programme*/
 static listSymboles SymbHashTable[HASHSIZE] = { 0 };
 
+
 /*--------------------------------------------------------------------------*/
 /*
  *
@@ -275,7 +276,9 @@ void freeHashTable()
 	int i;
 	listSymboles l, aux;
 	for (i = 0; i < HASHSIZE; i++) {
+
 		l = SymbHashTable[i];
+
 		while (l != NULL) {
 			aux = l->suiv;
 			free(l->name);
@@ -315,6 +318,7 @@ void addSymbol(unsigned long adr, char *ident)
 	SymbHashTable[h]->suiv = list;
 	SymbHashTable[h]->adr = adr;
 	SymbHashTable[h]->name = calloc(strlen(ident) + 1, 1);
+
 	strcpy(SymbHashTable[h]->name, ident);
 }
 
@@ -631,7 +635,6 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	StringTable = NULL;
 	Shstrtab = NULL;
 	SymbolTable = NULL;
-	freeHashTable();
 
 	INFO_MSG("------------------Trace d'execution--------------------------\n");
 
@@ -795,6 +798,7 @@ int mipsloader(const char *filename, SectionELF * textSection, SectionELF * data
 	free(Data->rel_name);
 	free(Bss->rel_name);
 	elf_end(elf);
+	freeHashTable();
 
 #ifdef VERBOSE
 	printELFSection(textSection);

@@ -207,7 +207,6 @@ void display_reloc_symbol(ARCH arch, uint addr)
 
 	if (symbol_name)
 		fprintf(stdout, "\n<%s>:\n", symbol_name);
-		/*fprintf(stdout, "%s \n", symbol_name);*/
 }
 
 void display_jump_reloc_symbol(ARCH arch, uint addr)
@@ -220,5 +219,4 @@ void display_jump_reloc_symbol(ARCH arch, uint addr)
 		fprintf(stdout, " <%s>\n", symbol_name);
 	else
 		fprintf(stdout, "\n");
-
 }
