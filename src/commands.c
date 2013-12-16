@@ -200,7 +200,7 @@ int execute_cmd_da(ARCH arch, char** args)
 
 	if (sscanf(args[2], "%d", &instr) != 1) {
 		print_error("Invalid instructions number");
-		return CMD_EXIT_FAILURE;
+		return CMD_EXIT_ERROR;
 	}
 
 	if (addr < arch->sections[TEXT].start_addr ||
