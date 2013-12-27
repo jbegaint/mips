@@ -25,7 +25,7 @@ void execute(ARCH arch, uint32_t word)
     parser_typeI(word, &rs, &rt, &immediate);
 	val_rt = (arch->registers)[rt];
 	val_rs = (arch->registers)[rs];
-	result = val_rs + immediate;
+	result = val_rs + (int16_t) immediate;
 
 	test = parser_instr(result , 0, 1);
 

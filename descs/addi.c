@@ -33,7 +33,7 @@ void execute(ARCH arch, uint32_t word)
 		return;
 	}
 
-	add = (uint64_t) val_rs + (uint64_t) immediate;
+	add = (int64_t) val_rs + (int16_t) immediate;
 
 	if ((uint32_t) add == 0) {
 		set_register_bit(arch, SR, 6);
