@@ -1,7 +1,8 @@
 MIPS Simulator
 ==============
 
-_CS project, second year: (subject)[]_
+_CS project, second year:
+(subject)[https://raw.githubusercontent.com/jeanbroid/mips/master/PHELMA_ProjetInformatique2A_2013-14.pdf]_
 
 TODO
 ----
